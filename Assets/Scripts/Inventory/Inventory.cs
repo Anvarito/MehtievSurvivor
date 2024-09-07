@@ -25,14 +25,12 @@ public class Inventory : MonoBehaviour
             slot.OnSlotClick += OnSlotClick;
         }
 
-        List<InventorySlot> loadedSlots = _inventorySaveLoader.LoadInventory();
+        List<SerializableSlotsData> loadedSlots = _inventorySaveLoader.LoadInventory();
         LoadSlots(loadedSlots);
     }
 
-    private void LoadSlots(List<InventorySlot> loadedSlots)
+    private void LoadSlots(List<SerializableSlotsData> loadedSlots)
     {
-        loadedSlots = loadedSlots ?? new List<InventorySlot>();
-
         for (int i = 0; i < _slots.Count; i++)
         {
             if (i < loadedSlots.Count)
@@ -68,3 +66,4 @@ public class Inventory : MonoBehaviour
         _inventorySaveLoader.SaveInventory(_slots);
     }
 }
+

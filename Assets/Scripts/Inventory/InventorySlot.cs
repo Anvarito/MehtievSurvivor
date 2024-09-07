@@ -1,3 +1,4 @@
+using System;
 using Items;
 using TMPro;
 using UnityEngine;
@@ -9,9 +10,10 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] private Image _itemImage;
     [SerializeField] private GameObject _counter;
     [SerializeField] private TextMeshProUGUI _itemCountView;
+    
     public UnityAction<InventorySlot> OnSlotClick;
-    [SerializeField] public int ItemCount { get; set; }
-    [SerializeField] public EItemType ItemType { get; set; }
+    public int ItemCount { get; set; }
+    public EItemType ItemType { get; set; }
 
     private Button _button;
 
@@ -23,13 +25,12 @@ public class InventorySlot : MonoBehaviour
 
     public void InitSlot(ItemConfig itemConfig, int count)
     {
-        ItemCount = count;
-
         if (itemConfig)
         {
             _itemImage.gameObject.SetActive(true);
             _counter.SetActive(true);
 
+            ItemCount = count;
             ItemType = itemConfig.itemType;
             _itemImage.sprite = itemConfig.Image;
             _itemCountView.text = ItemCount.ToString();
@@ -76,4 +77,20 @@ public class InventorySlot : MonoBehaviour
             OnSlotClick?.Invoke(this);
         }
     }
+    
+    public SerializableSlotsData ToSerializable()
+    {
+        return new SerializableSlotsData
+        {
+            ItemCount = ItemCount,
+            ItemType = ItemType
+        };
+    }
+}
+
+[Serializable]
+public class SerializableSlotsData
+{
+    public int ItemCount;
+    public EItemType ItemType;
 }

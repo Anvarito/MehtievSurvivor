@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class InventorySaveLoader
@@ -11,26 +13,35 @@ public class InventorySaveLoader
         _saveFilePath = Path.Combine(Application.persistentDataPath, "inventory.json");
     }
     
-    public void SaveInventory(List<InventorySlot> list)
+    public void SaveInventory(List<InventorySlot> slots)
     {
-        string json = JsonUtility.ToJson(list, true);
+        var serializableSlots = new List<SerializableSlotsData>();
+        foreach (var slot in slots)
+        {
+            serializableSlots.Add(slot.ToSerializable());
+        }
+
+        SerializationWrapper wrapper = new SerializationWrapper { Slots = serializableSlots };
+        string json = JsonConvert.SerializeObject(wrapper, Formatting.Indented);
         Debug.Log("Saving Inventory: " + json);
         File.WriteAllText(_saveFilePath, json);
     }
-    
-    public List<InventorySlot> LoadInventory()
+
+    public List<SerializableSlotsData> LoadInventory()
     {
         if (File.Exists(_saveFilePath))
         {
             string json = File.ReadAllText(_saveFilePath);
-            Debug.Log("Loading Inventory: " + json);
-            return JsonUtility.FromJson<List<InventorySlot>>(json);
-        }
-        else
-        {
-            Debug.LogWarning("Save file not found!");
+            SerializationWrapper wrapper = JsonConvert.DeserializeObject<SerializationWrapper>(json);
+            return wrapper.Slots;
         }
 
-        return new List<InventorySlot>();
+        return new List<SerializableSlotsData>();
     }
+}
+
+[Serializable]
+public class SerializationWrapper
+{
+    public List<SerializableSlotsData> Slots;
 }

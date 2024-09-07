@@ -13,7 +13,7 @@ namespace Items
 
         public ItemConfig GetItemConfigByType(EItemType itemType)
         {
-            var item = _itemConfigs.First(x => x.itemType == itemType);
+            var item = _itemConfigs.FirstOrDefault(x => x.itemType == itemType);
             return item;
         }
     }
