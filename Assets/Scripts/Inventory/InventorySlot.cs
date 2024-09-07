@@ -1,3 +1,4 @@
+using Items;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,8 +10,8 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] private GameObject _counter;
     [SerializeField] private TextMeshProUGUI _itemCountView;
     public UnityAction<InventorySlot> OnSlotClick;
-    public int ItemCount { get; set; }
-    public EItemType ItemType { get; set; }
+    [SerializeField] public int ItemCount { get; set; }
+    [SerializeField] public EItemType ItemType { get; set; }
 
     private Button _button;
 
@@ -20,14 +21,25 @@ public class InventorySlot : MonoBehaviour
         _button.onClick.AddListener(OnClick);
     }
 
-    public void InitSlot(EItemType type, int count)
+    public void InitSlot(ItemConfig itemConfig, int count)
     {
         ItemCount = count;
-        ItemType = type;
 
-        _itemCountView.text = ItemCount.ToString();
+        if (itemConfig)
+        {
+            _itemImage.gameObject.SetActive(true);
+            _counter.SetActive(true);
+
+            ItemType = itemConfig.itemType;
+            _itemImage.sprite = itemConfig.Image;
+            _itemCountView.text = ItemCount.ToString();
+        }
+        else
+        {
+            SetDefaultView();
+        }
     }
-    
+
     public void EncreaseItem()
     {
         ItemCount++;

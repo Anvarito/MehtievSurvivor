@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Items;
 using UnityEngine;
 using Zenject;
 
@@ -8,11 +8,13 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField, HideInInspector] private List<InventorySlot> _slots = new List<InventorySlot>();
     private InventorySaveLoader _inventorySaveLoader;
+    private ItemDatabase _itemDatabase;
 
     [Inject]
-    private void Construct(InventorySaveLoader inventorySaveLoader)
+    private void Construct(InventorySaveLoader inventorySaveLoader, ItemDatabase itemDatabase)
     {
         _inventorySaveLoader = inventorySaveLoader;
+        _itemDatabase = itemDatabase;
     }
     
     private void Awake()
@@ -23,11 +25,11 @@ public class Inventory : MonoBehaviour
             slot.OnSlotClick += OnSlotClick;
         }
 
-        List<InventorySlot> loadedSlots = _inventorySaveLoader.LoadInventory(); // Загрузка инвентаря
-        InitSlots(loadedSlots); // Инициализация слотов
+        List<InventorySlot> loadedSlots = _inventorySaveLoader.LoadInventory();
+        LoadSlots(loadedSlots);
     }
 
-    private void InitSlots(List<InventorySlot> loadedSlots)
+    private void LoadSlots(List<InventorySlot> loadedSlots)
     {
         loadedSlots = loadedSlots ?? new List<InventorySlot>();
 
@@ -35,12 +37,24 @@ public class Inventory : MonoBehaviour
         {
             if (i < loadedSlots.Count)
             {
-                _slots[i].InitSlot(loadedSlots[i].ItemType, loadedSlots[i].ItemCount);
+                _slots[i].InitSlot(_itemDatabase.GetItemConfigByType(loadedSlots[i].ItemType), loadedSlots[i].ItemCount);
             }
             else
             {
-                _slots[i].InitSlot(EItemType.None, 0);
+                _slots[i].InitSlot(null, 0);
             }
+        }
+    }
+
+    public void AddItem(ItemConfig itemConfig)
+    {
+        var slot = _slots.FirstOrDefault(x => x.ItemType == itemConfig.itemType);
+        if(slot)
+            slot.EncreaseItem();
+        else
+        {
+            slot = _slots.FirstOrDefault(x => x.ItemType == EItemType.None);
+            slot.InitSlot(itemConfig, 1);
         }
     }
 
