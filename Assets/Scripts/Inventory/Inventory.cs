@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Items;
 using UnityEngine;
 using UnityEngine.Events;
@@ -28,7 +30,7 @@ public class Inventory : MonoBehaviour
 
     private void CreateSlots()
     {
-        var slotViews = GetComponentsInChildren<InventorySlotView>();
+        var slotViews = GetComponentsInChildren<InventorySlotView>(true);
         for (int i = 0; i < slotViews.Length; i++)
         {
             InventorySlot inventorySlot = new InventorySlot(slotViews[i]);
