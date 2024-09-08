@@ -31,16 +31,8 @@ public class InventorySlotView : MonoBehaviour
 
     public void SetCount(int count)
     {
-        if (count > 0)
-        {
-            _itemImage.gameObject.SetActive(true);
-            _counter.SetActive(true);
-            _itemCountView.text = count.ToString();
-        }
-        else
-        {
-            _itemImage.gameObject.SetActive(false);
-            _counter.SetActive(false);
-        }
+        _itemImage.gameObject.SetActive(count > 0);
+        _counter.SetActive(count > 0);
+        _itemCountView.text = count.ToString();
     }
 }
