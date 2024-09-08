@@ -5,11 +5,20 @@ using Zenject;
 
 public class GameSceneInstaller : MonoInstaller
 {
+    [SerializeField] private StatsBar _statsBar;
+    [SerializeField] private Inventory _inventory;
     [SerializeField] private List<ItemConfig> _itemConfigs;
     public override void InstallBindings()
     {
+        BindEffectReceiver();
         BindInventorySaveLoader();
         BindItemDatabase();
+    }
+
+    private void BindEffectReceiver()
+    {
+        PlayerStatsData playerStatsData = new PlayerStatsData();
+        ItemReceiver itemReceiver = new ItemReceiver(_inventory, _statsBar, playerStatsData);
     }
 
     private void BindInventorySaveLoader() =>

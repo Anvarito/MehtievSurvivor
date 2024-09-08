@@ -15,3 +15,4 @@ MonoBehaviour:
   Name: Book of wisdom
   Image: {fileID: 21300000, guid: c5a72193fbb4f614398f7c327119bd63, type: 3}
   itemType: 3
+  EffectAmount: 3

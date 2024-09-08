@@ -15,3 +15,4 @@ MonoBehaviour:
   Name: HammerPower
   Image: {fileID: 21300000, guid: be06747cb47dfba4598ada96a9cd2077, type: 3}
   itemType: 4
+  EffectAmount: 5
