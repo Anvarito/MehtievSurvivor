@@ -5,10 +5,9 @@ using UnityEngine.Events;
 public class InventorySlot
 {
     private InventorySlotView _inventorySlotView;
-
     public UnityAction<InventorySlot> OnSlotClick;
-    public int ItemCount { get; set; }
-    public EItemType ItemType { get; set; }
+    public int ItemCount { get; private set; }
+    public EItemType ItemType { get; private set; }
 
     public InventorySlot(InventorySlotView inventorySlotView)
     {
@@ -34,11 +33,10 @@ public class InventorySlot
 
     private void ButtonClick()
     {
+        OnSlotClick?.Invoke(this);
+        
         if (ItemCount > 0)
-        {
             DecreaseItem();
-            OnSlotClick?.Invoke(this);
-        }
     }
 
     public void EncreaseItem()
@@ -50,12 +48,10 @@ public class InventorySlot
     public void DecreaseItem()
     {
         ItemCount--;
-        if (ItemCount == 0)
-        {
-            ItemType = EItemType.None;
-        }
-
         _inventorySlotView.SetCount(ItemCount);
+
+        if (ItemCount == 0)
+            ItemType = EItemType.None;
     }
 
     public SerializableSlotsData ToSerializable()

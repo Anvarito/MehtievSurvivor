@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Items;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Events;
 using Zenject;
 
 public class Inventory : MonoBehaviour
@@ -10,6 +10,8 @@ public class Inventory : MonoBehaviour
     private List<InventorySlot> _slots = new List<InventorySlot>();
     private InventorySaveLoader _inventorySaveLoader;
     private ItemDatabase _itemDatabase;
+
+    public UnityAction<ItemConfig> OnItemClick;
 
     [Inject]
     private void Construct(InventorySaveLoader inventorySaveLoader, ItemDatabase itemDatabase)
@@ -31,7 +33,7 @@ public class Inventory : MonoBehaviour
         {
             InventorySlot inventorySlot = new InventorySlot(slotViews[i]);
             _slots.Add(inventorySlot);
-            inventorySlot.OnSlotClick += OnSlotClick;
+            inventorySlot.OnSlotClick += ItemClick;
         }
     }
 
@@ -64,9 +66,9 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void OnSlotClick(InventorySlot slot)
+    private void ItemClick(InventorySlot slot)
     {
-        print(slot.ItemType + " " + slot.ItemCount);
+        OnItemClick?.Invoke(_itemDatabase.GetItemConfigByType(slot.ItemType));
     }
 
     private void OnDestroy()

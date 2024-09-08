@@ -19,19 +19,19 @@ public class InventoryTest : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.BookWisdom));
+                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Wisdom));
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.SpeedPotion));
+                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Speed));
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.HammerOfPower));
+                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Strength));
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.HealPotion));
+                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Heal));
             }
         }
 
