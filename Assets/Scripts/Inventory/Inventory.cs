@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField, HideInInspector] private List<InventorySlot> _slots = new List<InventorySlot>();
+    private List<InventorySlot> _slots = new List<InventorySlot>();
     private InventorySaveLoader _inventorySaveLoader;
     private ItemDatabase _itemDatabase;
 
@@ -19,27 +20,34 @@ public class Inventory : MonoBehaviour
     
     private void Awake()
     {
-        _slots.AddRange(GetComponentsInChildren<InventorySlot>());
-        foreach (var slot in _slots)
-        {
-            slot.OnSlotClick += OnSlotClick;
-        }
-
-        List<SerializableSlotsData> loadedSlots = _inventorySaveLoader.LoadInventory();
-        LoadSlots(loadedSlots);
+        CreateSlots();
+        LoadSlotsData();
     }
 
-    private void LoadSlots(List<SerializableSlotsData> loadedSlots)
+    private void CreateSlots()
     {
+        var slotViews = GetComponentsInChildren<InventorySlotView>();
+        for (int i = 0; i < slotViews.Length; i++)
+        {
+            InventorySlot inventorySlot = new InventorySlot(slotViews[i]);
+            _slots.Add(inventorySlot);
+            inventorySlot.OnSlotClick += OnSlotClick;
+        }
+    }
+
+    private void LoadSlotsData()
+    {
+        List<SerializableSlotsData> loadedSlots = _inventorySaveLoader.LoadInventory();
+
         for (int i = 0; i < _slots.Count; i++)
         {
             if (i < loadedSlots.Count)
             {
-                _slots[i].InitSlot(_itemDatabase.GetItemConfigByType(loadedSlots[i].ItemType), loadedSlots[i].ItemCount);
+                _slots[i].SetNewItem(_itemDatabase.GetItemConfigByType(loadedSlots[i].ItemType), loadedSlots[i].ItemCount);
             }
             else
             {
-                _slots[i].InitSlot(null, 0);
+                _slots[i].SetNewItem(null, 0);
             }
         }
     }
@@ -47,12 +55,12 @@ public class Inventory : MonoBehaviour
     public void AddItem(ItemConfig itemConfig)
     {
         var slot = _slots.FirstOrDefault(x => x.ItemType == itemConfig.itemType);
-        if(slot)
+        if(slot != null)
             slot.EncreaseItem();
         else
         {
             slot = _slots.FirstOrDefault(x => x.ItemType == EItemType.None);
-            slot.InitSlot(itemConfig, 1);
+            slot.SetNewItem(itemConfig, 1);
         }
     }
 

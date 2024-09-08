@@ -1,75 +1,38 @@
 using System;
 using Items;
-using TMPro;
-using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot
 {
-    [SerializeField] private Image _itemImage;
-    [SerializeField] private GameObject _counter;
-    [SerializeField] private TextMeshProUGUI _itemCountView;
-    
+    private InventorySlotView _inventorySlotView;
+
     public UnityAction<InventorySlot> OnSlotClick;
     public int ItemCount { get; set; }
     public EItemType ItemType { get; set; }
 
-    private Button _button;
-
-    private void Awake()
+    public InventorySlot(InventorySlotView inventorySlotView)
     {
-        _button = GetComponent<Button>();
-        _button.onClick.AddListener(OnClick);
+        _inventorySlotView = inventorySlotView;
+        _inventorySlotView.OnClick += ButtonClick;
     }
 
-    public void InitSlot(ItemConfig itemConfig, int count)
+    public void SetNewItem(ItemConfig itemConfig, int count)
     {
         if (itemConfig)
         {
-            _itemImage.gameObject.SetActive(true);
-            _counter.SetActive(true);
-
             ItemCount = count;
             ItemType = itemConfig.itemType;
-            _itemImage.sprite = itemConfig.Image;
-            _itemCountView.text = ItemCount.ToString();
+
+            _inventorySlotView.SetCount(ItemCount);
+            _inventorySlotView.SetImage(itemConfig.Image);
         }
         else
         {
-            SetDefaultView();
+            _inventorySlotView.SetCount(0);
         }
     }
 
-    public void EncreaseItem()
-    {
-        ItemCount++;
-        _itemCountView.text = ItemCount.ToString();
-    }
-
-    public void DecreaseItem()
-    {
-        ItemCount--;
-        _itemCountView.text = ItemCount.ToString();
-        if (ItemCount == 0)
-        {
-            SetDefaultView();
-        }
-    }
-
-    private void SetDefaultView()
-    {
-        ItemType = EItemType.None;
-        _counter.SetActive(false);
-        _itemImage.gameObject.SetActive(false);
-    }
-
-    private void OnDestroy()
-    {
-        _button.onClick.RemoveListener(OnClick);
-    }
-
-    private void OnClick()
+    private void ButtonClick()
     {
         if (ItemCount > 0)
         {
@@ -77,7 +40,24 @@ public class InventorySlot : MonoBehaviour
             OnSlotClick?.Invoke(this);
         }
     }
-    
+
+    public void EncreaseItem()
+    {
+        ItemCount++;
+        _inventorySlotView.SetCount(ItemCount);
+    }
+
+    public void DecreaseItem()
+    {
+        ItemCount--;
+        if (ItemCount == 0)
+        {
+            ItemType = EItemType.None;
+        }
+
+        _inventorySlotView.SetCount(ItemCount);
+    }
+
     public SerializableSlotsData ToSerializable()
     {
         return new SerializableSlotsData
