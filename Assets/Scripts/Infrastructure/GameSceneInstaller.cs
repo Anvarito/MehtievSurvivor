@@ -10,6 +10,7 @@ public class GameSceneInstaller : MonoInstaller
     [SerializeField] private List<ItemConfig> _itemConfigs;
     public override void InstallBindings()
     {
+        Container.BindInterfacesAndSelfTo<InputService>().AsSingle().NonLazy();
         BindEffectReceiver();
         BindInventorySaveLoader();
         BindItemDatabase();
