@@ -1,37 +1,39 @@
 using System;
 using Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 public class InventoryTest : MonoBehaviour
     {
-        public Inventory Inventory;
+        public Inventory _inventory;
         
         private ItemDatabase _itemDatabase;
 
         [Inject]
-        private void Construct(ItemDatabase itemDatabase)
+        private void Construct(ItemDatabase itemDatabase, Inventory inventory)
         {
             _itemDatabase = itemDatabase;
+            _inventory = inventory;
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Wisdom));
+                _inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Wisdom));
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Speed));
+                _inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Speed));
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Strength));
+                _inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Strength));
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                Inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Heal));
+                _inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Heal));
             }
         }
 

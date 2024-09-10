@@ -3,31 +3,41 @@ using Items;
 using UnityEngine;
 using Zenject;
 
-public class GameSceneInstaller : MonoInstaller
+namespace Infrastructure
 {
-    [SerializeField] private StatsBar _statsBar;
-    [SerializeField] private Inventory _inventory;
-    [SerializeField] private List<ItemConfig> _itemConfigs;
-    public override void InstallBindings()
+    public class GameSceneInstaller : MonoInstaller
     {
-        Container.BindInterfacesAndSelfTo<InputService>().AsSingle().NonLazy();
-        BindEffectReceiver();
-        BindInventorySaveLoader();
-        BindItemDatabase();
-    }
+        [SerializeField] private StatsBar _statsBar;
+        [SerializeField] private Inventory _inventory;
+        [SerializeField] private List<ItemConfig> _itemConfigs;
+        public override void InstallBindings()
+        {
+            BindInventory();
+            BindInputService();
+            BindEffectReceiver();
+            BindInventorySaveLoader();
+            BindItemDatabase();
+        }
 
-    private void BindEffectReceiver()
-    {
-        PlayerStatsData playerStatsData = new PlayerStatsData();
-        ItemReceiver itemReceiver = new ItemReceiver(_inventory, _statsBar, playerStatsData);
-    }
+        private void BindInventory() =>
+            Container.Bind<Inventory>().FromComponentInNewPrefab(_inventory).AsSingle().NonLazy();
 
-    private void BindInventorySaveLoader() =>
-        Container.Bind<InventorySaveLoader>().AsSingle().NonLazy();
+        private void BindInputService() =>
+            Container.BindInterfacesAndSelfTo<InputService>().AsSingle().NonLazy();
 
-    private void BindItemDatabase()
-    {
-        ItemDatabase itemDatabase = new ItemDatabase(_itemConfigs);
-        Container.Bind<ItemDatabase>().FromInstance(itemDatabase).AsSingle().NonLazy();
+        private void BindEffectReceiver()
+        {
+            PlayerStatsData playerStatsData = new PlayerStatsData();
+            Container.Bind<ItemReceiver>().AsSingle().WithArguments(_statsBar, playerStatsData).NonLazy();
+        }
+
+        private void BindInventorySaveLoader() =>
+            Container.Bind<InventorySaveLoader>().AsSingle().NonLazy();
+
+        private void BindItemDatabase()
+        {
+            ItemDatabase itemDatabase = new ItemDatabase(_itemConfigs);
+            Container.Bind<ItemDatabase>().FromInstance(itemDatabase).AsSingle().NonLazy();
+        }
     }
 }

@@ -23,7 +23,7 @@ public class InventorySaveLoader
 
         SerializationWrapper wrapper = new SerializationWrapper { Slots = serializableSlots };
         string json = JsonConvert.SerializeObject(wrapper, Formatting.Indented);
-        Debug.Log("Saving Inventory: " + json);
+        Debug.Log("Saving _inventory: " + json);
         File.WriteAllText(_saveFilePath, json);
     }
 

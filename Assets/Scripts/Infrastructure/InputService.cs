@@ -4,7 +4,8 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using Zenject;
 
-
+namespace Infrastructure
+{
     public class InputService : ITickable
     {
         private readonly ScreenInputHandler _screenInputHadnler;
@@ -61,3 +62,4 @@ using Zenject;
         }
 
     }
+}
