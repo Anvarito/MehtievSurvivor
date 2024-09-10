@@ -8,7 +8,7 @@ namespace Infrastructure
     public class GameSceneInstaller : MonoInstaller
     {
         [SerializeField] private StatsBar _statsBar;
-        [SerializeField] private Inventory _inventory;
+        [SerializeField] private Inventory _inventoryPrefab;
         [SerializeField] private List<ItemConfig> _itemConfigs;
         public override void InstallBindings()
         {
@@ -20,7 +20,7 @@ namespace Infrastructure
         }
 
         private void BindInventory() =>
-            Container.Bind<Inventory>().FromComponentInNewPrefab(_inventory).AsSingle().NonLazy();
+            Container.Bind<Inventory>().FromComponentInNewPrefab(_inventoryPrefab).AsSingle().NonLazy();
 
         private void BindInputService() =>
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle().NonLazy();
