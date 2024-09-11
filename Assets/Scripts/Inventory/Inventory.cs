@@ -3,10 +3,14 @@ using System.Linq;
 using Items;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using Zenject;
 
 public class Inventory : MonoBehaviour, IInventory
 {
+    [SerializeField] private Button _saveButton;
+    [SerializeField] private Button _loadButton;
+    
     private List<InventorySlot> _slots = new List<InventorySlot>();
     private InventorySaveLoader _inventorySaveLoader;
     private ItemDatabase _itemDatabase;
@@ -22,8 +26,17 @@ public class Inventory : MonoBehaviour, IInventory
     
     private void Awake()
     {
+        _saveButton.onClick.AddListener(SaveData);
+        _loadButton.onClick.AddListener(LoadData);
+        
         CreateSlots();
-        LoadSlotsData();
+        LoadData();
+    }
+
+    private void OnDestroy()
+    {
+        _saveButton.onClick.RemoveListener(SaveData);
+        _loadButton.onClick.RemoveListener(LoadData);
     }
 
     private void CreateSlots()
@@ -37,7 +50,7 @@ public class Inventory : MonoBehaviour, IInventory
         }
     }
 
-    private void LoadSlotsData()
+    private void LoadData()
     {
         List<SerializableSlotsData> loadedSlots = _inventorySaveLoader.LoadInventory();
 
@@ -71,9 +84,14 @@ public class Inventory : MonoBehaviour, IInventory
         OnItemClick?.Invoke(_itemDatabase.GetItemConfigByType(slot.ItemType));
     }
 
-    private void OnDestroy()
+    private void OnApplicationQuit()
     {
-        _inventorySaveLoader.SaveInventory(_slots);
+        SaveData();
+    }
+
+    private void SaveData()
+    {
+       _inventorySaveLoader.SaveInventory(_slots);
     }
 }
 
