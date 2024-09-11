@@ -6,12 +6,12 @@ using Zenject;
 
 public class InventoryTest : MonoBehaviour
     {
-        public Inventory _inventory;
+        public IInventory _inventory;
         
         private ItemDatabase _itemDatabase;
 
         [Inject]
-        private void Construct(ItemDatabase itemDatabase, Inventory inventory)
+        private void Construct(ItemDatabase itemDatabase, IInventory inventory)
         {
             _itemDatabase = itemDatabase;
             _inventory = inventory;

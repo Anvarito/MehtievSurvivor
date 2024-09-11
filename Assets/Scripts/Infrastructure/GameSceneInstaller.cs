@@ -20,7 +20,7 @@ namespace Infrastructure
         }
 
         private void BindInventory() =>
-            Container.Bind<Inventory>().FromComponentInNewPrefab(_inventoryPrefab).AsSingle().NonLazy();
+            Container.BindInterfacesTo<Inventory>().FromComponentInNewPrefab(_inventoryPrefab).AsSingle().NonLazy();
 
         private void BindInputService() =>
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle().NonLazy();

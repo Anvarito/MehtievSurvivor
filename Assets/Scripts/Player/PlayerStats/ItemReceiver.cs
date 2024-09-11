@@ -2,11 +2,11 @@ using Items;
 
 public class ItemReceiver
 {
-    private readonly Inventory _inventory;
+    private readonly IInventory _inventory;
     private readonly StatsBar _statsBar;
     private readonly PlayerStatsData _playerStatsData;
 
-    public ItemReceiver(Inventory inventory, StatsBar statsBar, PlayerStatsData playerStatsData)
+    public ItemReceiver(IInventory inventory, StatsBar statsBar, PlayerStatsData playerStatsData)
     {
         _inventory = inventory;
         _statsBar = statsBar;

@@ -3,10 +3,10 @@ using Zenject;
 
 public class ItemPickup : MonoBehaviour
 {
-    private Inventory _inventory;
+    private IInventory _inventory;
 
     [Inject]
-    private void Construct(Inventory inventory)
+    private void Construct(IInventory inventory)
     {
         _inventory = inventory;
     }

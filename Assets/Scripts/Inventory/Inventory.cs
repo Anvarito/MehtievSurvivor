@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using Zenject;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, IInventory
 {
     private List<InventorySlot> _slots = new List<InventorySlot>();
     private InventorySaveLoader _inventorySaveLoader;
     private ItemDatabase _itemDatabase;
 
-    public UnityAction<ItemConfig> OnItemClick;
+    public UnityAction<ItemConfig> OnItemClick { get; set; }
 
     [Inject]
     private void Construct(InventorySaveLoader inventorySaveLoader, ItemDatabase itemDatabase)
