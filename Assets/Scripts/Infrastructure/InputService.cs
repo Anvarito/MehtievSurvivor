@@ -26,7 +26,6 @@ namespace Infrastructure
         public void Tick()
         {
             Vector2 movementDirection = new Vector2(_mouseInputVector.x - _startMousePosition.x, _mouseInputVector.y - _startMousePosition.y);
-            Debug.Log(_mouseInputVector + " " + _startMousePosition);
             movementDirection = Vector2.ClampMagnitude(movementDirection, 1);
             OnInputDirection?.Invoke(movementDirection);
         }

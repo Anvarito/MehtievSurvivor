@@ -10,7 +10,14 @@ public class InventorySaveLoader
     
     public InventorySaveLoader()
     {
-        _saveFilePath = Path.Combine(Application.persistentDataPath, "inventory.json");
+        string saveDirectoryPath = Path.Combine(Application.dataPath, "Save");
+
+        if (!Directory.Exists(saveDirectoryPath))
+        {
+            Directory.CreateDirectory(saveDirectoryPath);
+        }
+
+        _saveFilePath = Path.Combine(saveDirectoryPath, "inventory.json");
     }
     
     public void SaveInventory(List<InventorySlot> slots)
@@ -23,7 +30,7 @@ public class InventorySaveLoader
 
         SerializationWrapper wrapper = new SerializationWrapper { Slots = serializableSlots };
         string json = JsonConvert.SerializeObject(wrapper, Formatting.Indented);
-        Debug.Log("Saving _inventory: " + json);
+        Debug.Log("Saving inventory to: " + _saveFilePath);
         File.WriteAllText(_saveFilePath, json);
     }
 
