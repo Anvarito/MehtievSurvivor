@@ -2,21 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using UnityEngine;
 
 public class InventorySaveLoader
 {
+    private readonly SaveLoadService _saveLoadService;
     private string _saveFilePath;
 
-    public InventorySaveLoader()
+    public InventorySaveLoader(SaveLoadService saveLoadService)
     {
+        _saveLoadService = saveLoadService;
+
         string saveDirectoryPath = Path.Combine(Application.persistentDataPath, "Save");
 
         if (!Directory.Exists(saveDirectoryPath))
-        {
             Directory.CreateDirectory(saveDirectoryPath);
-        }
 
         _saveFilePath = Path.Combine(saveDirectoryPath, "inventory.json");
     }
@@ -30,23 +30,13 @@ public class InventorySaveLoader
         }
 
         SerializationWrapper wrapper = new SerializationWrapper { Slots = serializableSlots };
-        string json = JsonConvert.SerializeObject(wrapper, Formatting.Indented);
-        Debug.Log("Saving inventory to: " + _saveFilePath);
-        await File.WriteAllTextAsync(_saveFilePath, json);
+        await _saveLoadService.Save(wrapper, _saveFilePath);
     }
 
-    public List<SerializableSlotsData> LoadInventory()
+    public async Task<List<SerializableSlotsData>> LoadInventory()
     {
-        if (File.Exists(_saveFilePath))
-        {
-            string json = File.ReadAllText(_saveFilePath);
-            SerializationWrapper wrapper = JsonConvert.DeserializeObject<SerializationWrapper>(json);
-            Debug.Log("Load inventory from: " + _saveFilePath);
-            return wrapper.Slots;
-        }
-
-        Debug.Log("Load EMPTY inventory from: " + _saveFilePath);
-        return new List<SerializableSlotsData>();
+        SerializationWrapper wrapper = await _saveLoadService.Load<SerializationWrapper>(_saveFilePath);
+        return wrapper.Slots;
     }
 }
 

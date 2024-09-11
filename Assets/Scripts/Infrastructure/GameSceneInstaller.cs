@@ -15,8 +15,15 @@ namespace Infrastructure
             BindInventory();
             BindInputService();
             BindEffectReceiver();
+            BindSaveLoadService();
             BindInventorySaveLoader();
             BindItemDatabase();
+        }
+
+        private void BindSaveLoadService()
+        {
+            Container.BindInterfacesTo<JsonSerializer>().AsSingle().NonLazy();
+            Container.Bind<SaveLoadService>().AsSingle().NonLazy();
         }
 
         private void BindInventory() =>
@@ -27,8 +34,9 @@ namespace Infrastructure
 
         private void BindEffectReceiver()
         {
+            Container.Bind<StatsSaveLoader>().AsSingle().NonLazy();
             PlayerStatsData playerStatsData = new PlayerStatsData();
-            Container.Bind<ItemReceiver>().AsSingle().WithArguments(_statsBar, playerStatsData).NonLazy();
+            Container.Bind<ItemEffectReceiver>().AsSingle().WithArguments(_statsBar, playerStatsData).NonLazy();
         }
 
         private void BindInventorySaveLoader() =>

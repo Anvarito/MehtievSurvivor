@@ -1,26 +1,38 @@
 using Items;
 
-public class ItemReceiver
+public class ItemEffectReceiver
 {
     private readonly IInventory _inventory;
     private readonly StatsBar _statsBar;
-    private readonly PlayerStatsData _playerStatsData;
+    private PlayerStatsData _playerStatsData;
+    private readonly StatsSaveLoader _statsSaveLoader;
 
-    public ItemReceiver(IInventory inventory, StatsBar statsBar, PlayerStatsData playerStatsData)
+    public ItemEffectReceiver(IInventory inventory, StatsBar statsBar, PlayerStatsData playerStatsData, StatsSaveLoader statsSaveLoader)
     {
         _inventory = inventory;
         _statsBar = statsBar;
         _playerStatsData = playerStatsData;
+        _statsSaveLoader = statsSaveLoader;
 
         _inventory.OnItemClick += TakeEffect;
-        
+        LoadData();
+    }
+
+    private async void LoadData()
+    {
+        _playerStatsData = await _statsSaveLoader.LoadStats();
+        InitAllView();
+    }
+
+    private void InitAllView()
+    {
         _statsBar.WisdomChange(_playerStatsData.Wisdom);
         _statsBar.SpeedChange(_playerStatsData.Speed);
         _statsBar.StregthChange(_playerStatsData.Strength);
         _statsBar.HealChange(_playerStatsData.Heal);
     }
 
-    private void TakeEffect(ItemConfig item)
+    private async void TakeEffect(ItemConfig item)
     {
         if (!item)
             return;
@@ -45,5 +57,6 @@ public class ItemReceiver
                 break;
         }
 
+        await _statsSaveLoader.SaveStats(_playerStatsData);
     }
 }

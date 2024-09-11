@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour, IInventory
 {
     [SerializeField] private Button _saveButton;
     [SerializeField] private Button _loadButton;
-    
+
     private List<InventorySlot> _slots = new List<InventorySlot>();
     private InventorySaveLoader _inventorySaveLoader;
     private ItemDatabase _itemDatabase;
@@ -23,12 +23,12 @@ public class Inventory : MonoBehaviour, IInventory
         _inventorySaveLoader = inventorySaveLoader;
         _itemDatabase = itemDatabase;
     }
-    
-    private void Awake()
+
+    private async void Awake()
     {
         _saveButton.onClick.AddListener(SaveData);
         _loadButton.onClick.AddListener(LoadData);
-        
+
         CreateSlots();
         LoadData();
     }
@@ -50,15 +50,16 @@ public class Inventory : MonoBehaviour, IInventory
         }
     }
 
-    private void LoadData()
+    private async void LoadData()
     {
-        List<SerializableSlotsData> loadedSlots = _inventorySaveLoader.LoadInventory();
+        List<SerializableSlotsData> loadedSlots = await _inventorySaveLoader.LoadInventory();
 
         for (int i = 0; i < _slots.Count; i++)
         {
             if (i < loadedSlots.Count)
             {
-                _slots[i].SetNewItem(_itemDatabase.GetItemConfigByType(loadedSlots[i].ItemType), loadedSlots[i].ItemCount);
+                _slots[i].SetNewItem(_itemDatabase.GetItemConfigByType(loadedSlots[i].ItemType),
+                    loadedSlots[i].ItemCount);
             }
             else
             {
@@ -70,7 +71,7 @@ public class Inventory : MonoBehaviour, IInventory
     public void AddItem(ItemConfig itemConfig)
     {
         var slot = _slots.FirstOrDefault(x => x.ItemType == itemConfig.itemType);
-        if(slot != null)
+        if (slot != null)
             slot.EncreaseItem();
         else
         {
@@ -89,9 +90,8 @@ public class Inventory : MonoBehaviour, IInventory
         SaveData();
     }
 
-    private void SaveData()
+    private async void SaveData()
     {
-       _inventorySaveLoader.SaveInventory(_slots);
+        await _inventorySaveLoader.SaveInventory(_slots);
     }
 }
-
