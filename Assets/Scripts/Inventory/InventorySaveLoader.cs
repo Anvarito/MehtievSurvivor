@@ -21,7 +21,7 @@ public class InventorySaveLoader
         _saveFilePath = Path.Combine(saveDirectoryPath, "inventory.json");
     }
 
-    public async Task SaveInventory(List<InventorySlot> slots)
+    public async Task Save(List<InventorySlot> slots)
     {
         var serializableSlots = new List<SerializableSlotsData>();
         foreach (var slot in slots)
@@ -33,10 +33,25 @@ public class InventorySaveLoader
         await _saveLoadService.Save(wrapper, _saveFilePath);
     }
 
-    public async Task<List<SerializableSlotsData>> LoadInventory()
+    public async Task<List<SerializableSlotsData>> Load()
     {
         SerializationWrapper wrapper = await _saveLoadService.Load<SerializationWrapper>(_saveFilePath);
-        return wrapper.Slots;
+        if (wrapper.Slots != null)
+            return wrapper.Slots;
+
+        return new List<SerializableSlotsData>();
+    }
+
+    public void SaveSynchronously(List<InventorySlot> slots)
+    {
+        var serializableSlots = new List<SerializableSlotsData>();
+        foreach (var slot in slots)
+        {
+            serializableSlots.Add(slot.ToSerializable());
+        }
+
+        SerializationWrapper wrapper = new SerializationWrapper { Slots = serializableSlots };
+        _saveLoadService.SaveSync(wrapper, _saveFilePath);
     }
 }
 

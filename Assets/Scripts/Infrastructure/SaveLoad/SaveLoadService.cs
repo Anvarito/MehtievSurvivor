@@ -18,6 +18,13 @@ public class SaveLoadService
         Debug.Log("Saving to: " + path);
         await File.WriteAllTextAsync(path, json);
     }
+    
+    public void SaveSync(Object obj, string path)
+    {
+        string json = _serializer.Serialize(obj);
+        Debug.Log("Saving to: " + path);
+        File.WriteAllTextAsync(path, json);
+    }
 
     public async Task<T> Load<T>(string path) where T : new()
     {

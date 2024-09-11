@@ -52,7 +52,7 @@ public class Inventory : MonoBehaviour, IInventory
 
     private async void LoadData()
     {
-        List<SerializableSlotsData> loadedSlots = await _inventorySaveLoader.LoadInventory();
+        List<SerializableSlotsData> loadedSlots = await _inventorySaveLoader.Load();
 
         for (int i = 0; i < _slots.Count; i++)
         {
@@ -78,20 +78,27 @@ public class Inventory : MonoBehaviour, IInventory
             slot = _slots.FirstOrDefault(x => x.ItemType == EItemType.None);
             slot.SetNewItem(itemConfig, 1);
         }
+
+        SaveData();
     }
 
     private void ItemClick(InventorySlot slot)
     {
         OnItemClick?.Invoke(_itemDatabase.GetItemConfigByType(slot.ItemType));
+        SaveData();
     }
 
     private void OnApplicationQuit()
     {
-        SaveData();
+        SaveDataSynchronously();
     }
 
     private async void SaveData()
     {
-        await _inventorySaveLoader.SaveInventory(_slots);
+        await _inventorySaveLoader.Save(_slots);
+    }
+    private void SaveDataSynchronously()
+    {
+         _inventorySaveLoader.SaveSynchronously(_slots);
     }
 }
