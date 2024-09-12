@@ -34,9 +34,6 @@ public class InventorySlot
     private void ButtonClick()
     {
         OnSlotClick?.Invoke(this);
-        
-        if (ItemCount > 0)
-            DecreaseItem();
     }
 
     public void EncreaseItem()
@@ -47,6 +44,9 @@ public class InventorySlot
 
     public void DecreaseItem()
     {
+        if (ItemCount <= 0)
+            return;
+        
         ItemCount--;
         _inventorySlotView.SetCount(ItemCount);
 

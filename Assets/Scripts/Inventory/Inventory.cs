@@ -12,8 +12,8 @@ public class Inventory : MonoBehaviour, IInventory
     [SerializeField] private Button _loadButton;
 
     private List<InventorySlot> _slots = new List<InventorySlot>();
-    private InventorySaveLoader _inventorySaveLoader;
     private ItemDatabase _itemDatabase;
+    private InventorySaveLoader _inventorySaveLoader;
 
     public UnityAction<ItemConfig> OnItemClick { get; set; }
 
@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour, IInventory
         _itemDatabase = itemDatabase;
     }
 
-    private async void Awake()
+    private void Awake()
     {
         _saveButton.onClick.AddListener(SaveData);
         _loadButton.onClick.AddListener(LoadData);
@@ -50,9 +50,9 @@ public class Inventory : MonoBehaviour, IInventory
         }
     }
 
-    private async void LoadData()
+    private void LoadData()
     {
-        List<SerializableSlotsData> loadedSlots = await _inventorySaveLoader.Load();
+        List<SerializableSlotsData> loadedSlots = _inventorySaveLoader.Load();
 
         for (int i = 0; i < _slots.Count; i++)
         {
@@ -84,21 +84,13 @@ public class Inventory : MonoBehaviour, IInventory
 
     private void ItemClick(InventorySlot slot)
     {
-        OnItemClick?.Invoke(_itemDatabase.GetItemConfigByType(slot.ItemType));
+        slot.DecreaseItem();
         SaveData();
+        OnItemClick?.Invoke(_itemDatabase.GetItemConfigByType(slot.ItemType));
     }
 
-    private void OnApplicationQuit()
+    private void SaveData()
     {
-        SaveDataSynchronously();
-    }
-
-    private async void SaveData()
-    {
-        await _inventorySaveLoader.Save(_slots);
-    }
-    private void SaveDataSynchronously()
-    {
-         _inventorySaveLoader.SaveSynchronously(_slots);
+        _inventorySaveLoader.Save(_slots);
     }
 }

@@ -12,18 +12,19 @@ namespace Infrastructure
         [SerializeField] private List<ItemConfig> _itemConfigs;
         public override void InstallBindings()
         {
-            BindInventory();
             BindInputService();
-            BindEffectReceiver();
             BindSaveLoadService();
-            BindInventorySaveLoader();
+            
+            BindInventory();
+            BindEffectReceiver();
             BindItemDatabase();
         }
 
         private void BindSaveLoadService()
         {
-            Container.BindInterfacesTo<JsonSerializer>().AsSingle().NonLazy();
             Container.Bind<SaveLoadService>().AsSingle().NonLazy();
+            Container.Bind<StatsSaveLoader>().AsSingle().NonLazy();
+            Container.Bind<InventorySaveLoader>().AsSingle().NonLazy();
         }
 
         private void BindInventory() =>
@@ -34,13 +35,9 @@ namespace Infrastructure
 
         private void BindEffectReceiver()
         {
-            Container.Bind<StatsSaveLoader>().AsSingle().NonLazy();
             PlayerStatsData playerStatsData = new PlayerStatsData();
             Container.Bind<ItemEffectReceiver>().AsSingle().WithArguments(_statsBar, playerStatsData).NonLazy();
         }
-
-        private void BindInventorySaveLoader() =>
-            Container.Bind<InventorySaveLoader>().AsSingle().NonLazy();
 
         private void BindItemDatabase()
         {

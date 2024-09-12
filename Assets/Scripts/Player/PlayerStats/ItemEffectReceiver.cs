@@ -18,9 +18,9 @@ public class ItemEffectReceiver
         LoadData();
     }
 
-    private async void LoadData()
+    private void LoadData()
     {
-        _playerStatsData = await _statsSaveLoader.LoadStats();
+        _playerStatsData = _statsSaveLoader.LoadStats();
         InitAllView();
     }
 
@@ -32,7 +32,7 @@ public class ItemEffectReceiver
         _statsBar.HealChange(_playerStatsData.Heal);
     }
 
-    private async void TakeEffect(ItemConfig item)
+    private void TakeEffect(ItemConfig item)
     {
         if (!item)
             return;
@@ -57,6 +57,6 @@ public class ItemEffectReceiver
                 break;
         }
 
-        await _statsSaveLoader.SaveStats(_playerStatsData);
+        _statsSaveLoader.SaveStats(_playerStatsData);
     }
 }
