@@ -84,9 +84,9 @@ public class Inventory : MonoBehaviour, IInventory
 
     private void ItemClick(InventorySlot slot)
     {
+        OnItemClick?.Invoke(_itemDatabase.GetItemConfigByType(slot.ItemType));
         slot.DecreaseItem();
         SaveData();
-        OnItemClick?.Invoke(_itemDatabase.GetItemConfigByType(slot.ItemType));
     }
 
     private void SaveData()
