@@ -7,7 +7,7 @@ namespace Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private CharacterController _characterController;
         [SerializeField] private Animator _animator;
         [SerializeField] private float _Speed = 10;
         [SerializeField] private float _angularSpeed = 10;
@@ -37,20 +37,30 @@ namespace Player
             {
                 _newMoveDirection = new Vector3(moveDirection.x, 0, moveDirection.y);
                 RotatingTo(_newMoveDirection);
-                _animator.SetBool(_runAnimState, true);
+                if (_animator.GetBool(_runAnimState) != true)
+                    _animator.SetBool(_runAnimState, true);
+                _characterController.Move(_newMoveDirection.normalized * _Speed * Time.deltaTime);
             }
             else
             {
                 _newMoveDirection = Vector3.zero;
-                _rigidbody.angularVelocity = Vector3.zero;
-                _animator.SetBool(_runAnimState, false);
+                if (_animator.GetBool(_runAnimState) != false)
+                    _animator.SetBool(_runAnimState, false);
+                _characterController.Move(Vector3.zero);
             }
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            _rigidbody.velocity = _newMoveDirection.normalized * _Speed * Time.fixedDeltaTime;
+            if (!_characterController.isGrounded)
+                _characterController.Move(Physics.gravity * Time.deltaTime);
         }
+
+        // private void FixedUpdate()
+        // {
+        //     if (_newMoveDirection != Vector3.zero)
+        //         _rigidbody.velocity = _newMoveDirection.normalized * _Speed * Time.fixedDeltaTime;
+        // }
 
         private void RotatingTo(Vector3 direction)
         {

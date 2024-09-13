@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -10,9 +11,11 @@ public class ItemPickup : MonoBehaviour
     {
         _inventory = inventory;
     }
-    private void OnCollisionEnter(Collision other)
+    
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (other.gameObject.TryGetComponent(out Item item))
+        if (hit.gameObject.TryGetComponent(out Item item))
         {
             _inventory.AddItem(item.ItemConfig);
             Destroy(item.gameObject);
