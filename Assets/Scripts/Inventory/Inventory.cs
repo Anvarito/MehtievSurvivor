@@ -8,9 +8,6 @@ using Zenject;
 
 public class Inventory : MonoBehaviour, IInventory
 {
-    [SerializeField] private Button _saveButton;
-    [SerializeField] private Button _loadButton;
-
     private List<InventorySlot> _slots = new List<InventorySlot>();
     private ItemDatabase _itemDatabase;
     private InventorySaveLoader _inventorySaveLoader;
@@ -26,17 +23,8 @@ public class Inventory : MonoBehaviour, IInventory
 
     private void Awake()
     {
-        _saveButton.onClick.AddListener(SaveData);
-        _loadButton.onClick.AddListener(LoadData);
-
         CreateSlots();
         LoadData();
-    }
-
-    private void OnDestroy()
-    {
-        _saveButton.onClick.RemoveListener(SaveData);
-        _loadButton.onClick.RemoveListener(LoadData);
     }
 
     private void CreateSlots()
