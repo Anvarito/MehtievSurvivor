@@ -1,23 +1,39 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using Infrastructure.Services;
 using Items;
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 
-namespace Infrastructure
+namespace Infrastructure.Installers
 {
     public class GameSceneInstaller : MonoInstaller
     {
         [SerializeField] private StatsBar _statsBar;
         [SerializeField] private Inventory _inventoryPrefab;
         [SerializeField] private List<ItemConfig> _itemConfigs;
+
         public override void InstallBindings()
         {
             BindInputService();
             BindSaveLoadService();
-            
             BindInventory();
             BindEffectReceiver();
             BindItemDatabase();
+
+            ExampleLoad();
+        }
+
+        private void ExampleLoad()
+        {
+            ExampleLoadProvider exampleLoadProvider = new ExampleLoadProvider();
+            exampleLoadProvider.LoadAndDestroy(LoadSomthing);
+        }
+
+        private void LoadSomthing(GameObject result)
+        {
+            print(result.gameObject.name);
         }
 
         private void BindSaveLoadService()

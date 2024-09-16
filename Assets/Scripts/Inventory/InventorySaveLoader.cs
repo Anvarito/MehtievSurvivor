@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Infrastructure;
+using Infrastructure.Services;
 
 public class InventorySaveLoader
 {

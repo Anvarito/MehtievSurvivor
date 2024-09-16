@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using Zenject;
 
-namespace Infrastructure
+namespace Infrastructure.Services
 {
     public class InputService : ITickable
     {
