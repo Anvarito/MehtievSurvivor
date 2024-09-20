@@ -1,7 +1,5 @@
 using Infrastructure.Services;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Player.PlayerMove

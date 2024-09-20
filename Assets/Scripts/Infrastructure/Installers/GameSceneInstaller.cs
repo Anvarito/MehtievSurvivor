@@ -1,20 +1,21 @@
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using Enemy;
 using Infrastructure.Services;
 using Items;
 using Player;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Infrastructure.Installers
 {
     public class GameSceneInstaller : MonoInstaller
     {
+        [SerializeField] private PlayerMovement _player;
+        [SerializeField] private EnemyMove _enemyPrefab;
         [SerializeField] private StatsBar _statsBar;
         [SerializeField] private Inventory _inventory;
         [SerializeField] private List<ItemConfig> _itemConfigs;
+        private PlayerStatsData _playerStatsData;
 
         public override void InstallBindings()
         {
@@ -23,19 +24,36 @@ namespace Infrastructure.Installers
             BindInventory();
             BindEffectReceiver();
             BindItemDatabase();
-            ExampleLoad();
+            BindPlayer();
+            BindEnemyFactory();
+
+            //ExampleLoad();
         }
 
-        private void ExampleLoad()
+        private void BindPlayer()
         {
-            ExampleLoadProvider exampleLoadProvider = new ExampleLoadProvider();
-            exampleLoadProvider.LoadAndDestroy(LoadSomthing);
+            _playerStatsData = new PlayerStatsData();
+            Container.Bind<PlayerMovement>().FromInstance(_player).AsSingle().NonLazy();
+            Container.Bind<PlayerProvider>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerHitPoints>().AsSingle().WithArguments(_playerStatsData).NonLazy();
         }
 
-        private void LoadSomthing(GameObject result)
+        private void BindEnemyFactory()
         {
-            print(result.gameObject.name);
+            Container.BindInterfacesTo<EnemyFactory>().AsSingle().WithArguments(_enemyPrefab).NonLazy();
+            Container.BindInterfacesTo<EnemySpawner>().AsSingle().NonLazy();
         }
+
+        // private void ExampleLoad()
+        // {
+        //     ExampleLoadProvider exampleLoadProvider = new ExampleLoadProvider();
+        //     exampleLoadProvider.LoadAndDestroy(LoadSomthing);
+        // }
+        //
+        // private void LoadSomthing(GameObject result)
+        // {
+        //     print(result.gameObject.name);
+        // }
 
         private void BindSaveLoadService()
         {
@@ -52,8 +70,7 @@ namespace Infrastructure.Installers
 
         private void BindEffectReceiver()
         {
-            PlayerStatsData playerStatsData = new PlayerStatsData();
-            Container.Bind<ItemEffectReceiver>().AsSingle().WithArguments(_statsBar, playerStatsData).NonLazy();
+            Container.Bind<ItemEffectReceiver>().AsSingle().WithArguments(_statsBar, _playerStatsData).NonLazy();
         }
 
         private void BindItemDatabase()

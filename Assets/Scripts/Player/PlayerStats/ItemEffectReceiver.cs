@@ -29,7 +29,7 @@ public class ItemEffectReceiver
         _statsBar.WisdomChange(_playerStatsData.Wisdom);
         _statsBar.SpeedChange(_playerStatsData.Speed);
         _statsBar.StregthChange(_playerStatsData.Strength);
-        _statsBar.HealChange(_playerStatsData.Heal);
+        _statsBar.HealChange(_playerStatsData.HP);
     }
 
     private void TakeEffect(ItemConfig item)
@@ -52,8 +52,8 @@ public class ItemEffectReceiver
                 _statsBar.StregthChange(_playerStatsData.Strength);
                 break;
             case EItemType.Heal:
-                _playerStatsData.Heal += item.EffectAmount;
-                _statsBar.HealChange(_playerStatsData.Heal);
+                _playerStatsData.HP += item.EffectAmount;
+                _statsBar.HealChange(_playerStatsData.HP);
                 break;
         }
 
