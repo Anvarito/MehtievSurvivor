@@ -11,14 +11,14 @@ public class ItemPickup : MonoBehaviour
     {
         _inventory = inventory;
     }
-    
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (hit.gameObject.TryGetComponent(out Item item))
+        if (other.gameObject.TryGetComponent(out Item item))
         {
             _inventory.AddItem(item.ItemConfig);
             Destroy(item.gameObject);
         }
     }
+
 }

@@ -1,20 +1,21 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class InventoryShowHide : MonoBehaviour
+public class PauseMenuShowHide : MonoBehaviour
 {
-    [SerializeField] private GameObject _inventoryView;
+    [FormerlySerializedAs("_inventoryView")] [SerializeField] private GameObject _pausePanel;
     private Button _button;
     private void Awake()
     {
         _button = GetComponent<Button>();
         _button.onClick.AddListener(Click);
-        _inventoryView.SetActive(false);
+        _pausePanel.SetActive(false);
     }
 
     private void Click()
     {
-        _inventoryView.SetActive(!_inventoryView.activeSelf);
+        _pausePanel.SetActive(!_pausePanel.activeSelf);
     }
 }

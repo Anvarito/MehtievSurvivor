@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Services;
 using Items;
+using Player;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Infrastructure.Installers
@@ -11,7 +13,7 @@ namespace Infrastructure.Installers
     public class GameSceneInstaller : MonoInstaller
     {
         [SerializeField] private StatsBar _statsBar;
-        [SerializeField] private Inventory _inventoryPrefab;
+        [SerializeField] private Inventory _inventory;
         [SerializeField] private List<ItemConfig> _itemConfigs;
 
         public override void InstallBindings()
@@ -21,7 +23,6 @@ namespace Infrastructure.Installers
             BindInventory();
             BindEffectReceiver();
             BindItemDatabase();
-
             ExampleLoad();
         }
 
@@ -44,7 +45,7 @@ namespace Infrastructure.Installers
         }
 
         private void BindInventory() =>
-            Container.BindInterfacesTo<Inventory>().FromComponentInNewPrefab(_inventoryPrefab).AsSingle().NonLazy();
+            Container.BindInterfacesTo<Inventory>().FromInstance(_inventory).AsSingle().NonLazy();
 
         private void BindInputService() =>
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle().NonLazy();
