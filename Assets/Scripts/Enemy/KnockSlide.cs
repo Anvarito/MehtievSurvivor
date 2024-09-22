@@ -1,32 +1,20 @@
 using System.Collections;
-using Damage;
 using UnityEngine;
 
 namespace Enemy
 {
     public class KnockSlide : MonoBehaviour
     {
-        [SerializeField] private EnemyDamageRecivier _enemyDamageRecivier;
         [SerializeField] private EnemyMove _enemyMove;
         [SerializeField] private Rigidbody2D _rigidbody;
         private Transform _target;
         private IEnumerator _knockCoroutine;
-
-        private void Start()
-        {
-            
-        }
 
         public void SetTarget(Transform target)
         {
             _target = target;
         }
 
-        private void OnDestroy()
-        {
-        }
-
-        
         private void TakeKnock(float power)
         {
             if(_knockCoroutine != null) StopCoroutine(_knockCoroutine);

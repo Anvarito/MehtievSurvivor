@@ -7,5 +7,7 @@ namespace HitPointsDamage
         public ReactiveProperty<float> CurrentHitPoints { get; }
         public float MaxHitPoints { get; }
         public void ApplyDamage(float amount);
+
+        public void ResetHP(float hp);
     }
 }

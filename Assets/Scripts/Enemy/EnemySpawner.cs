@@ -9,7 +9,7 @@ namespace Enemy
         private float _spawnOffset = 2f;  
         private float _minDistanceFromEdge = 1f;
         private float _timer = 0;
-        private float _cooldown = 2;
+        private float _cooldown = 1;
         private Camera _camera;
         private Vector3 _spawnPosition;
         private Vector3 _screenBottomLeft;
@@ -37,7 +37,7 @@ namespace Enemy
 
         void SpawnEnemy()
         {
-            Enemy enemy = _enemyFactory.Get();
+            Enemy enemy = _enemyFactory.GetEnemy();
             enemy.gameObject.SetActive(true);
             enemy.transform.position = GetRandomPointBeyondScreen();
         }

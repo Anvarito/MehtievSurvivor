@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Enemy
 {
@@ -8,6 +7,7 @@ namespace Enemy
     {
         public float HP;
         public float DamageAmount = 1;
+        public float AttackInterval = 1;
         public float MoveSpeed = 10;
     }
 }

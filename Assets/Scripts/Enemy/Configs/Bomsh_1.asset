@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Bomsh_1
   m_EditorClassIdentifier: 
   HP: 10
-  DamageAmount: 1
+  DamageAmount: 5
+  AttackInterval: 1
   MoveSpeed: 15

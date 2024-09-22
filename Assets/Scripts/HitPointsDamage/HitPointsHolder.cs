@@ -13,15 +13,21 @@ namespace HitPointsDamage
 
         public HitPointsHolder(float hp, DamageRecivier damageRecivier)
         {
-            MaxHitPoints = hp;
             _damageRecivier = damageRecivier;
-            CurrentHitPoints.SetWithoutNotification(MaxHitPoints);
-            
+            ResetHP(hp);
             _damageRecivier.OnDamage += ApplyDamage;
         }
+        
+        
         public void ApplyDamage(float amount)
         {
             CurrentHitPoints.value -= (int)amount;
+        }
+
+        public void ResetHP(float hp)
+        {
+            MaxHitPoints = hp;
+            CurrentHitPoints.SetWithoutNotification(MaxHitPoints);
         }
 
         public void Dispose()

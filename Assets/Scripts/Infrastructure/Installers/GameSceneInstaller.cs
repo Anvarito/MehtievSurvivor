@@ -4,6 +4,7 @@ using HitPointsDamage;
 using Infrastructure.Services;
 using Items;
 using Player;
+using Player.PlayerMove;
 using UnityEngine;
 using Zenject;
 
@@ -38,7 +39,7 @@ namespace Infrastructure.Installers
         private void BindPlayer()
         {
             _playerStatsData = new PlayerStatsData();
-            _playerProvider = new PlayerProvider(_player);
+            _playerProvider = new PlayerProvider(_player, _playerDamageRecivier);
             IHitPoints HPplayer = new HitPointsHolder(_playerStatsData.HP, _playerDamageRecivier);
             _lifeBar.SetHPholder(HPplayer);
         }
