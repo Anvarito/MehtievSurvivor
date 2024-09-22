@@ -1,17 +1,17 @@
-using System;
-using Damage;
+using HitPointsDamage;
 using UnityEngine;
 
 namespace Enemy
 {
     public class EnemyAttack : MonoBehaviour
     {
-        [SerializeField] private EnemyConfig _enemyConfig;
+        public float DamageAmount { get; set; }
+        
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.TryGetComponent(out PlayerDamageRecivier playerDamageRecivier))
             {
-                playerDamageRecivier.ApplyDamage(_enemyConfig.AttackAmount);
+                playerDamageRecivier.ApplyDamage(DamageAmount);
             }
         }
     }

@@ -1,3 +1,4 @@
+using HitPointsDamage;
 using Player;
 using UnityEngine;
 
@@ -5,20 +6,26 @@ namespace Enemy
 {
     public class EnemyFactory : IEnemyFactory
     {
-        private EnemyMove _prefabRef;
+        private readonly Enemy _prefabRef;
+        private readonly EnemyConfig _enemyConfig;
         private readonly Transform _target;
 
-        public EnemyFactory(EnemyMove prefabRef, PlayerProvider playerProvider)
+        public EnemyFactory(Enemy prefabRef, EnemyConfig enemyConfig, PlayerProvider playerProvider)
         {
             _prefabRef = prefabRef;
+            _enemyConfig = enemyConfig;
             _target = playerProvider.PlayerTransform;
         }
 
-        public EnemyMove Create()
+        public Enemy Get()
         {
-            EnemyMove enemy = Object.Instantiate(_prefabRef);
-            enemy.SetTargetToMove(_target);
-            enemy.GetComponent<EnemyAnimation>().SetTargetToMove(_target);
+            Enemy enemy = Object.Instantiate(_prefabRef);
+            IHitPoints enemyHitPoints = new HitPointsHolder(_enemyConfig.HP, enemy.EnemyDamageRecivier);
+            enemy.EnemyMove.SetTargetToMove(_target, _enemyConfig.MoveSpeed);
+            enemy.Animator.SetTargetToSearch(_target);
+            enemy.KnockSlide.SetTarget(_target);
+            enemy.EnemyAttack.DamageAmount = _enemyConfig.DamageAmount;
+            enemy.CreateEnemy(enemyHitPoints);
             enemy.gameObject.SetActive(false);
             return enemy;
         }

@@ -3,18 +3,26 @@ using Zenject;
 
 namespace Enemy
 {
-    public class EnemySpawner : ITickable
+    public class EnemySpawner : ITickable, IInitializable
     {
         private readonly IEnemyFactory _enemyFactory;
         private float _spawnOffset = 2f;  
         private float _minDistanceFromEdge = 1f;
         private float _timer = 0;
         private float _cooldown = 2;
-
+        private Camera _camera;
+        private Vector3 _spawnPosition;
+        private Vector3 _screenBottomLeft;
+        private Vector3 _screenTopRight;
 
         public EnemySpawner(IEnemyFactory enemyFactory)
         {
             _enemyFactory = enemyFactory;
+        }
+        
+        public void Initialize()
+        {
+            _camera = Camera.main;
         }
         
         public void Tick()
@@ -29,35 +37,46 @@ namespace Enemy
 
         void SpawnEnemy()
         {
-            var camera = Camera.main;
-            Vector3 screenBottomLeft = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
-            Vector3 screenTopRight = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
+            Enemy enemy = _enemyFactory.Get();
+            enemy.gameObject.SetActive(true);
+            enemy.transform.position = GetRandomPointBeyondScreen();
+        }
 
+        private Vector3 GetRandomPointBeyondScreen()
+        {
+            _screenBottomLeft = _camera.ViewportToWorldPoint(new Vector3(0, 0, _camera.nearClipPlane));
+            _screenTopRight = _camera.ViewportToWorldPoint(new Vector3(1, 1, _camera.nearClipPlane));
+            
             int side = Random.Range(0, 4);
 
-            Vector3 spawnPosition = Vector3.zero;
+            _spawnPosition = Vector3.zero;
 
             switch (side)
             {
                 case 0:
-                    spawnPosition = new Vector3(screenBottomLeft.x - _spawnOffset, Random.Range(screenBottomLeft.y + _minDistanceFromEdge, screenTopRight.y - _minDistanceFromEdge), 0);
+                    _spawnPosition = new Vector3(_screenBottomLeft.x - _spawnOffset,
+                        Random.Range(_screenBottomLeft.y + _minDistanceFromEdge, _screenTopRight.y - _minDistanceFromEdge), 0);
                     break;
                 case 1:
-                    spawnPosition = new Vector3(screenTopRight.x + _spawnOffset, Random.Range(screenBottomLeft.y + _minDistanceFromEdge, screenTopRight.y - _minDistanceFromEdge), 0);
+                    _spawnPosition = new Vector3(_screenTopRight.x + _spawnOffset,
+                        Random.Range(_screenBottomLeft.y + _minDistanceFromEdge, _screenTopRight.y - _minDistanceFromEdge), 0);
                     break;
                 case 2:
-                    spawnPosition = new Vector3(Random.Range(screenBottomLeft.x + _minDistanceFromEdge, screenTopRight.x - _minDistanceFromEdge), screenBottomLeft.y - _spawnOffset, 0);
+                    _spawnPosition =
+                        new Vector3(
+                            Random.Range(_screenBottomLeft.x + _minDistanceFromEdge, _screenTopRight.x - _minDistanceFromEdge),
+                            _screenBottomLeft.y - _spawnOffset, 0);
                     break;
                 case 3:
-                    spawnPosition = new Vector3(Random.Range(screenBottomLeft.x + _minDistanceFromEdge, screenTopRight.x - _minDistanceFromEdge), screenTopRight.y + _spawnOffset, 0);
+                    _spawnPosition =
+                        new Vector3(
+                            Random.Range(_screenBottomLeft.x + _minDistanceFromEdge, _screenTopRight.x - _minDistanceFromEdge),
+                            _screenTopRight.y + _spawnOffset, 0);
                     break;
             }
 
-            EnemyMove enemyMove = _enemyFactory.Create();
-            enemyMove.gameObject.SetActive(true);
-            enemyMove.transform.position = spawnPosition;
+            return _spawnPosition;
         }
-
 
         
     }

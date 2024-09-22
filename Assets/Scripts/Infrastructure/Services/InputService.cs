@@ -25,11 +25,11 @@ namespace Infrastructure.Services
 
         public void Tick()
         {
+            Vector2 movementDirection = _mouseInputPosition - _mouseStartPosition;
+            OnInputDirection?.Invoke(movementDirection);
         }
         public void FixedTick()
         {
-            Vector2 movementDirection = _mouseInputPosition - _mouseStartPosition;
-            OnInputDirection?.Invoke(movementDirection);
         }
         private void OnDrag(PointerEventData eventData)
         {

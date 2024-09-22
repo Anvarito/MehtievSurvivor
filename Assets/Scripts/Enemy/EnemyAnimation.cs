@@ -3,15 +3,22 @@ using UnityEngine;
 public class EnemyAnimation : MonoBehaviour
 {
     private Transform _target;
-    [SerializeField] private SpriteRenderer _spriteRenderer;
+    private bool _isDeadAnim = false;
+    private SpriteRenderer _spriteRenderer;
 
-    public void SetTargetToMove(Transform target)
+    public void SetTargetToSearch(Transform target)
     {
         _target = target;
     }
 
     private void Update()
     {
-        _spriteRenderer.flipX = _target.transform.position.x < transform.position.x;
+        if(_isDeadAnim)
+            transform.Rotate(Vector3.forward * 10, Space.World);
+    }
+
+    public void DeadAnimation()
+    {
+        _isDeadAnim = true;
     }
 }

@@ -2,6 +2,6 @@ namespace Enemy
 {
     public interface IEnemyFactory
     {
-        public EnemyMove Create();
+        public Enemy Get();
     }
 }

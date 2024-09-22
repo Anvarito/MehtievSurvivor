@@ -26,9 +26,9 @@ Transform:
   m_GameObject: {fileID: 1583324180153719305}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5711042745318537285}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -95,9 +95,12 @@ GameObject:
   - component: {fileID: 5711042745318537285}
   - component: {fileID: 4318588682370320193}
   - component: {fileID: 6174171113014517578}
+  - component: {fileID: 3865562030268266710}
   - component: {fileID: 844865830939562054}
   - component: {fileID: 6521093861895039198}
   - component: {fileID: 4476817629957734268}
+  - component: {fileID: 4317053106310345387}
+  - component: {fileID: 8803801924136637159}
   m_Layer: 5
   m_Name: EnemyBomsh_1
   m_TagString: Untagged
@@ -113,7 +116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5820639957440334713}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15.73, y: 1.7, z: -0.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -134,9 +137,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 9
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 5efeb71c498db5445b1e6d4f3c860de3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -183,6 +186,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.51
+--- !u!114 &3865562030268266710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5820639957440334713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4778b12ace34942bbf6d36c23edaf6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyMove: {fileID: 844865830939562054}
+  _animator: {fileID: 4476817629957734268}
+  _enemyAttack: {fileID: 6521093861895039198}
+  _enemyDamageRecivier: {fileID: 4317053106310345387}
+  _knockSlide: {fileID: 8803801924136637159}
+  _collider: {fileID: 6174171113014517578}
 --- !u!114 &844865830939562054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,8 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a846361f5abd4ab0adfe3bbe2960881a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Speed: 3
   _rigidbody: {fileID: 4318588682370320193}
+  _spriteRenderer: {fileID: 8996372173897600083}
 --- !u!114 &6521093861895039198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d20b210e67b14780b52d40d6dcf38a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyConfig: {fileID: 11400000, guid: 3140b6e6029910446be396d332684cd4, type: 2}
 --- !u!114 &4476817629957734268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,4 +242,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7a4e4ca26935b4892b31b84a8bb054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 8996372173897600083}
+--- !u!114 &4317053106310345387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5820639957440334713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32c91381e85d49cd8831b4df8bed1aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8803801924136637159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5820639957440334713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7d8de5ab274d4d946062b081846d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyDamageRecivier: {fileID: 4317053106310345387}
+  _enemyMove: {fileID: 844865830939562054}
+  _rigidbody: {fileID: 4318588682370320193}

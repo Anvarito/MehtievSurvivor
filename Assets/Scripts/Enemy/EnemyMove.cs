@@ -4,19 +4,38 @@ namespace Enemy
 {
     public class EnemyMove : MonoBehaviour
     {
-        private Transform _target;
-        [SerializeField] private float _Speed = 10;
         [SerializeField] private Rigidbody2D _rigidbody;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+        private Transform _target;
+        private float _speed = 10;
+        private float _knockbackTimer;
+        private float _knockbackDuration = 0.2f;
 
-        public void SetTargetToMove(Transform target)
+        private void Start()
+        {
+            
+        }
+
+        public void SetTargetToMove(Transform target, float speed)
         {
             _target = target;
+            _speed = speed;
         }
-        private void FixedUpdate()
+
+        private void Update()
+        {
+            Move();
+            Rotate();
+        }
+
+        private void Rotate()
+        {
+            _spriteRenderer.flipX = _target.transform.position.x < transform.position.x;
+        }
+        private void Move()
         {
             Vector2 moveDirection = _target.position - transform.position;
-            
-            Vector2 moveVector = moveDirection.normalized * _Speed * Time.fixedDeltaTime;
+            Vector2 moveVector = moveDirection.normalized * _speed * Time.deltaTime;
             _rigidbody.MovePosition(_rigidbody.position + moveVector);
         }
     }
