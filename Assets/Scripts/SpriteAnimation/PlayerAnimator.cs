@@ -10,7 +10,7 @@ namespace Player.PlayerMove
         [SerializeField] private DamageRecivier _damageRecivier;
         private InputService _inputService;
         private Vector3 _rightTurn = Vector3.one;
-        private Vector3 _leftTurn = new Vector3(-1,1,1);
+        private Vector3 _leftTurn = new(-1,1,1);
 
         [Inject]
         private void Construct(InputService inputService)

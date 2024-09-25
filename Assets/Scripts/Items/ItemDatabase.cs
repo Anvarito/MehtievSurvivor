@@ -13,8 +13,9 @@ namespace Items
 
         public ItemConfig GetItemConfigByType(EItemType itemType)
         {
-            var item = _itemConfigs.FirstOrDefault(x => x.itemType == itemType);
-            return item;
+            // var item = _itemConfigs.FirstOrDefault(x => x.itemType == itemType);
+            // return item;
+            return null;
         }
     }
 }

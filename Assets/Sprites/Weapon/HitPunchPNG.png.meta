@@ -1,0 +1,349 @@
+fileFormatVersion: 2
+guid: a08cf92585bb8db46a18783db837323d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HitPunchPNG_1
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 343
+        width: 352
+        height: 367
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5597598e70dd2624ab268a2d3d6fb877
+      internalID: -927885369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitPunchPNG_6
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 387
+        width: 243
+        height: 232
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eb0783a26174134a9f4632f4064a888
+      internalID: -220477219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitPunchPNG_7
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 482
+        width: 89
+        height: 85
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aebd13ec2fec974987d6144ec34def4
+      internalID: 1036066167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitPunchPNG_9
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 455
+        width: 167
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e39bf34f0ddf14148a56576c796af421
+      internalID: 1908251977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitPunchPNG_26
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 73
+        width: 257
+        height: 235
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b14e3e1432c7a5441b119a7e9a8f41e6
+      internalID: 1918133104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitPunchPNG_28
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 58
+        width: 230
+        height: 250
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea39d0a2c4436d140ad14e6521a074cd
+      internalID: 1042587096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitPunchPNG_30
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 80
+        width: 162
+        height: 191
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 052af33c55b41e042912d52c8812132b
+      internalID: 804463999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HitPunchPNG_34
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 47
+        width: 224
+        height: 257
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3cf27df048ff0349989e8545b67f751
+      internalID: 988724094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      HitPunchPNG_0: 483850695
+      HitPunchPNG_1: -927885369
+      HitPunchPNG_10: 405751784
+      HitPunchPNG_11: 291578195
+      HitPunchPNG_12: 1139578700
+      HitPunchPNG_13: 760560966
+      HitPunchPNG_14: 1955449191
+      HitPunchPNG_15: 962032335
+      HitPunchPNG_16: -1109164413
+      HitPunchPNG_17: 1257049294
+      HitPunchPNG_18: -1964786664
+      HitPunchPNG_19: -1123149021
+      HitPunchPNG_2: -1186967845
+      HitPunchPNG_20: -1482739784
+      HitPunchPNG_21: -80298909
+      HitPunchPNG_22: 1021469723
+      HitPunchPNG_23: -1090812120
+      HitPunchPNG_24: 1596417008
+      HitPunchPNG_25: -2032149062
+      HitPunchPNG_26: 1918133104
+      HitPunchPNG_27: -1250083669
+      HitPunchPNG_28: 1042587096
+      HitPunchPNG_29: -1101527168
+      HitPunchPNG_3: 2078295868
+      HitPunchPNG_30: 804463999
+      HitPunchPNG_31: -1166038843
+      HitPunchPNG_32: -772021716
+      HitPunchPNG_33: 1332372103
+      HitPunchPNG_34: 988724094
+      HitPunchPNG_35: 1598779640
+      HitPunchPNG_36: 1412583342
+      HitPunchPNG_37: -1307833489
+      HitPunchPNG_38: -475765688
+      HitPunchPNG_39: -1456609079
+      HitPunchPNG_4: -1793423072
+      HitPunchPNG_40: -1116045714
+      HitPunchPNG_41: 1813353751
+      HitPunchPNG_42: 462589570
+      HitPunchPNG_43: -1229966367
+      HitPunchPNG_44: -217738791
+      HitPunchPNG_45: -2037561738
+      HitPunchPNG_46: -1280870681
+      HitPunchPNG_47: -1798609316
+      HitPunchPNG_48: -1412340284
+      HitPunchPNG_49: -744708798
+      HitPunchPNG_5: 546173900
+      HitPunchPNG_50: -766668715
+      HitPunchPNG_51: 346358122
+      HitPunchPNG_52: 1152291398
+      HitPunchPNG_53: 1375692835
+      HitPunchPNG_6: -220477219
+      HitPunchPNG_7: 1036066167
+      HitPunchPNG_8: -1547529659
+      HitPunchPNG_9: 1908251977
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

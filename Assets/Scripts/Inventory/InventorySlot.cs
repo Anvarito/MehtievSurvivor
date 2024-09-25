@@ -20,7 +20,7 @@ public class InventorySlot
         if (itemConfig)
         {
             ItemCount = count;
-            ItemType = itemConfig.itemType;
+            //ItemType = itemConfig.itemType;
 
             _inventorySlotView.SetCount(ItemCount);
             _inventorySlotView.SetImage(itemConfig.Image);

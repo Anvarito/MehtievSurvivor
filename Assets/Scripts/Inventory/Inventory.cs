@@ -58,6 +58,7 @@ public class Inventory : MonoBehaviour, IInventory
 
     public void AddItem(ItemConfig itemConfig)
     {
+        /*
         var slot = _slots.FirstOrDefault(x => x.ItemType == itemConfig.itemType);
         if (slot != null)
             slot.EncreaseItem();
@@ -65,7 +66,7 @@ public class Inventory : MonoBehaviour, IInventory
         {
             slot = _slots.FirstOrDefault(x => x.ItemType == EItemType.None);
             slot.SetNewItem(itemConfig, 1);
-        }
+        }*/
 
         SaveData();
     }

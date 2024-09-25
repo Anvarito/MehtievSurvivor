@@ -909,6 +909,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b0dc0c9caced44eb6d57faf9fda588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitEffectAnimator: {fileID: 763918367894677913, guid: a0d6ad5065fac744fa74fea9e2f06e4c,
+    type: 3}
 --- !u!212 &618866146
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2209,7 +2211,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: e1dee8175dd135043897ca0e834c069b,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -10,8 +10,7 @@ public class WeaponDamageDealer : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out EnemyDamageRecivier enemyDamageRecivier))
         {
-//            print("Enemy hit!");
-            OnDamage?.Invoke(enemyDamageRecivier);
+                OnDamage?.Invoke(enemyDamageRecivier);
         }
     }
 }

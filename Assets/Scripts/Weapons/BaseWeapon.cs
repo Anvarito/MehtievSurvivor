@@ -39,7 +39,7 @@ namespace Weapons
         private IEnumerator LaunchWeapon()
         {
             _weaponDamageDealer.gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
             _weaponDamageDealer.gameObject.SetActive(false);
         }
     }
