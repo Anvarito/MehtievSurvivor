@@ -1029,7 +1029,7 @@ GameObject:
   - component: {fileID: 619263237}
   - component: {fileID: 619263238}
   m_Layer: 0
-  m_Name: meh_l-Photoroom
+  m_Name: MainSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
