@@ -12,14 +12,14 @@ public class StatsSaveLoader
         _saveLoadService = saveLoadService;
     }
 
-    public void SaveStats(PlayerStatsData playerStatsData)
+    public void SaveStats(PlayerConfig playerConfig)
     {
-        _saveLoadService.Save(playerStatsData, _saveFilePath);
+        _saveLoadService.Save(playerConfig, _saveFilePath);
     }
 
-    public PlayerStatsData LoadStats()
+    public PlayerConfig LoadStats()
     {
-        PlayerStatsData data = _saveLoadService.Load<PlayerStatsData>(_saveFilePath);
+        PlayerConfig data = _saveLoadService.Load<PlayerConfig>(_saveFilePath);
         return data;
     }
 }

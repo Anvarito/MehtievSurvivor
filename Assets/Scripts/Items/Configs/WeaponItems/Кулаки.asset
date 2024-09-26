@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: FistItem
-  m_EditorClassIdentifier: Assembly-CSharp:Items:WeaponItem
+  m_Script: {fileID: 11500000, guid: 73f05f755bc54e388b64371db0fbceef, type: 3}
+  m_Name: "\u041A\u0443\u043B\u0430\u043A\u0438"
+  m_EditorClassIdentifier: 
   Name: "\u041A\u0443\u043B\u0430\u043A\u0438"
   Image: {fileID: 21300000, guid: 4d630f3fa35b7b74588b39512169c288, type: 3}
   WeaponConfig: {fileID: 11400000, guid: 3dcdfcf4b607d734781aa11350711de8, type: 2}

@@ -17,17 +17,24 @@ namespace Player
         private void Awake()
         {
             _material = _HPbar.material;
-            _hitPointsHolder.CurrentHitPoints.Changed += HPchanged;
+            _hitPointsHolder.CurrentHitPoints.Changed += CurrentHitPointsChanged;
+            _hitPointsHolder.MaxHitPoints.Changed += MaxHitPointsChanged;
         }
+
 
         private void OnDestroy()
         {
-            _hitPointsHolder.CurrentHitPoints.Changed -= HPchanged;
+            _hitPointsHolder.CurrentHitPoints.Changed -= CurrentHitPointsChanged;
+            _hitPointsHolder.MaxHitPoints.Changed -= MaxHitPointsChanged;
         }
 
-        private void HPchanged(float currentHP)
+        private void MaxHitPointsChanged(float newMaxHP)
         {
-            SetValue(currentHP / _hitPointsHolder.MaxHitPoints);
+            SetValue(_hitPointsHolder.CurrentHitPoints.value / newMaxHP);
+        }
+        private void CurrentHitPointsChanged(float currentHP)
+        {
+            SetValue(currentHP / _hitPointsHolder.MaxHitPoints.value);
         }
 
         private void SetValue(float value)

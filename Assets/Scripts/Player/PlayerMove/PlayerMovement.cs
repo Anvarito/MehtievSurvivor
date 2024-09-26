@@ -1,12 +1,13 @@
 using Infrastructure.Services;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private float _Speed = 10;
+        [SerializeField] private float _speed = 10;
         [SerializeField] private Rigidbody2D _rigidbody;
 
         private InputService _inputService;
@@ -15,6 +16,16 @@ namespace Player
         private void Construct(InputService inputService)
         {
             _inputService = inputService;
+        }
+
+        public void InitialSpeed(float initialSpeed)
+        {
+            _speed = initialSpeed;
+        }
+        
+        public void IncreaseSpeed(float value)
+        {
+            _speed += value;
         }
 
         private void Awake()
@@ -30,7 +41,7 @@ namespace Player
         private void MoveInput(Vector2 moveDirection)
         {
             float magnitude = Mathf.Clamp(moveDirection.magnitude, 0f, 113f);
-            Vector2 moveVector = moveDirection.normalized * magnitude * _Speed * Time.fixedDeltaTime;
+            Vector2 moveVector = moveDirection.normalized * magnitude * _speed / 100 * Time.fixedDeltaTime;
             _rigidbody.MovePosition(_rigidbody.position + moveVector);
         }
     }

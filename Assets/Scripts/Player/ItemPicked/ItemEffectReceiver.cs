@@ -4,14 +4,14 @@ public class ItemEffectReceiver
 {
     private readonly IInventory _inventory;
     private readonly StatsBar _statsBar;
-    private PlayerStatsData _playerStatsData;
+    private PlayerConfig _playerConfig;
     private readonly StatsSaveLoader _statsSaveLoader;
 
-    public ItemEffectReceiver(IInventory inventory, StatsBar statsBar, PlayerStatsData playerStatsData, StatsSaveLoader statsSaveLoader)
+    public ItemEffectReceiver(IInventory inventory, StatsBar statsBar, PlayerConfig playerConfig, StatsSaveLoader statsSaveLoader)
     {
         _inventory = inventory;
         _statsBar = statsBar;
-        _playerStatsData = playerStatsData;
+        _playerConfig = playerConfig;
         _statsSaveLoader = statsSaveLoader;
 
         _inventory.OnItemClick += TakeEffect;
@@ -20,14 +20,12 @@ public class ItemEffectReceiver
 
     private void LoadData()
     {
-        _playerStatsData = _statsSaveLoader.LoadStats();
+        _playerConfig = _statsSaveLoader.LoadStats();
         InitAllView();
     }
 
     private void InitAllView()
     {
-        _statsBar.SpeedChange(_playerStatsData.Speed);
-        _statsBar.HealChange(_playerStatsData.HP);
     }
 
     private void TakeEffect(ItemConfig item)
@@ -39,16 +37,16 @@ public class ItemEffectReceiver
         {
             
             case EStatType.Speed:
-                _playerStatsData.Speed += item.EffectAmount;
-                _statsBar.SpeedChange(_playerStatsData.Speed);
+                _playerConfig.Speed += item.EffectAmount;
+                _statsBar.SpeedChange(_playerConfig.Speed);
                 break;
             case EStatType.HP:
-                _playerStatsData.HP += item.EffectAmount;
-                _statsBar.HealChange(_playerStatsData.HP);
+                _playerConfig.HP += item.EffectAmount;
+                _statsBar.HealChange(_playerConfig.HP);
                 break;
         }
         */
 
-        _statsSaveLoader.SaveStats(_playerStatsData);
+        _statsSaveLoader.SaveStats(_playerConfig);
     }
 }

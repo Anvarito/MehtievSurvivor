@@ -1,3 +1,4 @@
+using System;
 using Damage;
 using HitPointsDamage;
 using UnityEngine;
@@ -23,6 +24,11 @@ namespace Enemy
         public KnockSlide KnockSlide => _knockSlide;
         
         public UnityAction<Enemy> OnDead;
+
+        private void Awake()
+        {
+            gameObject.layer = LayerMask.NameToLayer("Enemy");
+        }
 
         public void CreateEnemy(IHitPoints hpHolder)
         {

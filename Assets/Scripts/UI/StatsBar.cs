@@ -6,12 +6,12 @@ public class StatsBar : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _healText;
     [SerializeField] private TextMeshProUGUI _speedText;
 
-    public void HealChange(int count)
+    public void HealChange(float count)
     {
         _healText.text = "HP: " + count;
     }
 
-    public void SpeedChange(int count)
+    public void SpeedChange(float count)
     {
         _speedText.text = "Speed: " + count;
     }

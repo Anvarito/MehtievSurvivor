@@ -5,7 +5,9 @@ using Infrastructure.Services;
 using Items;
 using Player;
 using Player.PlayerMove;
+using Player.PlayerStats;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Infrastructure.Installers
@@ -13,6 +15,7 @@ namespace Infrastructure.Installers
     public class GameSceneInstaller : MonoInstaller
     {
         [SerializeField] private PlayerMovement _player;
+        [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private LifeBar _lifeBar;
         [SerializeField] private PlayerDamageRecivier _playerDamageRecivier;
         [SerializeField] private Enemy.Enemy _enemyPrefab;
@@ -20,17 +23,18 @@ namespace Infrastructure.Installers
         [SerializeField] private StatsBar _statsBar;
         [SerializeField] private Inventory _inventory;
         [SerializeField] private List<ItemConfig> _itemConfigs;
-        private PlayerStatsData _playerStatsData;
         private PlayerProvider _playerProvider;
+        private PlayerStatsData _playerStatsData;
+        private IHitPoints _playerHitPointsHolder;
 
         public override void InstallBindings()
         {
             BindInputService();
             BindSaveLoadService();
             BindInventory();
-            BindEffectReceiver();
             BindItemDatabase();
             BindPlayer();
+            BindEffectReceiver();
             BindEnemyFactory();
 
             //ExampleLoad();
@@ -38,10 +42,12 @@ namespace Infrastructure.Installers
 
         private void BindPlayer()
         {
-            _playerStatsData = new PlayerStatsData();
+            _playerStatsData = _playerConfig.GetPlayerData();
+            _player.InitialSpeed(_playerStatsData.Speed);
+            
             _playerProvider = new PlayerProvider(_player, _playerDamageRecivier);
-            IHitPoints HPplayer = new HitPointsHolder(_playerStatsData.HP, _playerDamageRecivier);
-            _lifeBar.SetHPholder(HPplayer);
+            _playerHitPointsHolder = new HitPointsHolder(_playerStatsData.HP, _playerDamageRecivier);
+            _lifeBar.SetHPholder(_playerHitPointsHolder);
         }
 
         private void BindEnemyFactory()
@@ -76,7 +82,7 @@ namespace Infrastructure.Installers
 
         private void BindEffectReceiver()
         {
-            Container.Bind<ItemEffectReceiver>().AsSingle().WithArguments(_statsBar, _playerStatsData).NonLazy();
+            Container.Bind<ItemEffectApplier>().AsSingle().WithArguments(_statsBar, _playerStatsData, _playerHitPointsHolder, _player).NonLazy();
         }
 
         private void BindItemDatabase()
