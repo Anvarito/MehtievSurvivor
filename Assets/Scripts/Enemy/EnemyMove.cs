@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Enemy
@@ -24,19 +25,23 @@ namespace Enemy
 
         private void Update()
         {
-            Move();
             Rotate();
         }
 
-        private void Rotate()
+        private void FixedUpdate()
         {
-            _spriteRenderer.flipX = _target.transform.position.x < transform.position.x;
+            Move();
         }
+
         private void Move()
         {
             Vector2 moveDirection = _target.position - transform.position;
             Vector2 moveVector = moveDirection.normalized * _speed * Time.deltaTime;
             _rigidbody.MovePosition(_rigidbody.position + moveVector);
+        }
+        private void Rotate()
+        {
+            _spriteRenderer.flipX = _target.transform.position.x < transform.position.x;
         }
     }
 }

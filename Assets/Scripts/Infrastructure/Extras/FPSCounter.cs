@@ -1,10 +1,10 @@
-using TMPro;
 using UnityEngine;
 
 namespace Infrastructure
 {
     public class FPSCounter : MonoBehaviour
     {
+        public int TargetFrameRate = -1;
         private int frameCount = 0;
         private float elapsedTime = 0.0f;
         private float fps = 0.0f;
@@ -14,7 +14,7 @@ namespace Infrastructure
         private void Awake()
         {
             QualitySettings.vSyncCount = 0;
-            Application.targetFrameRate = -1;
+            Application.targetFrameRate = TargetFrameRate;
         }
 
         void Update()

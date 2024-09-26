@@ -15,4 +15,4 @@ MonoBehaviour:
   HP: 10
   DamageAmount: 5
   AttackInterval: 1
-  MoveSpeed: 15
+  MoveSpeed: 5

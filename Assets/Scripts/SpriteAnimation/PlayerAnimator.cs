@@ -1,5 +1,6 @@
 using Damage;
 using Infrastructure.Services;
+using Plugins.Joystick.Scripts;
 using UnityEngine;
 using Zenject;
 
@@ -8,26 +9,20 @@ namespace Player.PlayerMove
     public class PlayerAnimator : CharacterAnimation
     {
         [SerializeField] private DamageRecivier _damageRecivier;
-        private InputService _inputService;
+        private IInputProvider _inputProvider;
         private Vector3 _rightTurn = Vector3.one;
         private Vector3 _leftTurn = new(-1,1,1);
 
         [Inject]
-        private void Construct(InputService inputService)
+        private void Construct(IInputProvider inputProvider)
         {
-            _inputService = inputService;
+            _inputProvider = inputProvider;
         }
 
         private void Awake()
         {
-            _inputService.OnInputDirection += MoveInput;
-            //_damageRecivier.OnDamage += TakeDamage;
+            _inputProvider.OnMoveDirection += MoveInput;
         }
-        private void TakeDamage(float arg0)
-        {
-            HitAnimation();
-        }
-
         private void MoveInput(Vector2 direction)
         {
             if (direction == Vector2.zero)
@@ -38,8 +33,7 @@ namespace Player.PlayerMove
 
         private void OnDestroy()
         {
-            _inputService.OnInputDirection -= MoveInput;
-            //_damageRecivier.OnDamage -= TakeDamage;
+            _inputProvider.OnMoveDirection -= MoveInput;
         }
     }
 }

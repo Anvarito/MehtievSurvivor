@@ -11,7 +11,12 @@ namespace Player.PlayerStats
         private readonly IHitPoints _playerHitPointsHolder;
         private readonly PlayerMovement _playerMovement;
 
-        public ItemEffectApplier(StatsBar statsBar, PlayerStatsData playerStatsData, IHitPoints playerHitPointsHolder, PlayerMovement playerMovement)
+        public ItemEffectApplier(
+            StatsBar statsBar, 
+            PlayerStatsData playerStatsData, 
+            IHitPoints playerHitPointsHolder, 
+            PlayerMovement playerMovement
+            )
         {
             _statsBar = statsBar;
             _playerStatsData = playerStatsData;
@@ -34,7 +39,7 @@ namespace Player.PlayerStats
 
         public void ApplyStatsUp(StatItemConfig statItemConfig)
         {
-            Debug.Log($"Picked up {statItemConfig.Name} and increased {statItemConfig.StatType} by {statItemConfig.EffectAmount}.");
+            Debug.Log($"Picked up {statItemConfig.Name}, {statItemConfig.Description}");
             
             if (statItemConfig.StatType == EStatType.HP)
             {

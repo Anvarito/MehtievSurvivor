@@ -4,10 +4,9 @@ using HitPointsDamage;
 using Infrastructure.Services;
 using Items;
 using Player;
-using Player.PlayerMove;
 using Player.PlayerStats;
+using Plugins.Joystick.Scripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Infrastructure.Installers
@@ -18,6 +17,7 @@ namespace Infrastructure.Installers
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private LifeBar _lifeBar;
         [SerializeField] private PlayerDamageRecivier _playerDamageRecivier;
+        [SerializeField] private ScreenInputHandler _screenInputHandler;
         [SerializeField] private Enemy.Enemy _enemyPrefab;
         [SerializeField] private EnemyConfig _enemyConfig;
         [SerializeField] private StatsBar _statsBar;
@@ -77,8 +77,11 @@ namespace Infrastructure.Installers
         private void BindInventory() =>
             Container.BindInterfacesTo<Inventory>().FromInstance(_inventory).AsSingle().NonLazy();
 
-        private void BindInputService() =>
-            Container.BindInterfacesAndSelfTo<InputService>().AsSingle().NonLazy();
+        private void BindInputService()
+        {
+            Container.BindInterfacesTo<InputProvider>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<ScreenInputHandler>().FromInstance(_screenInputHandler).AsSingle().NonLazy();
+        }
 
         private void BindEffectReceiver()
         {
