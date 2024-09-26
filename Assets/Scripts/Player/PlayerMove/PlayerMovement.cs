@@ -1,6 +1,5 @@
 using Infrastructure.Services;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Player
