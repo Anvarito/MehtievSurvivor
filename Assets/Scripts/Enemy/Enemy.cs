@@ -14,9 +14,9 @@ namespace Enemy
         [SerializeField] private EnemyDamageRecivier _enemyDamageRecivier;
         [SerializeField] private KnockSlide _knockSlide;
         [SerializeField] private Collider2D _collider;
+        private EnemyStatsHolder _statsHolder;
 
-        private IHitPoints _hitPointsHolder;
-        public IHitPoints HitPoints => _hitPointsHolder;
+        public EnemyStatsHolder StatsHolder => _statsHolder;
         public EnemyMove EnemyMove => _enemyMove;
         public EnemyAnimation Animator => _animator;
         public EnemyAttack EnemyAttack => _enemyAttack;
@@ -30,15 +30,15 @@ namespace Enemy
             gameObject.layer = LayerMask.NameToLayer("Enemy");
         }
 
-        public void CreateEnemy(IHitPoints hpHolder)
+        public void CreateEnemy(EnemyStatsHolder statsHolder)
         {
-            _hitPointsHolder = hpHolder;
+            _statsHolder = statsHolder;
             _enemyDamageRecivier.OnKnock += TakeKnock;
         }
 
         private void TakeKnock(float power)
         {
-            if (_hitPointsHolder.CurrentHitPoints.value <= 0)
+            if (_statsHolder.CurrentHP.value <= 0)
             {
                 _knockSlide.KnockFinal(100);
                 _enemyDamageRecivier.enabled = false;

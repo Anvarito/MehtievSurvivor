@@ -6,16 +6,21 @@ namespace Enemy
 {
     public class EnemyAttack : MonoBehaviour
     {
-        private float _damageAmount;
+        private EnemyStatsHolder _statsHolder;
         private PlayerDamageRecivier _playerDamageRecivier;
+        
+        private float _damageAmount;
         private float _attackInterval = 1f;
         private float _timeSinceLastAttack = 0f;
-        public void Initial(float damageAmount, float attackInterval, PlayerDamageRecivier playerDamageRecivier)
+
+        public void Initial(EnemyStatsHolder statsHolder, PlayerDamageRecivier playerDamageRecivier)
         {
-            _damageAmount = damageAmount;
+            _statsHolder = statsHolder;
             _playerDamageRecivier = playerDamageRecivier;
-            _attackInterval = attackInterval;
+            _attackInterval = _statsHolder.AttackInterval.value;
+            _damageAmount = _statsHolder.DamageAmount.value;
         }
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject == _playerDamageRecivier.gameObject)

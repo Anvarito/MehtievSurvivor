@@ -1,6 +1,6 @@
 using System;
 using Items;
-using Player.PlayerStats;
+using Player.ItemPicked;
 using UnityEngine;
 using Zenject;
 

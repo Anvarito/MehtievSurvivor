@@ -36,13 +36,13 @@ public class ItemEffectReceiver
         switch (item.itemType)
         {
             
-            case EStatType.Speed:
-                _playerConfig.Speed += item.EffectAmount;
-                _statsBar.SpeedChange(_playerConfig.Speed);
+            case EStatType.MoveSpeed:
+                _playerConfig.MoveSpeed += item.EffectAmount;
+                _statsBar.SpeedChange(_playerConfig.MoveSpeed);
                 break;
-            case EStatType.HP:
-                _playerConfig.HP += item.EffectAmount;
-                _statsBar.HealChange(_playerConfig.HP);
+            case EStatType.MaxHP:
+                _playerConfig.MaxHP += item.EffectAmount;
+                _statsBar.HealChange(_playerConfig.MaxHP);
                 break;
         }
         */

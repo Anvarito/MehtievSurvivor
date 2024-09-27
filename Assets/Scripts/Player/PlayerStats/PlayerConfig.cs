@@ -1,24 +1,16 @@
+using Infrastructure.Extras;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-[CreateAssetMenu(fileName = "Player", menuName = "PlayerConfigs/PlayerStats")]
-public class PlayerConfig : ScriptableObject
+[CreateAssetMenu(fileName = "Player", menuName = "Player configs/PlayerConfig")]
+public class PlayerConfig : DefaultUnitConfig
 {
-    [SerializeField] private float _hp = 100;
-    [SerializeField] private float _speed = 10;
-    
-    public PlayerStatsData GetPlayerData()
+    public PlayerStatsHolder GetNewPlayerData()
     {
-        return new PlayerStatsData
+        return new PlayerStatsHolder
         {
-            HP = _hp,
-            Speed = _speed
+            MaxHP = new ReactiveProperty<float>(MaxHP),
+            Speed = new ReactiveProperty<float>(MoveSpeed),
+            CurrentHP = new ReactiveProperty<float>(MaxHP)
         };
     }
-}
-[System.Serializable]
-public class PlayerStatsData
-{
-    public float HP;
-    public float Speed;
 }

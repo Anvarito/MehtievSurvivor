@@ -21,11 +21,11 @@ public class InventoryTest : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                //_inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.Speed));
+                //_inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.MoveSpeed));
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                //_inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.HP));
+                //_inventory.AddItem(_itemDatabase.GetItemConfigByType(EItemType.MaxHP));
             }
         }
 

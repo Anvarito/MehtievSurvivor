@@ -1,4 +1,4 @@
-using Player.PlayerStats;
+using Player.ItemPicked;
 
 namespace Items
 {

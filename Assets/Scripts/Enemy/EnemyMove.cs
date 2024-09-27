@@ -7,7 +7,9 @@ namespace Enemy
     {
         [SerializeField] private Rigidbody2D _rigidbody;
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        private EnemyStatsHolder _statsHolder;
         private Transform _target;
+        
         private float _speed = 10;
         private float _knockbackTimer;
         private float _knockbackDuration = 0.2f;
@@ -17,10 +19,23 @@ namespace Enemy
             
         }
 
-        public void SetTargetToMove(Transform target, float speed)
+        private void OnDestroy()
         {
+            _statsHolder.Speed.Changed -= SpeedChange;
+        }
+
+        public void SetTargetToMove(Transform target, EnemyStatsHolder statsHolder)
+        {
+            _statsHolder = statsHolder;
             _target = target;
-            _speed = speed;
+            _speed = _statsHolder.Speed.value;
+            
+            _statsHolder.Speed.Changed += SpeedChange;
+        }
+
+        private void SpeedChange(float value)
+        {
+            _speed = value;
         }
 
         private void Update()

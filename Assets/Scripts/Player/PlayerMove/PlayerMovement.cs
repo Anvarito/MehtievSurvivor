@@ -12,6 +12,7 @@ namespace Player
         private IInputProvider _inputProvider;
         private Vector2 _movementDirection;
         private Vector2 _startMousePosition;
+        private PlayerStatsHolder _playerStatsHolder;
 
         [Inject]
         private void Construct(IInputProvider inputProvider)
@@ -19,14 +20,15 @@ namespace Player
             _inputProvider = inputProvider;
         }
 
-        public void InitialSpeed(float initialSpeed)
+        public void SetDataHolder(PlayerStatsHolder playerStatsHolder)
         {
-            _speed = initialSpeed;
+            _playerStatsHolder = playerStatsHolder;
+            _playerStatsHolder.Speed.Changed += ChangeSpeed;
         }
 
-        public void IncreaseSpeed(float value)
+        public void ChangeSpeed(float value)
         {
-            _speed += value;
+            _speed = value;
         }
 
         private void Awake()
@@ -41,6 +43,7 @@ namespace Player
         {
             _inputProvider.OnMoveDirection -= Moving;
             _inputProvider.OnStopDirection -= StopMoving;
+            _playerStatsHolder.Speed.Changed -= ChangeSpeed;
         }
 
         private void Moving(Vector2 direction)

@@ -4,7 +4,7 @@ using HitPointsDamage;
 using Infrastructure.Services;
 using Items;
 using Player;
-using Player.PlayerStats;
+using Player.ItemPicked;
 using Plugins.Joystick.Scripts;
 using UnityEngine;
 using Zenject;
@@ -23,9 +23,9 @@ namespace Infrastructure.Installers
         [SerializeField] private StatsBar _statsBar;
         [SerializeField] private Inventory _inventory;
         [SerializeField] private List<ItemConfig> _itemConfigs;
+        
         private PlayerProvider _playerProvider;
-        private PlayerStatsData _playerStatsData;
-        private IHitPoints _playerHitPointsHolder;
+        private PlayerStatsHolder _playerStatsHolder;
 
         public override void InstallBindings()
         {
@@ -36,18 +36,17 @@ namespace Infrastructure.Installers
             BindPlayer();
             BindEffectReceiver();
             BindEnemyFactory();
-
-            //ExampleLoad();
         }
 
         private void BindPlayer()
         {
-            _playerStatsData = _playerConfig.GetPlayerData();
-            _player.InitialSpeed(_playerStatsData.Speed);
+            _playerStatsHolder = _playerConfig.GetNewPlayerData();
+            _player.SetDataHolder(_playerStatsHolder);
             
             _playerProvider = new PlayerProvider(_player, _playerDamageRecivier);
-            _playerHitPointsHolder = new HitPointsHolder(_playerStatsData.HP, _playerDamageRecivier);
-            _lifeBar.SetHPholder(_playerHitPointsHolder);
+            var damageApplier = new DamageApplier(_playerStatsHolder, _playerDamageRecivier);
+            _lifeBar.SetDataHolder(_playerStatsHolder);
+            _statsBar.SetDataHolder(_playerStatsHolder);
         }
 
         private void BindEnemyFactory()
@@ -55,17 +54,6 @@ namespace Infrastructure.Installers
             Container.BindInterfacesTo<EnemyFactory>().AsSingle().WithArguments(_enemyPrefab, _enemyConfig, _playerProvider).NonLazy();
             Container.BindInterfacesTo<EnemySpawner>().AsSingle().NonLazy();
         }
-
-        // private void ExampleLoad()
-        // {
-        //     ExampleLoadProvider exampleLoadProvider = new ExampleLoadProvider();
-        //     exampleLoadProvider.LoadAndDestroy(LoadSomthing);
-        // }
-        //
-        // private void LoadSomthing(GameObject result)
-        // {
-        //     print(result.gameObject.name);
-        // }
 
         private void BindSaveLoadService()
         {
@@ -85,7 +73,7 @@ namespace Infrastructure.Installers
 
         private void BindEffectReceiver()
         {
-            Container.Bind<ItemEffectApplier>().AsSingle().WithArguments(_statsBar, _playerStatsData, _playerHitPointsHolder, _player).NonLazy();
+            Container.Bind<ItemEffectApplier>().AsSingle().WithArguments(_playerStatsHolder).NonLazy();
         }
 
         private void BindItemDatabase()

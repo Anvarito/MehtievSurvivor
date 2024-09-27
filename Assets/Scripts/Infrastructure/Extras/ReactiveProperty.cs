@@ -7,6 +7,10 @@ namespace Infrastructure.Extras
         private T m_Value;
         public event Action<T> Changed;
 
+        public ReactiveProperty(T value)
+        {
+            SetWithoutNotification(value);
+        }
         public T value
         {
             get => m_Value;

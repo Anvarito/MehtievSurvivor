@@ -29,19 +29,19 @@ namespace Enemy
 
             if (isNew)
             {
-                IHitPoints enemyHitPoints = new HitPointsHolder(_enemyConfig.HP, enemy.EnemyDamageRecivier);
-                enemy.EnemyMove.SetTargetToMove(_target, _enemyConfig.MoveSpeed);
+                EnemyStatsHolder statsHolder = _enemyConfig.GetEnemyData();
+                var damageApplier = new DamageApplier(statsHolder, enemy.EnemyDamageRecivier);
+                enemy.EnemyMove.SetTargetToMove(_target, statsHolder);
                 enemy.Animator.SetTargetToSearch(_target);
                 enemy.KnockSlide.SetTarget(_target);
-                enemy.EnemyAttack.Initial(_enemyConfig.DamageAmount, _enemyConfig.AttackInterval,
-                    _playerProvider.PlayerDamageRecivier);
-                enemy.CreateEnemy(enemyHitPoints);
+                enemy.EnemyAttack.Initial(statsHolder,_playerProvider.PlayerDamageRecivier);
+                enemy.CreateEnemy(statsHolder);
 
                 enemy.OnDead += deadEnemy => { _enemyPool.Release(deadEnemy); };
             }
             else
             {
-                enemy.HitPoints.ResetHP(_enemyConfig.HP);
+                _enemyConfig.ResetParams(enemy.StatsHolder);
                 enemy.Reset();
             }
 

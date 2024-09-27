@@ -1,10 +1,9 @@
 using Damage;
-using Infrastructure.Services;
-using Plugins.Joystick.Scripts;
+using SpriteAnimation;
 using UnityEngine;
 using Zenject;
 
-namespace Player.PlayerMove
+namespace Player
 {
     public class PlayerAnimator : CharacterAnimation
     {
@@ -29,6 +28,11 @@ namespace Player.PlayerMove
                 return;
 
             _spriteRenderer.transform.localScale = direction.x > 0 ? _leftTurn : _rightTurn;
+        }
+
+        public override void HitAnimation()
+        {
+            
         }
 
         private void OnDestroy()
