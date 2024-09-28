@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Enemy
+namespace Enemies
 {
     public class KnockSlide : MonoBehaviour
     {
@@ -24,7 +24,6 @@ namespace Enemy
 
         public void KnockFinal(float power)
         {
-            _enemyMove.enabled = false;
             TakeKnock(power);
         }
 

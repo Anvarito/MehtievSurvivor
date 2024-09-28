@@ -22,7 +22,6 @@ namespace Player
             if (other.gameObject.TryGetComponent(out IPickable item))
             {
                 item.ApplyEffect(_itemEffectApplier);
-                Destroy(other.gameObject);
             }
         }
     }

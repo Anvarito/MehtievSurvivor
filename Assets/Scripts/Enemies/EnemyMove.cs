@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Enemy
+namespace Enemies
 {
     public class EnemyMove : MonoBehaviour
     {

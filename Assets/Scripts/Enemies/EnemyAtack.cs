@@ -1,8 +1,7 @@
 using HitPointsDamage;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Enemy
+namespace Enemies
 {
     public class EnemyAttack : MonoBehaviour
     {

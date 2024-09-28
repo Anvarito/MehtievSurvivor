@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Enemy;
+using Enemies;
 using HitPointsDamage;
 using Infrastructure.Services;
 using Items;
@@ -18,8 +18,9 @@ namespace Infrastructure.Installers
         [SerializeField] private LifeBar _lifeBar;
         [SerializeField] private PlayerDamageRecivier _playerDamageRecivier;
         [SerializeField] private ScreenInputHandler _screenInputHandler;
-        [SerializeField] private Enemy.Enemy _enemyPrefab;
+        [SerializeField] private Enemy _enemyPrefab;
         [SerializeField] private EnemyConfig _enemyConfig;
+        [SerializeField] private ExpItem _expItemPrefab;
         [SerializeField] private StatsBar _statsBar;
         [SerializeField] private Inventory _inventory;
         [SerializeField] private List<ItemConfig> _itemConfigs;
@@ -53,6 +54,7 @@ namespace Infrastructure.Installers
         {
             Container.BindInterfacesTo<EnemyFactory>().AsSingle().WithArguments(_enemyPrefab, _enemyConfig, _playerProvider).NonLazy();
             Container.BindInterfacesTo<EnemySpawner>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<EnemyDropSpawner>().AsSingle().WithArguments(_expItemPrefab).NonLazy();
         }
 
         private void BindSaveLoadService()

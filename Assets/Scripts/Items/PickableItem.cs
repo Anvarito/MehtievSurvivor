@@ -1,5 +1,6 @@
 using Player.ItemPicked;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Items
 {
@@ -7,6 +8,7 @@ namespace Items
     {
         protected SpriteRenderer _renderer;
         protected ItemEffectApplier _itemEffectApplier;
+        public UnityAction<IPickable> OnPick { get; set; }
 
         private void Awake()
         {
@@ -17,6 +19,7 @@ namespace Items
         {
             _itemEffectApplier = itemEffectApplier;
             ApplyEffectInternal();
+            OnPick?.Invoke(this);
         }
 
         protected abstract void ApplyEffectInternal();

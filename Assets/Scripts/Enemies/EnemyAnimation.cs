@@ -3,7 +3,7 @@ using DG.Tweening;
 using SpriteAnimation;
 using UnityEngine;
 
-namespace Enemy
+namespace Enemies
 {
     public class EnemyAnimation : CharacterAnimation
     {

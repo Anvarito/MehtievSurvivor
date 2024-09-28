@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Enemy
+namespace Enemies
 {
     public class EnemySpawner : ITickable, IInitializable
     {
@@ -33,11 +33,16 @@ namespace Enemy
                 _timer = 0;
                 SpawnEnemy();
             }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                SpawnEnemy();
+            }
         }
 
         void SpawnEnemy()
         {
-            Enemy enemy = _enemyFactory.GetEnemy();
+            Enemies.Enemy enemy = _enemyFactory.GetEnemy();
             enemy.gameObject.SetActive(true);
             enemy.transform.position = GetRandomPointBeyondScreen();
         }
