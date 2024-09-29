@@ -18,4 +18,4 @@ MonoBehaviour:
   AttackInterval: 1
   DropItems:
   - expConfig: {fileID: 11400000, guid: 39c03fec54519dc4bb838523d95f093d, type: 2}
-    dropChance: 60
+    dropChance: 80
