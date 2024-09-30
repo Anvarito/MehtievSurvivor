@@ -1,4 +1,5 @@
 using Items;
+using UI;
 using UnityEngine;
 
 namespace Player.ItemPicked
@@ -6,10 +7,12 @@ namespace Player.ItemPicked
     public class ItemEffectApplier
     {
         private readonly PlayerStatsHolder _playerStatsHolder;
+        private readonly ExpHolder _expHolder;
 
-        public ItemEffectApplier(PlayerStatsHolder playerStatsHolder)
+        public ItemEffectApplier(PlayerStatsHolder playerStatsHolder, ExpHolder expHolder)
         {
             _playerStatsHolder = playerStatsHolder;
+            _expHolder = expHolder;
         }
         
         public void ApplyWeapon(WeaponItemConfig weaponItemConfig)
@@ -35,6 +38,7 @@ namespace Player.ItemPicked
         public void ApplyExp(ExpItem expItem)
         {
             Debug.Log($"Gain the expirience.");
+            _expHolder.EncreaseExp(expItem.Points);
         }
     }
 }

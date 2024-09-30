@@ -6,6 +6,7 @@ using Items;
 using Player;
 using Player.ItemPicked;
 using Plugins.Joystick.Scripts;
+using UI;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,8 @@ namespace Infrastructure.Installers
         [SerializeField] private PlayerMovement _player;
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private LifeBar _lifeBar;
+        [SerializeField] private ExpPanel _expPanel;
+        [SerializeField] private LevelUpMenu _levelUpMenu;
         [SerializeField] private PlayerDamageRecivier _playerDamageRecivier;
         [SerializeField] private ScreenInputHandler _screenInputHandler;
         [SerializeField] private Enemy _enemyPrefab;
@@ -37,11 +40,15 @@ namespace Infrastructure.Installers
             BindPlayer();
             BindEffectReceiver();
             BindEnemyFactory();
+            Container.BindInterfacesAndSelfTo<ExpHolder>().AsSingle().WithArguments(_playerStatsHolder).NonLazy();
+            Container.Bind<LevelUpProcess>().AsSingle().WithArguments(_levelUpMenu).NonLazy();
+            _expPanel.Set(_playerStatsHolder);
         }
 
         private void BindPlayer()
         {
             _playerStatsHolder = _playerConfig.GetNewPlayerData();
+            //Container.Bind<PlayerStatsHolder>().FromInstance(_playerStatsHolder).AsSingle().NonLazy();
             _player.SetDataHolder(_playerStatsHolder);
             
             _playerProvider = new PlayerProvider(_player, _playerDamageRecivier);
