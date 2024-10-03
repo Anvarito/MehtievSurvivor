@@ -13,7 +13,7 @@ namespace UI
 
         private int _reachBorder = 3;
         private int _currentPoints = 0;
-
+        
         public ExpHolder(PlayerStatsHolder playerStatsHolder, LevelUpProcess levelUp)
         {
             _playerStatsHolder = playerStatsHolder;
@@ -24,7 +24,7 @@ namespace UI
 
         public void Initialize()
         {
-            _difficultEncreaser = new CubicCalculation(_reachBorder);
+            _difficultEncreaser = new CubicCalculation(3,2,_reachBorder);
             //_difficultEncreaser = new TestCalculation();
             _reachBorder = _difficultEncreaser.Calculate(_playerStatsHolder.Level.value);
 
@@ -79,5 +79,7 @@ namespace UI
                 EncreaseExp(10);
             }
         }
+
+        
     }
 }

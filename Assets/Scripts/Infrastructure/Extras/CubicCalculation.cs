@@ -6,22 +6,16 @@ namespace Infrastructure.Extras
         private int _koeff2 = 3;
         private int _startCount = 3;
 
-        public CubicCalculation(int startCount)
+        public CubicCalculation(int koeff1,int koeff2, int startCount)
         {
+            _koeff1 = koeff1;
+            _koeff2 = koeff2;
             _startCount = startCount;
         }
 
         public int Calculate(int value)
         {
             return _koeff1 * value * value + _koeff2 * value + _startCount;
-        }
-    }
-
-    public class TestCalculation : ICurveCalculation
-    {
-        public int Calculate(int value)
-        {
-            return 5;
         }
     }
 }

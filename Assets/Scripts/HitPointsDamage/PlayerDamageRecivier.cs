@@ -1,5 +1,5 @@
+using System;
 using Damage;
-using UnityEngine.Events;
 
 namespace HitPointsDamage
 {
@@ -9,5 +9,6 @@ namespace HitPointsDamage
         {
             ApplyDamageInternal(damage);
         }
+
     }
 }

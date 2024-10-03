@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,6 +10,11 @@ namespace Damage
         protected void ApplyDamageInternal(float amount)
         {
             OnDamage?.Invoke(amount);
+        }
+
+        private void Start()
+        {
+            
         }
     }
 }

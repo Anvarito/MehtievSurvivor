@@ -14,10 +14,10 @@ namespace UI
             _levelUpMenu.OnPress += Complete;
         }
 
-        public void LaunchLevelUp()
+        public async void LaunchLevelUp()
         {
             
-            _levelUpMenu.Open();
+           await _levelUpMenu.Open();
             
         }
 

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -20,8 +21,9 @@ namespace UI
             OnPress?.Invoke();
         }
 
-        public void Open()
+        public async UniTask Open()
         {
+            await UniTask.Delay(1000);
             _button.gameObject.SetActive(true);
             print(1111);
         }
