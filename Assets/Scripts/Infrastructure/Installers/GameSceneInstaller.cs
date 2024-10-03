@@ -40,7 +40,7 @@ namespace Infrastructure.Installers
             BindPlayer();
             BindEffectReceiver();
             BindEnemyFactory();
-            Container.BindInterfacesAndSelfTo<ExpHolder>().AsSingle().WithArguments(_playerStatsHolder).NonLazy();
+            Container.BindInterfacesAndSelfTo<ExpAccumulator>().AsSingle().WithArguments(_playerStatsHolder).NonLazy();
             Container.Bind<LevelUpProcess>().AsSingle().WithArguments(_levelUpMenu).NonLazy();
             _expPanel.Set(_playerStatsHolder);
         }

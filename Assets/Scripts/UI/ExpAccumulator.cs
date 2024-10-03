@@ -4,7 +4,7 @@ using Zenject;
 
 namespace UI
 {
-    public class ExpHolder : IInitializable, ITickable
+    public class ExpAccumulator : IInitializable, ITickable
     {
         private readonly PlayerStatsHolder _playerStatsHolder;
 
@@ -14,7 +14,7 @@ namespace UI
         private int _reachBorder = 3;
         private int _currentPoints = 0;
         
-        public ExpHolder(PlayerStatsHolder playerStatsHolder, LevelUpProcess levelUp)
+        public ExpAccumulator(PlayerStatsHolder playerStatsHolder, LevelUpProcess levelUp)
         {
             _playerStatsHolder = playerStatsHolder;
             _levelUp = levelUp;

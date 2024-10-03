@@ -5,11 +5,11 @@ using Weapons.Configs;
 
 namespace Weapons
 {
-    public class BaseWeapon : MonoBehaviour
+    public class MeleeWeapon : MonoBehaviour
     {
         [SerializeField] private WeaponDamageDealer _weaponDamageDealer;
         [SerializeField] private WeaponConfig _weaponConfig;
-        private float _timer;
+        private float _cooldown;
 
         private void Awake()
         {
@@ -28,11 +28,10 @@ namespace Weapons
 
         private void Update()
         {
-            _timer += Time.deltaTime;
-            if (_timer > _weaponConfig.Cooldown)
+            if (Time.time > _cooldown)
             {
                 StartCoroutine(LaunchWeapon());
-                _timer = 0;
+                _cooldown = Time.time + _weaponConfig.Cooldown;
             }
         }
 

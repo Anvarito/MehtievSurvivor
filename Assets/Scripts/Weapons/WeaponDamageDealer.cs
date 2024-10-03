@@ -2,15 +2,18 @@ using Damage;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class WeaponDamageDealer : MonoBehaviour
+namespace Weapons
 {
-    public UnityAction<EnemyDamageRecivier> OnDamage;
-
-    private void OnTriggerEnter2D(Collider2D other)
+    public class WeaponDamageDealer : MonoBehaviour
     {
-        if (other.gameObject.TryGetComponent(out EnemyDamageRecivier enemyDamageRecivier))
+        public UnityAction<EnemyDamageRecivier> OnDamage;
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            OnDamage?.Invoke(enemyDamageRecivier);
+            if (other.gameObject.TryGetComponent(out EnemyDamageRecivier enemyDamageRecivier))
+            {
+                OnDamage?.Invoke(enemyDamageRecivier);
+            }
         }
     }
 }

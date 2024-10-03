@@ -1,3 +1,4 @@
+using Infrastructure.Extras;
 using UnityEngine;
 using Zenject;
 
@@ -42,47 +43,9 @@ namespace Enemies
 
         void SpawnEnemy()
         {
-            Enemies.Enemy enemy = _enemyFactory.GetEnemy();
+            Enemy enemy = _enemyFactory.GetEnemy();
             enemy.gameObject.SetActive(true);
-            enemy.transform.position = GetRandomPointBeyondScreen();
+            enemy.transform.position = ScreenObjectFinder.GetRandomPointBeyondScreen(_camera,_spawnOffset, _minDistanceFromEdge);
         }
-
-        private Vector3 GetRandomPointBeyondScreen()
-        {
-            _screenBottomLeft = _camera.ViewportToWorldPoint(new Vector3(0, 0, _camera.nearClipPlane));
-            _screenTopRight = _camera.ViewportToWorldPoint(new Vector3(1, 1, _camera.nearClipPlane));
-            
-            int side = Random.Range(0, 4);
-
-            _spawnPosition = Vector3.zero;
-
-            switch (side)
-            {
-                case 0:
-                    _spawnPosition = new Vector3(_screenBottomLeft.x - _spawnOffset,
-                        Random.Range(_screenBottomLeft.y + _minDistanceFromEdge, _screenTopRight.y - _minDistanceFromEdge), 0);
-                    break;
-                case 1:
-                    _spawnPosition = new Vector3(_screenTopRight.x + _spawnOffset,
-                        Random.Range(_screenBottomLeft.y + _minDistanceFromEdge, _screenTopRight.y - _minDistanceFromEdge), 0);
-                    break;
-                case 2:
-                    _spawnPosition =
-                        new Vector3(
-                            Random.Range(_screenBottomLeft.x + _minDistanceFromEdge, _screenTopRight.x - _minDistanceFromEdge),
-                            _screenBottomLeft.y - _spawnOffset, 0);
-                    break;
-                case 3:
-                    _spawnPosition =
-                        new Vector3(
-                            Random.Range(_screenBottomLeft.x + _minDistanceFromEdge, _screenTopRight.x - _minDistanceFromEdge),
-                            _screenTopRight.y + _spawnOffset, 0);
-                    break;
-            }
-
-            return _spawnPosition;
-        }
-
-        
     }
 }

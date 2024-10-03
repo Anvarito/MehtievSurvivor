@@ -7,12 +7,12 @@ namespace Player.ItemPicked
     public class ItemEffectApplier
     {
         private readonly PlayerStatsHolder _playerStatsHolder;
-        private readonly ExpHolder _expHolder;
+        private readonly ExpAccumulator _expAccumulator;
 
-        public ItemEffectApplier(PlayerStatsHolder playerStatsHolder, ExpHolder expHolder)
+        public ItemEffectApplier(PlayerStatsHolder playerStatsHolder, ExpAccumulator expAccumulator)
         {
             _playerStatsHolder = playerStatsHolder;
-            _expHolder = expHolder;
+            _expAccumulator = expAccumulator;
         }
         
         public void ApplyWeapon(WeaponItemConfig weaponItemConfig)
@@ -38,7 +38,7 @@ namespace Player.ItemPicked
         public void ApplyExp(ExpItem expItem)
         {
             Debug.Log($"Gain the expirience.");
-            _expHolder.EncreaseExp(expItem.Points);
+            _expAccumulator.EncreaseExp(expItem.Points);
         }
     }
 }
