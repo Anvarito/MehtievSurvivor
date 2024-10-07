@@ -19,6 +19,6 @@ public class WeaponItem : PickableItem
     
     protected override void ApplyEffectInternal()
     {
-        _itemEffectApplier.ApplyWeapon(_weaponItem);
+        _itemEffectApplier.ApplyWeapon(_weaponItem.meleeWeaponConfig);
     }
 }

@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Infrastructure.Extras
 {
-    public class MonobehPool<T> where T : MonoBehaviour
+    public class ObjectPool<T> where T : MonoBehaviour
     {
         private readonly T prefab;
         private readonly Queue<T> objects = new();
 
-        public MonobehPool(T prefab, int initialSize)
+        public ObjectPool(T prefab, int initialSize)
         {
             this.prefab = prefab;
 

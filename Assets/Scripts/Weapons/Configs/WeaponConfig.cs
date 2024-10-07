@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Weapons.Configs
@@ -6,8 +8,16 @@ namespace Weapons.Configs
     public class WeaponConfig : ScriptableObject
     {
         public string Name;
+        public List<WeaponUpgradeData> weaponUpgradeDatas;
+    }
+
+    [Serializable]
+    public class WeaponUpgradeData
+    {
         public float DamageAmount;
         public float KnockAmount;
-        public float Cooldown = 1.5f;
+        public float Cooldown;
+        public float LifeTime;
+        public float Speed;
     }
 }

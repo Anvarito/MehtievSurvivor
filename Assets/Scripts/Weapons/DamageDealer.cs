@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace Weapons
 {
-    public class WeaponDamageDealer : MonoBehaviour
+    public class DamageDealer : MonoBehaviour
     {
         public UnityAction<EnemyDamageRecivier> OnDamage;
 

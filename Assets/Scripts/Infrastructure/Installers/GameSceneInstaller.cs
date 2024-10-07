@@ -8,6 +8,8 @@ using Player.ItemPicked;
 using Plugins.Joystick.Scripts;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Weapons;
 using Zenject;
 
 namespace Infrastructure.Installers
@@ -15,6 +17,8 @@ namespace Infrastructure.Installers
     public class GameSceneInstaller : MonoInstaller
     {
         [SerializeField] private PlayerMovement _player;
+        [FormerlySerializedAs("weaponHolder")] [SerializeField] private WeaponRootTransform weaponRootTransform;
+        [SerializeField] private WeaponPrefabHolder _weaponPrefabHolder;
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private LifeBar _lifeBar;
         [SerializeField] private ExpPanel _expPanel;
@@ -40,6 +44,12 @@ namespace Infrastructure.Installers
             BindPlayer();
             BindEffectReceiver();
             BindEnemyFactory();
+            LevelUpBinding();
+            Container.BindInterfacesAndSelfTo<WeaponUpgradeController>().AsSingle().WithArguments(weaponRootTransform, _weaponPrefabHolder).NonLazy();
+        }
+
+        private void LevelUpBinding()
+        {
             Container.BindInterfacesAndSelfTo<ExpAccumulator>().AsSingle().WithArguments(_playerStatsHolder).NonLazy();
             Container.Bind<LevelUpProcess>().AsSingle().WithArguments(_levelUpMenu).NonLazy();
             _expPanel.Set(_playerStatsHolder);
@@ -48,7 +58,6 @@ namespace Infrastructure.Installers
         private void BindPlayer()
         {
             _playerStatsHolder = _playerConfig.GetNewPlayerData();
-            //Container.Bind<PlayerStatsHolder>().FromInstance(_playerStatsHolder).AsSingle().NonLazy();
             _player.SetDataHolder(_playerStatsHolder);
             
             _playerProvider = new PlayerProvider(_player, _playerDamageRecivier);

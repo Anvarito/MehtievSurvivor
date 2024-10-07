@@ -13,7 +13,7 @@ namespace Infrastructure.Services
     {
         private readonly IEnemyFactory _enemyFactory;
         private readonly ExpItem _expItem;
-        private MonobehPool<ExpItem> _expPool;
+        private ObjectPool<ExpItem> _expPool;
         private GameObject _root;
 
         public EnemyDropSpawner(IEnemyFactory enemyFactory, ExpItem expItem)
@@ -24,7 +24,7 @@ namespace Infrastructure.Services
 
         public void Initialize()
         {
-            _expPool = new MonobehPool<ExpItem>(_expItem, 0);
+            _expPool = new ObjectPool<ExpItem>(_expItem, 0);
             _enemyFactory.OnEnemyDead += EnemyDead;
             _root = new GameObject("DROP ITEMS");
             _root.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);

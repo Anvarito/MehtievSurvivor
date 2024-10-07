@@ -15,7 +15,7 @@ namespace Enemies
         private readonly PlayerProvider _playerProvider;
         private readonly Transform _target;
 
-        private MonobehPool<Enemy> _enemyPool;
+        private ObjectPool<Enemy> _enemyPool;
         private GameObject _root;
         public UnityAction<Enemy> OnEnemyDead { get; set; }
 
@@ -26,7 +26,7 @@ namespace Enemies
             _enemyConfig = enemyConfig;
             _playerProvider = playerProvider;
             _target = playerProvider.PlayerTransform;
-            _enemyPool = new MonobehPool<Enemy>(_prefabRef, 0);
+            _enemyPool = new ObjectPool<Enemy>(_prefabRef, 0);
         }
 
         public void Initialize()

@@ -1,6 +1,8 @@
+using System;
 using Items;
 using UI;
 using UnityEngine;
+using Weapons.Configs;
 
 namespace Player.ItemPicked
 {
@@ -8,16 +10,19 @@ namespace Player.ItemPicked
     {
         private readonly PlayerStatsHolder _playerStatsHolder;
         private readonly ExpAccumulator _expAccumulator;
+        private readonly WeaponUpgradeController _weaponUpgradeController;
 
-        public ItemEffectApplier(PlayerStatsHolder playerStatsHolder, ExpAccumulator expAccumulator)
+        public ItemEffectApplier(PlayerStatsHolder playerStatsHolder, ExpAccumulator expAccumulator, WeaponUpgradeController weaponUpgradeController)
         {
             _playerStatsHolder = playerStatsHolder;
             _expAccumulator = expAccumulator;
+            _weaponUpgradeController = weaponUpgradeController;
         }
         
-        public void ApplyWeapon(WeaponItemConfig weaponItemConfig)
+        public void ApplyWeapon(WeaponConfig weaponConfig)
         {
-            Debug.Log($"Picked up {weaponItemConfig.Name}.");
+            Debug.Log($"Picked up {weaponConfig.Name}.");
+            _weaponUpgradeController.ApplyWeapon(weaponConfig);
         }
 
         public void ApplyStatsUp(StatItemConfig statItemConfig)

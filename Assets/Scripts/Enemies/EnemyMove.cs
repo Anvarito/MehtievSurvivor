@@ -14,10 +14,6 @@ namespace Enemies
         private float _knockbackTimer;
         private float _knockbackDuration = 0.2f;
 
-        private void Start()
-        {
-            
-        }
 
         private void OnDestroy()
         {
