@@ -39,7 +39,7 @@ namespace UI
         private void Complete(ItemConfig itemConfig)
         {
             if (itemConfig is WeaponItemConfig weaponItemConfig)
-                _itemEffectApplier.ApplyWeapon(weaponItemConfig.WeaponConfig);
+                _itemEffectApplier.ApplyWeapon(weaponItemConfig);
             if (itemConfig is StatItemConfig statItemConfig)
                 _itemEffectApplier.ApplyStatsUp(statItemConfig);
 

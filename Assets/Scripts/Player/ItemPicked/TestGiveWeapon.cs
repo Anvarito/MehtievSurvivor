@@ -1,15 +1,15 @@
+using Items;
 using UnityEngine;
 using Weapons;
-using Weapons.Configs;
 using Zenject;
 
 namespace Player.ItemPicked
 {
     public class TestGiveWeapon : MonoBehaviour
     {
-        public WeaponConfig _homing;
-        public WeaponConfig _direction;
-        public WeaponConfig _striaght;
+        public WeaponItemConfig _homing;
+        public WeaponItemConfig _direction;
+        public WeaponItemConfig _striaght;
 
         [Inject] public IWeaponUpgrader upgradeController;
         private void Update()

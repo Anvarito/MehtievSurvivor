@@ -28,7 +28,7 @@ namespace Items
             });
         }
 
-        protected override void ApplyEffectInternal()
+        protected override void ApplyEffect()
         {
             IsPicked = false;
             _isFlyingToTarget = false;

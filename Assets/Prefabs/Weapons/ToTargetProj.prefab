@@ -216,5 +216,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89cbd759fb5e422bb3d6dcf115cf8030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 13e83f68968acf74c8d73827376dfdce, type: 2}
-  _prefab: {fileID: 2688652141466611421}
+  _shellPrefab: {fileID: 2688652141466611421}

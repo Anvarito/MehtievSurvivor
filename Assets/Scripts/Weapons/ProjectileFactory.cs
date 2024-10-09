@@ -6,22 +6,22 @@ namespace Weapons
 {
     public class ProjectileFactory : MonoBehaviour
     {
-        private Dictionary<BaseProjectile, ObjectPool<BaseProjectile>> _pools = new();
+        private Dictionary<BaseShell, ObjectPool<BaseShell>> _pools = new();
 
-        public void RegisterPrefab(BaseProjectile prefab, int initialSize = 0)
+        public void RegisterPrefab(BaseShell prefab, int initialSize = 0)
         {
             if (!_pools.ContainsKey(prefab))
             {
-                var newPool = new ObjectPool<BaseProjectile>(prefab.GetComponent<BaseProjectile>(), initialSize);
+                var newPool = new ObjectPool<BaseShell>(prefab.GetComponent<BaseShell>(), initialSize);
                 _pools[prefab] = newPool;
             }
         }
 
-        public BaseProjectile GetProjectile(BaseProjectile prefab)
+        public BaseShell GetProjectile(BaseShell prefab)
         {
-            if (_pools.TryGetValue(prefab, out ObjectPool<BaseProjectile> pool))
+            if (_pools.TryGetValue(prefab, out ObjectPool<BaseShell> pool))
             {
-                pool.Get(out BaseProjectile projectile);
+                pool.Get(out BaseShell projectile);
                 return projectile;
             }
             else
@@ -31,11 +31,11 @@ namespace Weapons
             }
         }
 
-        public void ReleaseProjectile(BaseProjectile prefab, BaseProjectile projectile)
+        public void ReleaseProjectile(BaseShell prefab, BaseShell shell)
         {
-            if (_pools.TryGetValue(prefab, out ObjectPool<BaseProjectile> pool))
+            if (_pools.TryGetValue(prefab, out ObjectPool<BaseShell> pool))
             {
-                pool.Release(projectile);
+                pool.Release(shell);
             }
             else
             {

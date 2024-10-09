@@ -6,7 +6,7 @@ public class CameraMover : MonoBehaviour
     [SerializeField] private Vector3 _offset;
     private Vector3 _oldPosition;
 
-    void Update()
+    private void LateUpdate()
     {
         if (_targetToMove.position != _oldPosition)
             transform.position = _offset + _targetToMove.position;

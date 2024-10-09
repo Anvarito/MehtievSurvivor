@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class StraightProjectile : BaseProjectile
+    public class StraightShell : BaseShell
     {
         protected Vector3 _direction;
 
@@ -25,7 +25,7 @@ namespace Weapons
         protected override void HitToEnemy(EnemyDamageRecivier enemyDamage)
         {
             base.HitToEnemy(enemyDamage);
-            OnDestroy?.Invoke();
+            OnShellDestroy?.Invoke();
         }
     }
 }

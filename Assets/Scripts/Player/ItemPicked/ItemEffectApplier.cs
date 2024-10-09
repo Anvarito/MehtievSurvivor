@@ -21,10 +21,10 @@ namespace Player.ItemPicked
             _weaponUpgrader = weaponUpgrader;
         }
 
-        public void ApplyWeapon(WeaponConfig weaponConfig)
+        public void ApplyWeapon(WeaponItemConfig weaponItem)
         {
-            Debug.Log($"Picked up {weaponConfig.Name}.");
-            _weaponUpgrader.UpdateWeapon(weaponConfig);
+            Debug.Log($"Picked up {weaponItem.Name}.");
+            _weaponUpgrader.UpdateWeapon(weaponItem);
         }
 
         public void ApplyStatsUp(StatItemConfig statItemConfig)

@@ -16,3 +16,5 @@ MonoBehaviour:
   Description: 
   Image: {fileID: 21300000, guid: f0898f61392279c40a4d4af0dd0e7ba6, type: 3}
   WeaponConfig: {fileID: 11400000, guid: 3400f54647bad0144a6f3e63884236b1, type: 2}
+  WeaponPrefab: {fileID: 8887052066562557950, guid: 92728bf06ef75b44a93cab29c584e6d9,
+    type: 3}

@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class StraightProjectileWeapon : ProjectileWeapon<StraightProjectile>
+    public class StraightProjectileWeapon : ProjectileWeapon<StraightShell>
     {
         
-        protected override void InitProjectile(StraightProjectile straightProjectile)
+        protected override void InitProjectile(StraightShell straightShell)
         {
-            straightProjectile.Init(transform.position + Vector3.up, _weaponParams.DamageAmount, _weaponParams.KnockAmount,_weaponParams.LifeTime, _weaponParams.Speed);
+            straightShell.Init(transform.position + Vector3.up, _weaponParams.DamageAmount, _weaponParams.KnockAmount,_weaponParams.LifeTime, _weaponParams.Speed);
         }
     }
 }

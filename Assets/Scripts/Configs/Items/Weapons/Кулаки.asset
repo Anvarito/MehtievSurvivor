@@ -15,4 +15,6 @@ MonoBehaviour:
   Name: "\u041A\u0443\u043B\u0430\u043A\u0438"
   Description: 
   Image: {fileID: 21300000, guid: 4d630f3fa35b7b74588b39512169c288, type: 3}
-  meleeWeaponConfig: {fileID: 11400000, guid: c7d88960a03cc8d418d68d56f69c9f4e, type: 2}
+  WeaponConfig: {fileID: 11400000, guid: c7d88960a03cc8d418d68d56f69c9f4e, type: 2}
+  WeaponPrefab: {fileID: 7047670441373888788, guid: b5801d12b19257c45ad56e9c9e1ef092,
+    type: 3}

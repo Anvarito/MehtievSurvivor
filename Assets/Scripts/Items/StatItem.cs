@@ -15,7 +15,7 @@ public class StatItem : PickableItem
             gameObject.name = _statItem.Name;
     }
 
-    protected override void ApplyEffectInternal()
+    protected override void ApplyEffect()
     {
         _itemEffectApplier.ApplyStatsUp(_statItem);
     }

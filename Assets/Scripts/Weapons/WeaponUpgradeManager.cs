@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Items;
 using UnityEngine;
 using Weapons.Configs;
 using Zenject;
@@ -9,27 +10,23 @@ namespace Weapons
     public class WeaponUpgradeManager : IInitializable, IWeaponUpgrader
     {
         private readonly WeaponRootTransform _weaponRootTransform;
-        private readonly WeaponPrefabHolder _prefabHolder;
         private readonly PlayerStatsHolder _playerStatsHolder;
+        private readonly WeaponItemConfig _defaultWeaponItem;
         private List<WeaponParamsHandler> _weaponsContainers = new();
-        public WeaponUpgradeManager(WeaponRootTransform weaponRootTransform, WeaponPrefabHolder prefabHolder,
-            PlayerStatsHolder playerStatsHolder)
+        public WeaponUpgradeManager(WeaponRootTransform weaponRootTransform,
+            PlayerStatsHolder playerStatsHolder, WeaponItemConfig defaultWeaponItem)
         {
             _weaponRootTransform = weaponRootTransform;
-            _prefabHolder = prefabHolder;
             _playerStatsHolder = playerStatsHolder;
+            _defaultWeaponItem = defaultWeaponItem;
         }
         public void Initialize()
         {
-            var weapons = _weaponRootTransform.GetComponentsInChildren<BaseWeapon>();
-            foreach (var weapon in weapons)
-            {
-                CreateNewContainer(_prefabHolder.GetConfigByWeapon(weapon), weapon);
-            }
+            CreateNewWeapon(_defaultWeaponItem);
         }
-        public void UpdateWeapon(WeaponConfig config)
+        public void UpdateWeapon(WeaponItemConfig itemConfig)
         {
-            WeaponParamsHandler paramsHandler = _weaponsContainers.FirstOrDefault(l => l.Config == config);
+            WeaponParamsHandler paramsHandler = _weaponsContainers.FirstOrDefault(l => l.Config == itemConfig.WeaponConfig);
         
             if (paramsHandler != null)
             {
@@ -37,14 +34,13 @@ namespace Weapons
             }
             else
             {
-                CreateNewWeapon(config);
+                CreateNewWeapon(itemConfig);
             }
         }
-        private void CreateNewWeapon(WeaponConfig config)
+        private void CreateNewWeapon(WeaponItemConfig itemConfig)
         {
-            BaseWeapon prefab = _prefabHolder.GetWeaponByConfig(config);
-            BaseWeapon weapon = Object.Instantiate(prefab, _weaponRootTransform.transform);
-            CreateNewContainer(config, weapon);
+            BaseWeapon weapon = Object.Instantiate(itemConfig.WeaponPrefab, _weaponRootTransform.transform);
+            CreateNewContainer(itemConfig.WeaponConfig, weapon);
         }
 
         private void CreateNewContainer(WeaponConfig config, BaseWeapon weapon)

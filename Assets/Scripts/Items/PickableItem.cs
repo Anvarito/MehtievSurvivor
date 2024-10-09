@@ -18,10 +18,10 @@ namespace Items
         public void ApplyEffect(ItemEffectApplier itemEffectApplier)
         {
             _itemEffectApplier = itemEffectApplier;
-            ApplyEffectInternal();
+            ApplyEffect();
             OnPick?.Invoke(this);
         }
 
-        protected abstract void ApplyEffectInternal();
+        protected abstract void ApplyEffect();
     }
 }

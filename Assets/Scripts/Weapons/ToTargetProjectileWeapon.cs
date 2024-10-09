@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class ToTargetProjectileWeapon : ProjectileWeapon<StraightProjectile>
+    public class ToTargetProjectileWeapon : ProjectileWeapon<StraightShell>
     {
         private Transform _target;
 
@@ -27,9 +27,9 @@ namespace Weapons
             }
         }
 
-        protected override void InitProjectile(StraightProjectile straightProjectile)
+        protected override void InitProjectile(StraightShell straightShell)
         {
-            straightProjectile.Init(_target.position, _weaponParams.DamageAmount, _weaponParams.KnockAmount,_weaponParams.LifeTime, _weaponParams.Speed);
+            straightShell.Init(_target.position, _weaponParams.DamageAmount, _weaponParams.KnockAmount,_weaponParams.LifeTime, _weaponParams.Speed);
         }
     }
 }

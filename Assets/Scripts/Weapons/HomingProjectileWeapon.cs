@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class HomingProjectileWeapon : ProjectileWeapon<HomingProjectile>
+    public class HomingProjectileWeapon : ProjectileWeapon<HomingShell>
     {
         private Transform _target;
 
@@ -27,9 +27,9 @@ namespace Weapons
             }
         }
 
-        protected override void InitProjectile(HomingProjectile homingProjectile)
+        protected override void InitProjectile(HomingShell homingShell)
         {
-            homingProjectile.Init(_target, _weaponParams.DamageAmount, _weaponParams.KnockAmount, _weaponParams.LifeTime, _weaponParams.Speed);
+            homingShell.Init(_target, _weaponParams.DamageAmount, _weaponParams.KnockAmount, _weaponParams.LifeTime, _weaponParams.Speed);
         }
     }
 }

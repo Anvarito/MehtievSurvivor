@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -58,7 +59,7 @@ namespace Player
 
         private void FixedUpdate()
         {
-            _rigidbody.MovePosition(_rigidbody.position + _movementDirection * _speed * Time.deltaTime);
+            _rigidbody.MovePosition(_rigidbody.position + _movementDirection * _speed * Time.fixedDeltaTime);
         }
     }
 }

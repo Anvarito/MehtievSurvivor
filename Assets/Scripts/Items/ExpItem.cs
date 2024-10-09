@@ -16,10 +16,10 @@ namespace Items
             _renderer.sprite = sprite;
             Points = points;
         }
-        protected override void ApplyEffectInternal()
+        protected override void ApplyEffect()
         {
             _swingTween.Kill();
-            base.ApplyEffectInternal();
+            base.ApplyEffect();
             _itemEffectApplier.ApplyExp(this);
         }
 

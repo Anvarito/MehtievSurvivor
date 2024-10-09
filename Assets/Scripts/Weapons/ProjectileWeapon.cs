@@ -3,18 +3,18 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public abstract class ProjectileWeapon<T> : BaseWeapon where T : BaseProjectile
+    public abstract class ProjectileWeapon<T> : BaseWeapon where T : BaseShell
     {
-        [SerializeField] private BaseProjectile _prefab;
+        [SerializeField] private BaseShell _shellPrefab;
         
-        protected ObjectPool<BaseProjectile> _pool;
+        protected ObjectPool<BaseShell> _pool;
         protected Camera _camera;
 
         private void Awake()
         {
            
             _camera = Camera.main;
-            _pool = new ObjectPool<BaseProjectile>(_prefab, 0);
+            _pool = new ObjectPool<BaseShell>(_shellPrefab, 0);
         }
 
         protected override void Launch()
@@ -25,16 +25,16 @@ namespace Weapons
             projectile.gameObject.SetActive(true);
             if (isNew)
             {
-                projectile.OnDestroy += () => { ReleaseProjectile(projectile); };
+                projectile.OnShellDestroy += () => { ReleaseProjectile(projectile); };
             }
 
             InitProjectile(projectile);
         }
 
-        private void ReleaseProjectile(BaseProjectile projectile)
+        private void ReleaseProjectile(BaseShell shell)
         {
-            projectile.Dispose();
-            _pool.Release(projectile);
+            shell.Dispose();
+            _pool.Release(shell);
         }
         protected abstract void InitProjectile(T projectile);
     }

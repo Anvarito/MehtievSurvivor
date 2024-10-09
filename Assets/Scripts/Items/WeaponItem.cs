@@ -17,8 +17,8 @@ public class WeaponItem : PickableItem
             gameObject.name = _weaponItem.Name;
     }
     
-    protected override void ApplyEffectInternal()
+    protected override void ApplyEffect()
     {
-        _itemEffectApplier.ApplyWeapon(_weaponItem.WeaponConfig);
+        _itemEffectApplier.ApplyWeapon(_weaponItem);
     }
 }

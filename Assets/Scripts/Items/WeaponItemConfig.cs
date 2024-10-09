@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Serialization;
+using Weapons;
 using Weapons.Configs;
 
 namespace Items
@@ -7,6 +7,7 @@ namespace Items
     [CreateAssetMenu(fileName = "WeaponItemConfig", menuName = "Weapons/WeaponItemData")]
     public class WeaponItemConfig : ItemConfig
     {
-        [FormerlySerializedAs("meleeWeaponConfig")] public WeaponConfig WeaponConfig;
+        public WeaponConfig WeaponConfig;
+        public BaseWeapon WeaponPrefab;
     }
 }

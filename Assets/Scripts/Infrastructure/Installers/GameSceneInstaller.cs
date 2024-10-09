@@ -8,7 +8,6 @@ using Player.ItemPicked;
 using Plugins.Joystick.Scripts;
 using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Weapons;
 using Zenject;
 
@@ -17,6 +16,7 @@ namespace Infrastructure.Installers
     public class GameSceneInstaller : MonoInstaller
     {
         [SerializeField] private PlayerMovement _player;
+        [SerializeField] private WeaponItemConfig _defaultWeaponItem;
         [SerializeField] private WeaponRootTransform weaponRootTransform;
         [SerializeField] private WeaponPrefabHolder _weaponPrefabHolder;
         [SerializeField] private PlayerConfig _playerConfig;
@@ -45,7 +45,7 @@ namespace Infrastructure.Installers
             BindEffectReceiver();
             BindEnemyFactory();
             LevelUpBinding();
-            Container.BindInterfacesTo<WeaponUpgradeManager>().AsSingle().WithArguments(weaponRootTransform, _weaponPrefabHolder, _playerStatsHolder).NonLazy();
+            Container.BindInterfacesTo<WeaponUpgradeManager>().AsSingle().WithArguments(weaponRootTransform, _weaponPrefabHolder, _playerStatsHolder, _defaultWeaponItem).NonLazy();
         }
 
         private void LevelUpBinding()

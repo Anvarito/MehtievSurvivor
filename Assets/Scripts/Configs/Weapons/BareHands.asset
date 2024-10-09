@@ -13,19 +13,20 @@ MonoBehaviour:
   m_Name: BareHands
   m_EditorClassIdentifier: 
   Name: "\u0413\u043E\u043B\u044B\u0435 \u043A\u0443\u043B\u0430\u043A\u0438 "
+  MenuIcon: {fileID: 21300000, guid: ee99ec102a9426a4aa21f02573c6e235, type: 3}
   weaponUpgradeDatas:
   - DamageAmount: 5
     KnockAmount: 30
-    Cooldown: 2
+    Cooldown: 1.2
     LifeTime: 0.2
     Speed: 0
   - DamageAmount: 7
     KnockAmount: 40
-    Cooldown: 2
+    Cooldown: 1.2
     LifeTime: 0.2
     Speed: 0
   - DamageAmount: 10
     KnockAmount: 40
-    Cooldown: 1.7
+    Cooldown: 1
     LifeTime: 0.2
     Speed: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class HomingProjectile : BaseProjectile
+    public class HomingShell : BaseShell
     {
         private Transform _target;
 
@@ -25,7 +25,7 @@ namespace Weapons
         protected override void HitToEnemy(EnemyDamageRecivier enemyDamage)
         {
             base.HitToEnemy(enemyDamage);
-            OnDestroy?.Invoke();
+            OnShellDestroy?.Invoke();
         }
     }
 }
