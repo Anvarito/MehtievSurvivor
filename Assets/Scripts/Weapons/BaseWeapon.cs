@@ -5,37 +5,24 @@ namespace Weapons
 {
     public abstract class BaseWeapon : MonoBehaviour
     {
-        [SerializeField] protected WeaponConfig _config;
-        protected WeaponUpgradeData weaponUpgradeData;
-        protected int _weaponLevel = -1;
+        protected WeaponParams _weaponParams;
+        
         protected float _cooldown;
-        
-        public WeaponConfig Config => _config;
-
-        protected virtual void Awake()
+        public void SetParams(WeaponParams weaponParams)
         {
-            EncreaseLevelWeapon();
+            _weaponParams = weaponParams;
         }
-
-        public void EncreaseLevelWeapon()
-        {
-            if (_weaponLevel + 1 < _config.weaponUpgradeDatas.Count)
-            {
-                _weaponLevel++;
-                weaponUpgradeData = _config.weaponUpgradeDatas[_weaponLevel];
-                print($"{_config.Name} is {weaponUpgradeData.DamageAmount} damage now");
-            }
-        }
-        
         protected virtual void Update()
         {
             if (Time.time > _cooldown)
             {
                 Launch();
-                _cooldown = Time.time + weaponUpgradeData.Cooldown;
+                _cooldown = Time.time + _weaponParams.Cooldown;
             }
         }
 
         protected abstract void Launch();
+
+        
     }
 }

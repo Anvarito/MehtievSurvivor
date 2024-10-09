@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Lemonchello
   m_EditorClassIdentifier: 
   Name: "\u0411\u0443\u0442\u044B\u043B\u044C \u043B\u0435\u043C\u043E\u043D\u0447\u0435\u043B\u043B\u043E"
+  MenuIcon: {fileID: 21300000, guid: 94501c4ccf5481c4887ec6fee647818b, type: 3}
   weaponUpgradeDatas:
   - DamageAmount: 5
     KnockAmount: 40

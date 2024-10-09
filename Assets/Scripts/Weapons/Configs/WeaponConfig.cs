@@ -8,11 +8,12 @@ namespace Weapons.Configs
     public class WeaponConfig : ScriptableObject
     {
         public string Name;
-        public List<WeaponUpgradeData> weaponUpgradeDatas;
+        public Sprite MenuIcon;
+        public List<WeaponParams> weaponUpgradeDatas;
     }
 
     [Serializable]
-    public class WeaponUpgradeData
+    public class WeaponParams
     {
         public float DamageAmount;
         public float KnockAmount;

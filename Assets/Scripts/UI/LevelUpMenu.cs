@@ -1,36 +1,38 @@
-using Cysharp.Threading.Tasks;
+using Items;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace UI
 {
     public class LevelUpMenu : MonoBehaviour
     {
-        [SerializeField] private Button _button;
-        public UnityAction OnPress;
+        [SerializeField] private GameObject _panel;
+        [SerializeField] private LevelUpRewardClaimButton _button1;
+        [SerializeField] private LevelUpRewardClaimButton _button2;
+        [SerializeField] private LevelUpRewardClaimButton _button3;
+        public UnityAction<ItemConfig> OnPress;
 
         private void Awake()
         {
-            _button.onClick.AddListener(Press);
+            _button1.OnClick += Press;
+            _button2.OnClick += Press;
+            _button3.OnClick += Press;
             Close();
         }
 
-        private void Press()
+        private void Press(ItemConfig item)
         {
-            OnPress?.Invoke();
+            OnPress?.Invoke(item);
         }
 
-        public async UniTask Open()
+        public void  Open()
         {
-            await UniTask.Delay(1000);
-            _button.gameObject.SetActive(true);
-            print(1111);
+            _panel.SetActive(true);
         }
 
         public void Close()
         {
-            _button.gameObject.SetActive(false);
+            _panel.SetActive(false);
         }
     }
 }

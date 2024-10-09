@@ -4,7 +4,7 @@ namespace Infrastructure.Extras
     {
         public int Calculate(int value)
         {
-            return 5;
+            return 2;
         }
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Weapons;
 using Weapons.Configs;
 using Zenject;
 
@@ -10,21 +11,21 @@ namespace Player.ItemPicked
         public WeaponConfig _direction;
         public WeaponConfig _striaght;
 
-        [Inject] public ItemEffectApplier itemEffectApplier;
+        [Inject] public IWeaponUpgrader upgradeController;
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                itemEffectApplier.ApplyWeapon(_homing);
+                upgradeController.UpdateWeapon(_homing);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                itemEffectApplier.ApplyWeapon(_direction);
+                upgradeController.UpdateWeapon(_direction);
                 
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                itemEffectApplier.ApplyWeapon(_striaght);
+                upgradeController.UpdateWeapon(_striaght);
                 
             }
         }

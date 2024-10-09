@@ -19,9 +19,6 @@ namespace Weapons
             damageDealer.OnDamage -= HitToEnemy;
         }
 
-        protected virtual void HitToEnemy(EnemyDamageRecivier enemyDamage)
-        {
-            
-        }
+        protected abstract void HitToEnemy(EnemyDamageRecivier enemyDamage);
     }
 }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73f05f755bc54e388b64371db0fbceef, type: 3}
-  m_Name: "\u041A\u0443\u043B\u0430\u043A\u0438"
+  m_Name: "\u043F\u0440\u0435\u0441\u043B\u0435\u0434\u0443\u0435\u0442"
   m_EditorClassIdentifier: 
-  Name: "\u041A\u0443\u043B\u0430\u043A\u0438"
+  Name: "\u041F\u0440\u0435\u0441\u043B\u0435\u0434\u0443\u0435\u0442"
   Description: 
-  Image: {fileID: 21300000, guid: 4d630f3fa35b7b74588b39512169c288, type: 3}
-  meleeWeaponConfig: {fileID: 11400000, guid: c7d88960a03cc8d418d68d56f69c9f4e, type: 2}
+  Image: {fileID: 21300000, guid: f0898f61392279c40a4d4af0dd0e7ba6, type: 3}
+  WeaponConfig: {fileID: 11400000, guid: 3400f54647bad0144a6f3e63884236b1, type: 2}

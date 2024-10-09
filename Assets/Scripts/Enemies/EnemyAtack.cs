@@ -44,7 +44,7 @@ namespace Enemies
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (other.gameObject == _playerDamageRecivier.gameObject)
+            if (_playerDamageRecivier != null && other.gameObject == _playerDamageRecivier.gameObject)
             {
                 _timeSinceLastAttack = 0f;
             }

@@ -7,7 +7,7 @@ namespace Weapons
         
         protected override void InitProjectile(StraightProjectile straightProjectile)
         {
-            straightProjectile.Init(transform.position + Vector3.up, weaponUpgradeData.DamageAmount, weaponUpgradeData.KnockAmount,weaponUpgradeData.LifeTime, weaponUpgradeData.Speed);
+            straightProjectile.Init(transform.position + Vector3.up, _weaponParams.DamageAmount, _weaponParams.KnockAmount,_weaponParams.LifeTime, _weaponParams.Speed);
         }
     }
 }

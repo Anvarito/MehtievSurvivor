@@ -10,9 +10,9 @@ namespace Weapons
         protected ObjectPool<BaseProjectile> _pool;
         protected Camera _camera;
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
+           
             _camera = Camera.main;
             _pool = new ObjectPool<BaseProjectile>(_prefab, 0);
         }

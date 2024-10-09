@@ -2,6 +2,7 @@ using System;
 using Items;
 using UI;
 using UnityEngine;
+using Weapons;
 using Weapons.Configs;
 
 namespace Player.ItemPicked
@@ -10,25 +11,26 @@ namespace Player.ItemPicked
     {
         private readonly PlayerStatsHolder _playerStatsHolder;
         private readonly ExpAccumulator _expAccumulator;
-        private readonly WeaponUpgradeController _weaponUpgradeController;
+        private readonly IWeaponUpgrader _weaponUpgrader;
 
-        public ItemEffectApplier(PlayerStatsHolder playerStatsHolder, ExpAccumulator expAccumulator, WeaponUpgradeController weaponUpgradeController)
+        public ItemEffectApplier(PlayerStatsHolder playerStatsHolder, ExpAccumulator expAccumulator,
+            IWeaponUpgrader weaponUpgrader)
         {
             _playerStatsHolder = playerStatsHolder;
             _expAccumulator = expAccumulator;
-            _weaponUpgradeController = weaponUpgradeController;
+            _weaponUpgrader = weaponUpgrader;
         }
-        
+
         public void ApplyWeapon(WeaponConfig weaponConfig)
         {
             Debug.Log($"Picked up {weaponConfig.Name}.");
-            _weaponUpgradeController.ApplyWeapon(weaponConfig);
+            _weaponUpgrader.UpdateWeapon(weaponConfig);
         }
 
         public void ApplyStatsUp(StatItemConfig statItemConfig)
         {
             Debug.Log($"Picked up {statItemConfig.Name}, {statItemConfig.Description}");
-            
+
             if (statItemConfig.StatType == EStatType.HP)
             {
                 _playerStatsHolder.CurrentHP.value += statItemConfig.EffectAmount;

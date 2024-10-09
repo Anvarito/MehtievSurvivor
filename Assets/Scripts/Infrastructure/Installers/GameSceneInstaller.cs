@@ -17,7 +17,7 @@ namespace Infrastructure.Installers
     public class GameSceneInstaller : MonoInstaller
     {
         [SerializeField] private PlayerMovement _player;
-        [FormerlySerializedAs("weaponHolder")] [SerializeField] private WeaponRootTransform weaponRootTransform;
+        [SerializeField] private WeaponRootTransform weaponRootTransform;
         [SerializeField] private WeaponPrefabHolder _weaponPrefabHolder;
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private LifeBar _lifeBar;
@@ -45,13 +45,13 @@ namespace Infrastructure.Installers
             BindEffectReceiver();
             BindEnemyFactory();
             LevelUpBinding();
-            Container.BindInterfacesAndSelfTo<WeaponUpgradeController>().AsSingle().WithArguments(weaponRootTransform, _weaponPrefabHolder).NonLazy();
+            Container.BindInterfacesTo<WeaponUpgradeManager>().AsSingle().WithArguments(weaponRootTransform, _weaponPrefabHolder, _playerStatsHolder).NonLazy();
         }
 
         private void LevelUpBinding()
         {
             Container.BindInterfacesAndSelfTo<ExpAccumulator>().AsSingle().WithArguments(_playerStatsHolder).NonLazy();
-            Container.Bind<LevelUpProcess>().AsSingle().WithArguments(_levelUpMenu).NonLazy();
+            Container.BindInterfacesAndSelfTo<LevelUpProcess>().AsSingle().WithArguments(_levelUpMenu, _playerStatsHolder).NonLazy();
             _expPanel.Set(_playerStatsHolder);
         }
 

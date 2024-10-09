@@ -29,7 +29,7 @@ namespace Weapons
 
         protected override void InitProjectile(StraightProjectile straightProjectile)
         {
-            straightProjectile.Init(_target.position, weaponUpgradeData.DamageAmount, weaponUpgradeData.KnockAmount,weaponUpgradeData.LifeTime, weaponUpgradeData.Speed);
+            straightProjectile.Init(_target.position, _weaponParams.DamageAmount, _weaponParams.KnockAmount,_weaponParams.LifeTime, _weaponParams.Speed);
         }
     }
 }

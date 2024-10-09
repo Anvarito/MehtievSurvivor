@@ -29,7 +29,7 @@ namespace Weapons
 
         protected override void InitProjectile(HomingProjectile homingProjectile)
         {
-            homingProjectile.Init(_target, weaponUpgradeData.DamageAmount, weaponUpgradeData.KnockAmount, weaponUpgradeData.LifeTime, weaponUpgradeData.Speed);
+            homingProjectile.Init(_target, _weaponParams.DamageAmount, _weaponParams.KnockAmount, _weaponParams.LifeTime, _weaponParams.Speed);
         }
     }
 }

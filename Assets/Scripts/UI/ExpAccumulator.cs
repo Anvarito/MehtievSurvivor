@@ -8,27 +8,22 @@ namespace UI
     {
         private readonly PlayerStatsHolder _playerStatsHolder;
 
-        private readonly LevelUpProcess _levelUp;
         private ICurveCalculation _difficultEncreaser;
 
         private int _reachBorder = 3;
         private int _currentPoints = 0;
-        
-        public ExpAccumulator(PlayerStatsHolder playerStatsHolder, LevelUpProcess levelUp)
+        public ExpAccumulator(PlayerStatsHolder playerStatsHolder)
         {
             _playerStatsHolder = playerStatsHolder;
-            _levelUp = levelUp;
 
             //Todo get game config for start reach border and level
         }
 
         public void Initialize()
         {
-            _difficultEncreaser = new CubicCalculation(3,2,_reachBorder);
-            //_difficultEncreaser = new TestCalculation();
+            //_difficultEncreaser = new CubicCalculation(3,2,_reachBorder);
+            _difficultEncreaser = new TestCalculation();
             _reachBorder = _difficultEncreaser.Calculate(_playerStatsHolder.Level.value);
-
-            _levelUp.OnComplete += CompleteLevelUpAction;
         }
 
         public void EncreaseExp(int amount)
@@ -36,7 +31,7 @@ namespace UI
             _currentPoints += amount;
             TryEncreaseLevel();
         }
-        private void CompleteLevelUpAction()
+        public void CompleteLevelUpAction()
         {
             TryEncreaseLevel();
         }
@@ -49,7 +44,6 @@ namespace UI
                 _playerStatsHolder.Level.value++;
                 _reachBorder = _difficultEncreaser.Calculate(_playerStatsHolder.Level.value);
                 ChangeProgressData();
-                _levelUp.LaunchLevelUp();
             }
             else
             {
@@ -64,20 +58,20 @@ namespace UI
 
         public void Tick()
         {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                for (int i = 0; i < 100; i++)
-                    Debug.Log(_difficultEncreaser.Calculate(i));
-            }
-
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                EncreaseExp(2);
-            }
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                EncreaseExp(10);
-            }
+            // if (Input.GetKeyDown(KeyCode.K))
+            // {
+            //     for (int i = 0; i < 100; i++)
+            //         Debug.Log(_difficultEncreaser.Calculate(i));
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.B))
+            // {
+            //     EncreaseExp(2);
+            // }
+            // if (Input.GetKeyDown(KeyCode.V))
+            // {
+            //     EncreaseExp(10);
+            // }
         }
 
         

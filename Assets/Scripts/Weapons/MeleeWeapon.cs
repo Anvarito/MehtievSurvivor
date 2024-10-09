@@ -8,9 +8,9 @@ namespace Weapons
     {
         [SerializeField] protected DamageDealer _damageDealer;
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
+            
             _damageDealer.OnDamage += HitToEnemy;
         }
 
@@ -27,13 +27,13 @@ namespace Weapons
         private IEnumerator Attack()
         {
             _damageDealer.gameObject.SetActive(true);
-            yield return new WaitForSeconds(weaponUpgradeData.LifeTime);
+            yield return new WaitForSeconds(_weaponParams.LifeTime);
             _damageDealer.gameObject.SetActive(false);
         }
 
         private void HitToEnemy(EnemyDamageRecivier enemyDamage)
         {
-            enemyDamage.ApplyDamage(weaponUpgradeData.DamageAmount, weaponUpgradeData.KnockAmount);
+            enemyDamage.ApplyDamage(_weaponParams.DamageAmount, _weaponParams.KnockAmount);
         }
     }
 }
