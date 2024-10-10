@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace Player
 {
@@ -8,7 +9,8 @@ namespace Player
         private Material _material;
         private PlayerStatsHolder _statsHolder;
 
-        public void SetDataHolder(PlayerStatsHolder statsHolder)
+        [Inject]
+        private void Construct(PlayerStatsHolder statsHolder)
         {
             _statsHolder = statsHolder;
         }

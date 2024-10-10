@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class StatsBar : MonoBehaviour
 {
@@ -8,16 +9,17 @@ public class StatsBar : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _speedText;
 
     private PlayerStatsHolder _playerStatsHolder;
-    public void SetDataHolder(PlayerStatsHolder playerStatsHolder)
+    
+    [Inject]
+    private void Construct(PlayerStatsHolder playerStatsHolder)
     {
         _playerStatsHolder = playerStatsHolder;
-        
-        _playerStatsHolder.CurrentHP.Changed += HealChange;
-        _playerStatsHolder.Speed.Changed += SpeedChange;
     }
 
     private void Awake()
     {
+        _playerStatsHolder.CurrentHP.Changed += HealChange;
+        _playerStatsHolder.Speed.Changed += SpeedChange;
         HealChange(_playerStatsHolder.CurrentHP.value);
         SpeedChange(_playerStatsHolder.Speed.value);
     }

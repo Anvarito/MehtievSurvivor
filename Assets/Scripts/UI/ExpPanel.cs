@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace UI
 {
@@ -11,16 +12,12 @@ namespace UI
         private readonly int _slide = Shader.PropertyToID("_Slide");
         private PlayerStatsHolder _playerStatsHolder;
 
-       // [Inject]
+       [Inject]
         public void Construct(PlayerStatsHolder playerStatsHolder)
         {
             _playerStatsHolder = playerStatsHolder;
         }
 
-        public void Set(PlayerStatsHolder playerStatsHolder)
-        {
-            _playerStatsHolder = playerStatsHolder;
-        }
 
         private void Awake()
         {

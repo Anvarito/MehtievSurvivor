@@ -16,14 +16,10 @@ namespace Player
         private PlayerStatsHolder _playerStatsHolder;
 
         [Inject]
-        private void Construct(IInputProvider inputProvider)
-        {
-            _inputProvider = inputProvider;
-        }
-
-        public void SetDataHolder(PlayerStatsHolder playerStatsHolder)
+        private void Construct(IInputProvider inputProvider, PlayerStatsHolder playerStatsHolder)
         {
             _playerStatsHolder = playerStatsHolder;
+            _inputProvider = inputProvider;
             _playerStatsHolder.Speed.Changed += ChangeSpeed;
         }
 
