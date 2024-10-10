@@ -6,7 +6,7 @@ public class WeaponParamsHandler
     public WeaponConfig Config { get; }
     private readonly BaseWeapon _baseWeapon;
     private readonly PlayerStatsHolder _playerStatsHolder;
-    private readonly WeaponParams _weaponParams;
+    private WeaponParams _weaponParams;
 
     private int _level = -1;
 
@@ -16,6 +16,12 @@ public class WeaponParamsHandler
         _baseWeapon = baseWeapon;
         Config = config;
         _playerStatsHolder = playerStatsHolder;
+        
+        Initialize();
+    }
+
+    private void Initialize()
+    {
         _weaponParams = new WeaponParams();
         ChangeTier();
         _baseWeapon.SetParams(_weaponParams);

@@ -45,7 +45,14 @@ namespace Infrastructure.Installers
             BindEffectReceiver();
             BindEnemyFactory();
             LevelUpBinding();
-            Container.BindInterfacesTo<WeaponUpgradeManager>().AsSingle().WithArguments(weaponRootTransform, _weaponPrefabHolder, _playerStatsHolder, _defaultWeaponItem).NonLazy();
+            BindWeaponManagment();
+        }
+
+        private void BindWeaponManagment()
+        {
+            Container.BindInterfacesTo<WeaponUpgrader>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<WeaponFactory>().AsSingle()
+                .WithArguments(weaponRootTransform, _playerStatsHolder, _defaultWeaponItem).NonLazy();
         }
 
         private void LevelUpBinding()

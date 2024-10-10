@@ -4796,9 +4796,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e2ed7cd5e24111a810db48504ede15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _homing: {fileID: 0}
-  _direction: {fileID: 0}
-  _striaght: {fileID: 0}
+  _homing: {fileID: 11400000, guid: ddf425769edeb0b4c90123111b576b9c, type: 2}
+  _direction: {fileID: 11400000, guid: 1b63f358cb1db38449b5bfe49db02fb1, type: 2}
+  _striaght: {fileID: 11400000, guid: f7d8d2393c47d134cb9de25eeaf10aef, type: 2}
 --- !u!1 &1762146511
 GameObject:
   m_ObjectHideFlags: 0
