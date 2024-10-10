@@ -6,6 +6,6 @@ namespace Items
     public interface IPickable
     {
         public UnityAction<IPickable> OnPick { get; set; }
-        public void ApplyEffect(ItemEffectApplier itemEffectApplier);
+        public void ApplyEffect(ItemApplier itemApplier);
     }
 }

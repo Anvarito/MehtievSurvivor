@@ -10,23 +10,27 @@ namespace Player.ItemPicked
         public WeaponItemConfig _homing;
         public WeaponItemConfig _direction;
         public WeaponItemConfig _striaght;
+        public WeaponItemConfig _fist;
 
         [Inject] public IWeaponUpgrader upgradeController;
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                upgradeController.UpdateWeapon(_homing);
+                upgradeController.UpdateOrAdd(_fist);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                upgradeController.UpdateWeapon(_direction);
+                upgradeController.UpdateOrAdd(_direction);
                 
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                upgradeController.UpdateWeapon(_striaght);
-                
+                upgradeController.UpdateOrAdd(_striaght);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                upgradeController.UpdateOrAdd(_homing);
             }
         }
     }

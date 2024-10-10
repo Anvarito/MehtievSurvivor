@@ -11,14 +11,14 @@ namespace UI
         private LevelUpMenu _levelUpMenu;
         private readonly ExpAccumulator _expAccumulator;
         private readonly PlayerStatsHolder _playerStatsHolder;
-        private readonly ItemEffectApplier _itemEffectApplier;
+        private readonly ItemApplier _itemApplier;
 
-        public LevelUpProcess(LevelUpMenu levelUpMenu, ExpAccumulator expAccumulator, PlayerStatsHolder playerStatsHolder, ItemEffectApplier itemEffectApplier)
+        public LevelUpProcess(LevelUpMenu levelUpMenu, ExpAccumulator expAccumulator, PlayerStatsHolder playerStatsHolder, ItemApplier itemApplier)
         {
             _levelUpMenu = levelUpMenu;
             _expAccumulator = expAccumulator;
             _playerStatsHolder = playerStatsHolder;
-            _itemEffectApplier = itemEffectApplier;
+            _itemApplier = itemApplier;
         }
         public void Initialize()
         {
@@ -39,9 +39,9 @@ namespace UI
         private void Complete(ItemConfig itemConfig)
         {
             if (itemConfig is WeaponItemConfig weaponItemConfig)
-                _itemEffectApplier.ApplyWeapon(weaponItemConfig);
+                _itemApplier.ApplyWeapon(weaponItemConfig);
             if (itemConfig is StatItemConfig statItemConfig)
-                _itemEffectApplier.ApplyStatsUp(statItemConfig);
+                _itemApplier.ApplyStatsUp(statItemConfig);
 
             _levelUpMenu.Close();
             _expAccumulator.CompleteLevelUpAction();

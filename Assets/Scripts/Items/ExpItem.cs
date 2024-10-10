@@ -20,7 +20,7 @@ namespace Items
         {
             _swingTween.Kill();
             base.ApplyEffect();
-            _itemEffectApplier.ApplyExp(this);
+            itemApplier.ApplyExp(this);
         }
 
         private void OnEnable()

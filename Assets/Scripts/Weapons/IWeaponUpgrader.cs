@@ -5,6 +5,6 @@ namespace Weapons
 {
     public interface IWeaponUpgrader
     {
-        public void UpdateWeapon(WeaponItemConfig itemConfig);
+        public void UpdateOrAdd(WeaponItemConfig itemConfig);
     }
 }

@@ -1,26 +1,34 @@
 using Items;
+using Zenject;
 
 namespace Weapons
 {
-    public class WeaponUpgrader : IWeaponUpgrader
+    public class WeaponUpgrader : IWeaponUpgrader, IInitializable
     {
-        private readonly IWeaponFactory _weaponFactory;
+        private readonly IWeaponContainer _weaponContainer;
+        private readonly WeaponItemConfig _defaultWeapon;
 
-        public WeaponUpgrader(IWeaponFactory weaponFactory)
+        public WeaponUpgrader(IWeaponContainer weaponContainer, WeaponItemConfig defaultWeapon)
         {
-            _weaponFactory = weaponFactory;
+            _weaponContainer = weaponContainer;
+            _defaultWeapon = defaultWeapon;
         }
 
-        public void UpdateWeapon(WeaponItemConfig itemConfig)
+        public void UpdateOrAdd(WeaponItemConfig itemConfig)
         {
-            if (_weaponFactory.TryGetWeapon(itemConfig.WeaponConfig, out WeaponParamsHandler weaponParamsHandler))
+            if (_weaponContainer.TryGetWeapon(itemConfig.WeaponConfig, out WeaponParamsHandler weaponParamsHandler))
             {
                 weaponParamsHandler.ChangeTier();
             }
             else
             {
-                _weaponFactory.CreateNewWeapon(itemConfig);
+                _weaponContainer.AddWeapon(itemConfig);
             }
+        }
+
+        public void Initialize()
+        {
+            UpdateOrAdd(_defaultWeapon);
         }
     }
 }

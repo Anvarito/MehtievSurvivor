@@ -17,6 +17,6 @@ public class StatItem : PickableItem
 
     protected override void ApplyEffect()
     {
-        _itemEffectApplier.ApplyStatsUp(_statItem);
+        itemApplier.ApplyStatsUp(_statItem);
     }
 }

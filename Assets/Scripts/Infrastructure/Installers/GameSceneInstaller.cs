@@ -4,6 +4,7 @@ using Infrastructure.Services;
 using Items;
 using Player;
 using Player.ItemPicked;
+using Player.PlayerStats;
 using Plugins.Joystick.Scripts;
 using UI;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace Infrastructure.Installers
         [SerializeField] private WeaponRootTransform weaponRootTransform;
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private LevelUpMenu _levelUpMenu;
+        [SerializeField] private ItemPanel _itemPanel;
         [SerializeField] private PlayerDamageRecivier _playerDamageRecivier;
         [SerializeField] private ScreenInputHandler _screenInputHandler;
         [SerializeField] private Enemy _enemyPrefab;
@@ -33,14 +35,21 @@ namespace Infrastructure.Installers
             BindEffectReceiver();
             BindEnemyFactory();
             BindLevelUp();
-            BindWeaponManagment();
+            BindWeaponAppliers();
+            BindEffectAppliers();
         }
 
-        private void BindWeaponManagment()
+        private void BindEffectAppliers()
         {
-            Container.BindInterfacesTo<WeaponUpgrader>().AsSingle().NonLazy();
-            Container.BindInterfacesTo<WeaponFactory>().AsSingle()
-                .WithArguments(weaponRootTransform, _defaultWeaponItem).NonLazy();
+            Container.BindInterfacesTo<EffectUpgrader>().AsSingle();
+            Container.BindInterfacesTo<EffectContainer>().AsSingle().WithArguments(_itemPanel);
+        }
+
+        private void BindWeaponAppliers()
+        {
+            Container.BindInterfacesTo<WeaponUpgrader>().AsSingle().WithArguments(_defaultWeaponItem);
+            Container.BindInterfacesTo<WeaponContainer>().AsSingle().WithArguments(_itemPanel);
+            Container.BindInterfacesTo<WeaponFactory>().AsSingle().WithArguments(weaponRootTransform);
         }
 
         private void BindLevelUp()
@@ -79,7 +88,7 @@ namespace Infrastructure.Installers
 
         private void BindEffectReceiver()
         {
-            Container.Bind<ItemEffectApplier>().AsSingle().NonLazy();
+            Container.Bind<ItemApplier>().AsSingle().NonLazy();
         }
     }
 }

@@ -9,19 +9,19 @@ namespace Player
     [RequireComponent(typeof(CircleCollider2D))]
     public class ItemPicker : MonoBehaviour
     {
-        protected ItemEffectApplier _itemEffectApplier;
+        protected ItemApplier itemApplier;
 
         [Inject]
-        private void Construct(ItemEffectApplier itemEffectApplier)
+        private void Construct(ItemApplier itemApplier)
         {
-            _itemEffectApplier = itemEffectApplier;
+            this.itemApplier = itemApplier;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.TryGetComponent(out IPickable item))
             {
-                item.ApplyEffect(_itemEffectApplier);
+                item.ApplyEffect(itemApplier);
             }
         }
     }

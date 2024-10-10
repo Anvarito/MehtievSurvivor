@@ -1,45 +1,35 @@
-using System;
 using Items;
+using Player.PlayerStats;
 using UI;
 using UnityEngine;
 using Weapons;
-using Weapons.Configs;
 
 namespace Player.ItemPicked
 {
-    public class ItemEffectApplier
+    public class ItemApplier
     {
-        private readonly PlayerStatsHolder _playerStatsHolder;
         private readonly ExpAccumulator _expAccumulator;
+        private readonly IEffectUpgrader _effectUpgrader;
         private readonly IWeaponUpgrader _weaponUpgrader;
 
-        public ItemEffectApplier(PlayerStatsHolder playerStatsHolder, ExpAccumulator expAccumulator,
+        public ItemApplier(ExpAccumulator expAccumulator, IEffectUpgrader effectUpgrader,
             IWeaponUpgrader weaponUpgrader)
         {
-            _playerStatsHolder = playerStatsHolder;
             _expAccumulator = expAccumulator;
+            _effectUpgrader = effectUpgrader;
             _weaponUpgrader = weaponUpgrader;
         }
 
         public void ApplyWeapon(WeaponItemConfig weaponItem)
         {
             Debug.Log($"Picked up {weaponItem.Name}.");
-            _weaponUpgrader.UpdateWeapon(weaponItem);
+            _weaponUpgrader.UpdateOrAdd(weaponItem);
         }
 
         public void ApplyStatsUp(StatItemConfig statItemConfig)
         {
             Debug.Log($"Picked up {statItemConfig.Name}, {statItemConfig.Description}");
-
-            if (statItemConfig.StatType == EStatType.HP)
-            {
-                _playerStatsHolder.CurrentHP.value += statItemConfig.EffectAmount;
-            }
-
-            if (statItemConfig.StatType == EStatType.Speed)
-            {
-                _playerStatsHolder.Speed.value += statItemConfig.EffectAmount;
-            }
+            _effectUpgrader.ApplyEffect(statItemConfig);
         }
 
         public void ApplyExp(ExpItem expItem)

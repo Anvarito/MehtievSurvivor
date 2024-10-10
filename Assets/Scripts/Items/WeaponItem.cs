@@ -19,6 +19,6 @@ public class WeaponItem : PickableItem
     
     protected override void ApplyEffect()
     {
-        _itemEffectApplier.ApplyWeapon(_weaponItem);
+        itemApplier.ApplyWeapon(_weaponItem);
     }
 }
