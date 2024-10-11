@@ -4,6 +4,7 @@ namespace Player.PlayerStats
 {
     public interface IEffectUpgrader
     {
-        public void ApplyEffect(StatItemConfig statItemConfig);
+        public void ApplyEffectItem(StatItemConfig statItemConfig);
+        public void EncreaceStat(StatItemConfig statItemConfig);
     }
 }

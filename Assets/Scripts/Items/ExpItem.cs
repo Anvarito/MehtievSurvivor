@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class ExpItem : MagnetableItem
+    public class ExpItem : PickableItem
     {
         public int Points { get; private set; }
         
@@ -19,8 +19,7 @@ namespace Items
         protected override void ApplyEffect()
         {
             _swingTween.Kill();
-            base.ApplyEffect();
-            itemApplier.ApplyExp(this);
+            _itemApplier.ApplyExp(this);
         }
 
         private void OnEnable()

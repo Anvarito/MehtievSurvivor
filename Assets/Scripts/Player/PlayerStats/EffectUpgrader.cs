@@ -14,7 +14,7 @@ namespace Player.PlayerStats
             _effectContainer = effectContainer;
         }
 
-        public void ApplyEffect(StatItemConfig statItemConfig)
+        public void ApplyEffectItem(StatItemConfig statItemConfig)
         {
             Debug.Log($"Picked up {statItemConfig.Name}, {statItemConfig.Description}");
             
@@ -23,10 +23,10 @@ namespace Player.PlayerStats
                 _effectContainer.AddStatItem(statItemConfig);
             }
 
-            EncreaseStat(statItemConfig);
+            EncreaceStat(statItemConfig);
         }
 
-        private void EncreaseStat(StatItemConfig statItemConfig)
+        public void EncreaceStat(StatItemConfig statItemConfig)
         {
             if (statItemConfig.StatType == EStatType.HP)
             {

@@ -6,7 +6,7 @@ namespace Weapons
 {
     public interface IWeaponContainer
     {
-        public bool TryGetWeapon(WeaponConfig itemConfig, out WeaponParamsHandler weaponParamsHandler);
+        public bool TryGetWeapon(WeaponConfig weaponConfig, out WeaponParamsHandler weaponParamsHandler);
         public void AddWeapon(WeaponItemConfig weaponItemConfig);
     }
 }

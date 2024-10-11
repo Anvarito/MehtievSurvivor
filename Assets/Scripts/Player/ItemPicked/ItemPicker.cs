@@ -21,7 +21,7 @@ namespace Player
         {
             if (other.gameObject.TryGetComponent(out IPickable item))
             {
-                item.ApplyEffect(itemApplier);
+                item.PickItem(itemApplier);
             }
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public abstract class MagnetableItem : PickableItem
+    public class Magnetable : MonoBehaviour
     {
         public bool IsPicked { get; private set; }
         private bool _isFlyingToTarget;
@@ -15,11 +15,18 @@ namespace Items
         private Transform _targetPoint;
         private Tween _backwardFlyTween;
 
-
+        
+        
         public void StartMagnetItem(Transform targetPoint)
         {
             IsPicked = true;
             _targetPoint = targetPoint;
+            
+            BackwardMove(targetPoint);
+        }
+
+        private void BackwardMove(Transform targetPoint)
+        {
             Vector3 directionToTarget = (targetPoint.position - transform.position).normalized;
             Vector3 backPosition = transform.position - directionToTarget * _backDistance;
             _backwardFlyTween = transform.DOMove(backPosition, _backDuration).SetEase(Ease.InOutCirc).OnComplete(() =>
@@ -28,7 +35,7 @@ namespace Items
             });
         }
 
-        protected override void ApplyEffect()
+        private void OnDisable()
         {
             IsPicked = false;
             _isFlyingToTarget = false;

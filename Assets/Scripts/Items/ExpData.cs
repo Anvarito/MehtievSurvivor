@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Configs.Items
 {
@@ -6,6 +7,6 @@ namespace Configs.Items
     public class ExpData : ScriptableObject
     {
         public int ExpCount = 1;
-        public Sprite ItemImage;
+        public Sprite Sprite;
     }
 }

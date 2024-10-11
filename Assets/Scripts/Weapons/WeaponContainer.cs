@@ -18,10 +18,10 @@ namespace Weapons
             _weaponsList = new HashSet<WeaponParamsHandler>();
         }
       
-        public bool TryGetWeapon(WeaponConfig itemConfig, out WeaponParamsHandler weaponParamsHandler)
+        public bool TryGetWeapon(WeaponConfig weaponConfig, out WeaponParamsHandler weaponParamsHandler)
         {
             weaponParamsHandler =
-                _weaponsList.FirstOrDefault(handler => handler.Config == itemConfig);
+                _weaponsList.FirstOrDefault(handler => handler.Config == weaponConfig);
             return weaponParamsHandler != null;
         }
 

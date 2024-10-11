@@ -4,10 +4,12 @@ using Weapons.Configs;
 public class WeaponParamsHandler
 {
     public WeaponConfig Config { get; }
+    public int MaxLevel => Config.weaponUpgradeDatas.Count;
+    public int CurrentLevel => _level + 1;
+
     private readonly BaseWeapon _baseWeapon;
     private readonly PlayerStatsHolder _playerStatsHolder;
     private WeaponParams _weaponParams;
-
     private int _level = -1;
 
     public WeaponParamsHandler(WeaponConfig config, BaseWeapon baseWeapon,

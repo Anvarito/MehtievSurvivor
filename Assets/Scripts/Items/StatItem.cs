@@ -3,20 +3,21 @@ using UnityEngine;
 
 public class StatItem : PickableItem
 {
-    [SerializeField] private StatItemConfig _statItem;
-    public StatItemConfig Config => _statItem;
+    [SerializeField] protected StatItemConfig _config;
+    public StatItemConfig Config => _config;
     private void Start()
     {
-        _renderer.sprite = _statItem.Image;
+        _renderer.sprite = _config.Image;
     }
     private void OnValidate()
     {
-        if (_statItem)
-            gameObject.name = _statItem.Name;
+        if (_config)
+            gameObject.name = _config.Name;
     }
 
     protected override void ApplyEffect()
     {
-        itemApplier.ApplyStatsUp(_statItem);
+        _itemApplier.ApplyEffectItem(_config);
+        Destroy(gameObject);
     }
 }

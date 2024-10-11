@@ -65,7 +65,7 @@ namespace Infrastructure.Services
                 expItem.OnPick += item => { _expPool.Release(expItem); };
             }
 
-            expItem.SetPoints(data.ItemImage, data.ExpCount);
+            expItem.SetPoints(data.Sprite, data.ExpCount);
             expItem.transform.position = position;
         }
     }

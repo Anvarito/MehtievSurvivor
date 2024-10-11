@@ -7,7 +7,7 @@ namespace Items
     public abstract class PickableItem : MonoBehaviour, IPickable
     {
         protected SpriteRenderer _renderer;
-        protected ItemApplier itemApplier;
+        protected ItemApplier _itemApplier;
         public UnityAction<IPickable> OnPick { get; set; }
 
         private void Awake()
@@ -15,9 +15,9 @@ namespace Items
             _renderer = GetComponent<SpriteRenderer>();
         }
 
-        public void ApplyEffect(ItemApplier itemApplier)
+        public void PickItem(ItemApplier itemApplier)
         {
-            this.itemApplier = itemApplier;
+            _itemApplier = itemApplier;
             ApplyEffect();
             OnPick?.Invoke(this);
         }

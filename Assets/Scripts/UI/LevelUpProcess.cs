@@ -39,9 +39,9 @@ namespace UI
         private void Complete(ItemConfig itemConfig)
         {
             if (itemConfig is WeaponItemConfig weaponItemConfig)
-                _itemApplier.ApplyWeapon(weaponItemConfig);
+                _itemApplier.ApplyWeaponItem(weaponItemConfig);
             if (itemConfig is StatItemConfig statItemConfig)
-                _itemApplier.ApplyStatsUp(statItemConfig);
+                _itemApplier.ApplyEffectItem(statItemConfig);
 
             _levelUpMenu.Close();
             _expAccumulator.CompleteLevelUpAction();

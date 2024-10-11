@@ -20,16 +20,22 @@ namespace Player.ItemPicked
             _weaponUpgrader = weaponUpgrader;
         }
 
-        public void ApplyWeapon(WeaponItemConfig weaponItem)
+        public void ApplyWeaponItem(WeaponItemConfig weaponItem)
         {
             Debug.Log($"Picked up {weaponItem.Name}.");
             _weaponUpgrader.UpdateOrAdd(weaponItem);
         }
 
-        public void ApplyStatsUp(StatItemConfig statItemConfig)
+        public void ApplyEffectItem(StatItemConfig statItemConfig)
         {
             Debug.Log($"Picked up {statItemConfig.Name}, {statItemConfig.Description}");
-            _effectUpgrader.ApplyEffect(statItemConfig);
+            _effectUpgrader.ApplyEffectItem(statItemConfig);
+        }
+
+        public void ApplyPowerUp(StatItemConfig statItemConfig)
+        {
+            Debug.Log($"Picked power up {statItemConfig.Name}, {statItemConfig.Description}");
+            _effectUpgrader.EncreaceStat(statItemConfig);
         }
 
         public void ApplyExp(ExpItem expItem)

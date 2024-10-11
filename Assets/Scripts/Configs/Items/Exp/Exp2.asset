@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Exp2
   m_EditorClassIdentifier: 
   ExpCount: 1
-  ItemImage: {fileID: 1908251977, guid: a08cf92585bb8db46a18783db837323d, type: 3}
+  Sprite: {fileID: 21300000, guid: 576d52d6241b03a4687ae3eb77ccb106, type: 3}
