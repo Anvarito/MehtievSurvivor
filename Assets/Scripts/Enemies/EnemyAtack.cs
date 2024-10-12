@@ -7,10 +7,11 @@ namespace Enemies
     {
         private EnemyStatsHolder _statsHolder;
         private PlayerDamageRecivier _playerDamageRecivier;
-        
+
         private float _damageAmount;
-        private float _attackInterval = 1f;
+        private float _attackInterval;
         private float _timeSinceLastAttack = 0f;
+
 
         public void Initial(EnemyStatsHolder statsHolder, PlayerDamageRecivier playerDamageRecivier)
         {
@@ -24,7 +25,7 @@ namespace Enemies
         {
             if (other.gameObject == _playerDamageRecivier.gameObject)
             {
-                _playerDamageRecivier.ApplyDamage(_damageAmount);
+                Attack();
             }
         }
 
@@ -32,14 +33,17 @@ namespace Enemies
         {
             if (other.gameObject == _playerDamageRecivier.gameObject)
             {
-                _timeSinceLastAttack += Time.deltaTime;
-
-                if (_timeSinceLastAttack >= _attackInterval)
+                if (Time.time >= _timeSinceLastAttack)
                 {
-                    _playerDamageRecivier.ApplyDamage(_damageAmount);
-                    _timeSinceLastAttack = 0f;
+                    Attack();
+                    _timeSinceLastAttack = Time.time + _attackInterval;
                 }
             }
+        }
+
+        protected virtual void Attack()
+        {
+            _playerDamageRecivier.ApplyDamage(_damageAmount);
         }
 
         private void OnCollisionExit2D(Collision2D other)

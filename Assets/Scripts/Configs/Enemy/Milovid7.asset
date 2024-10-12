@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f24e7a156e114ed1929671d500aa2d99, type: 3}
-  m_Name: swey42
+  m_Name: Milovid7
   m_EditorClassIdentifier: 
   MaxHP: 10
   MoveSpeed: 8
-  Image: {fileID: 21300000, guid: 2ce32bc74bafaf04ea7a3a353e6a4f92, type: 3}
+  Image: {fileID: 21300000, guid: d3c7ad9f5d72a5145af5c0c3ec96a176, type: 3}
   Prefab: {fileID: 3865562030268266710, guid: dd99eed9112179743add0488bf172bae, type: 3}
-  DamageAmount: 10
+  DamageAmount: 8
   AttackInterval: 1
   DropItems:
   - expConfig: {fileID: 11400000, guid: 39c03fec54519dc4bb838523d95f093d, type: 2}

@@ -15,26 +15,30 @@ MonoBehaviour:
   Waves:
   - EnemyConfigs:
     - {fileID: 11400000, guid: 3140b6e6029910446be396d332684cd4, type: 2}
+    - {fileID: 11400000, guid: 48b5f5d08f92c084ab015b45c4a22da0, type: 2}
     TimeTreshold: 0.2
     SpawnCooldown: 1
     MaxCount: 15
   - EnemyConfigs:
-    - {fileID: 11400000, guid: 214e3a825dc993a4ba77c431ff762420, type: 2}
+    - {fileID: 11400000, guid: dea5d445f66a3fa4a9396c03ce5a648d, type: 2}
+    - {fileID: 11400000, guid: 2ce087b6554e3794587f1b27282b523d, type: 2}
     TimeTreshold: 0.4
     SpawnCooldown: 0.85
     MaxCount: 15
   - EnemyConfigs:
-    - {fileID: 11400000, guid: dea5d445f66a3fa4a9396c03ce5a648d, type: 2}
+    - {fileID: 11400000, guid: 2ce087b6554e3794587f1b27282b523d, type: 2}
+    - {fileID: 11400000, guid: 48b5f5d08f92c084ab015b45c4a22da0, type: 2}
     TimeTreshold: 0.6
     SpawnCooldown: 0.79
     MaxCount: 15
   - EnemyConfigs:
     - {fileID: 11400000, guid: 95ab6b467887b27428822f004b460e3a, type: 2}
+    - {fileID: 11400000, guid: 2ce087b6554e3794587f1b27282b523d, type: 2}
     TimeTreshold: 0.8
     SpawnCooldown: 0.73
     MaxCount: 15
   - EnemyConfigs:
-    - {fileID: 11400000, guid: 2ce087b6554e3794587f1b27282b523d, type: 2}
+    - {fileID: 11400000, guid: 179ebd488fe0ac94c8b0307d4efdc125, type: 2}
     TimeTreshold: 1
     SpawnCooldown: 0.43
     MaxCount: 15

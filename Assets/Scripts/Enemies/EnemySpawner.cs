@@ -2,6 +2,7 @@ using Infrastructure.Extras;
 using Scenarios;
 using UnityEngine;
 using Zenject;
+using Random = System.Random;
 
 namespace Enemies
 {
@@ -34,10 +35,9 @@ namespace Enemies
                 Wave wave = _waveChanger.GetCurrentWave();
                 _timer = Time.time + wave.SpawnCooldown;
 
-                foreach (var config in wave.EnemyConfigs)
-                {
-                    TrySpawnEnemy(config, wave.MaxCount);
-                }
+                int randomIndex = new Random().Next(wave.EnemyConfigs.Count);
+                EnemyConfig randomConfig = wave.EnemyConfigs[randomIndex];
+                TrySpawnEnemy(randomConfig, wave.MaxCount);
             }
         }
 
