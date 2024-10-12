@@ -1,4 +1,5 @@
 using Infrastructure.Extras;
+using Scenarios;
 using UnityEngine;
 using Zenject;
 
@@ -7,45 +8,45 @@ namespace Enemies
     public class EnemySpawner : ITickable, IInitializable
     {
         private readonly IEnemyFactory _enemyFactory;
-        private float _spawnOffset = 2f;  
-        private float _minDistanceFromEdge = 1f;
-        private float _timer = 0;
-        private float _cooldown = 1;
-        private Camera _camera;
-        private Vector3 _spawnPosition;
-        private Vector3 _screenBottomLeft;
-        private Vector3 _screenTopRight;
+        private readonly IWaveChanger _waveChanger;
 
-        public EnemySpawner(IEnemyFactory enemyFactory)
+        private float _spawnOffset = 2f;
+        private float _minDistanceFromEdge = 1f;
+
+        private float _timer = 0;
+        private Camera _camera;
+
+        public EnemySpawner(IEnemyFactory enemyFactory, IWaveChanger waveChanger)
         {
             _enemyFactory = enemyFactory;
+            _waveChanger = waveChanger;
         }
-        
+
         public void Initialize()
         {
             _camera = Camera.main;
         }
-        
+
         public void Tick()
         {
-            _timer += Time.deltaTime;
-            if (_timer > _cooldown)
+            if (Time.time > _timer)
             {
-                _timer = 0;
-                SpawnEnemy();
-            }
+                Wave wave = _waveChanger.GetCurrentWave();
+                _timer = Time.time + wave.SpawnCooldown;
 
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                SpawnEnemy();
+                foreach (var config in wave.EnemyConfigs)
+                {
+                    TrySpawnEnemy(config, wave.MaxCount);
+                }
             }
         }
 
-        void SpawnEnemy()
+        private void TrySpawnEnemy(EnemyConfig config, int waveMaxCount)
         {
-            Enemy enemy = _enemyFactory.GetEnemy();
-            enemy.gameObject.SetActive(true);
-            enemy.transform.position = ScreenObjectFinder.GetRandomPointBeyondScreen(_camera,_spawnOffset, _minDistanceFromEdge);
+            Enemy enemy = _enemyFactory.TrySpawnEnemy(config, waveMaxCount);
+            if (enemy)
+                enemy.transform.position =
+                    ScreenObjectFinder.GetRandomPointBeyondScreen(_camera, _spawnOffset, _minDistanceFromEdge);
         }
     }
 }

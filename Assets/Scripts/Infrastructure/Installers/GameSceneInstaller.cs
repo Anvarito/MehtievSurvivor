@@ -1,4 +1,3 @@
-using Enemies;
 using HitPointsDamage;
 using Infrastructure.Services;
 using Items;
@@ -23,9 +22,6 @@ namespace Infrastructure.Installers
         [SerializeField] private ItemPanel _itemPanel;
         [SerializeField] private PlayerDamageRecivier _playerDamageRecivier;
         [SerializeField] private ScreenInputHandler _screenInputHandler;
-        [SerializeField] private Enemy _enemyPrefab;
-        [SerializeField] private EnemyConfig _enemyConfig;
-        [SerializeField] private ExpItem _expItemPrefab;
         
         public override void InstallBindings()
         {
@@ -33,10 +29,15 @@ namespace Infrastructure.Installers
             BindSaveLoadService();
             BindPlayer();
             BindEffectReceiver();
-            BindEnemyFactory();
             BindLevelUp();
             BindWeaponAppliers();
             BindEffectAppliers();
+            BindGameTimer();
+        }
+
+        private void BindGameTimer()
+        {
+            Container.BindInterfacesTo<GameTimer>().AsSingle().WithArguments((float)30).NonLazy();
         }
 
         private void BindEffectAppliers()
@@ -62,18 +63,10 @@ namespace Infrastructure.Installers
         {
             var playerStatsHolder = _playerConfig.GetNewPlayerData();
             Container.Bind<PlayerStatsHolder>().FromInstance(playerStatsHolder).AsSingle();
-            
             Container.Bind<PlayerProvider>().AsSingle().WithArguments(_player, _playerDamageRecivier);
-
             var damageApplier = new DamageApplier(playerStatsHolder, _playerDamageRecivier);
         }
 
-        private void BindEnemyFactory()
-        {
-            Container.BindInterfacesTo<EnemyFactory>().AsSingle().WithArguments(_enemyPrefab, _enemyConfig).NonLazy();
-            Container.BindInterfacesTo<EnemySpawner>().AsSingle().NonLazy();
-            Container.BindInterfacesTo<EnemyDropSpawner>().AsSingle().WithArguments(_expItemPrefab).NonLazy();
-        }
 
         private void BindSaveLoadService()
         {

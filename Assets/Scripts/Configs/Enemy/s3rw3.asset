@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f24e7a156e114ed1929671d500aa2d99, type: 3}
-  m_Name: Bomsh_1
+  m_Name: s3rw3
   m_EditorClassIdentifier: 
   MaxHP: 10
-  MoveSpeed: 5
-  Image: {fileID: 21300000, guid: 9f6a05422ded4e441b5776bbbdaa9fdb, type: 3}
+  MoveSpeed: 8
+  Image: {fileID: 21300000, guid: 22a214c5c242ce644a70dac6d2eeeda8, type: 3}
   Prefab: {fileID: 3865562030268266710, guid: dd99eed9112179743add0488bf172bae, type: 3}
-  DamageAmount: 2
+  DamageAmount: 10
   AttackInterval: 1
   DropItems:
   - expConfig: {fileID: 11400000, guid: 39c03fec54519dc4bb838523d95f093d, type: 2}

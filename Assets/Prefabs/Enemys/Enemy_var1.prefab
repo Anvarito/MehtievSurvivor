@@ -78,7 +78,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 4.545454, y: 4.545454}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 4317053106310345387}
   - component: {fileID: 8803801924136637159}
   m_Layer: 7
-  m_Name: EnemyBomsh_1
+  m_Name: Enemy_var1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4778b12ace34942bbf6d36c23edaf6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _view: {fileID: 8996372173897600083}
   _enemyMove: {fileID: 844865830939562054}
   _animator: {fileID: 4476817629957734268}
   _enemyAttack: {fileID: 6521093861895039198}

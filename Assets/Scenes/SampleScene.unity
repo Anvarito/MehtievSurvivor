@@ -4593,6 +4593,7 @@ GameObject:
   - component: {fileID: 1767027695}
   - component: {fileID: 1767027694}
   - component: {fileID: 1767027696}
+  - component: {fileID: 1767027698}
   - component: {fileID: 1767027697}
   m_Layer: 0
   m_Name: SceneContext
@@ -4616,6 +4617,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1767027696}
+  - {fileID: 1767027698}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -4670,11 +4672,6 @@ MonoBehaviour:
   _itemPanel: {fileID: 2055166362}
   _playerDamageRecivier: {fileID: 1740603442}
   _screenInputHandler: {fileID: 1155847779}
-  _enemyPrefab: {fileID: 3865562030268266710, guid: dd99eed9112179743add0488bf172bae,
-    type: 3}
-  _enemyConfig: {fileID: 11400000, guid: 3140b6e6029910446be396d332684cd4, type: 2}
-  _expItemPrefab: {fileID: 8171803458849210235, guid: eef36aea878f11f488339de007b9a956,
-    type: 3}
 --- !u!114 &1767027697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4689,6 +4686,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetFrameRate: -1
   updateInterval: 0.5
+--- !u!114 &1767027698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767027692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa9e836093c74620b442de914a5d869f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _expItemPrefab: {fileID: 8171803458849210235, guid: eef36aea878f11f488339de007b9a956,
+    type: 3}
+  _spawnSequence: {fileID: 11400000, guid: 59609ac5dcf712440b4012b0d2922307, type: 2}
 --- !u!1 &1772313111
 GameObject:
   m_ObjectHideFlags: 0

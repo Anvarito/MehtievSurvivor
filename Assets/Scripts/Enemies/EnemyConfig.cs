@@ -8,8 +8,16 @@ namespace Enemies
     [CreateAssetMenu(fileName = "Enemy config", menuName = "Enemy configs/EnemyConfig", order = 1)]
     public class EnemyConfig : DefaultUnitConfig
     {
+        [Space(10)]
+        [Header("Visual")]
+        public Sprite Image;
+        public Enemy Prefab;
+        
+        [Space(20)]
         public float DamageAmount = 1;
         public float AttackInterval = 1;
+        
+        [Space(20)]
         public List<DropItem> DropItems;
         public EnemyStatsHolder GetEnemyData()
         {

@@ -7,12 +7,14 @@ namespace Enemies
 {
     public class Enemy : MonoBehaviour
     {
+        [SerializeField] private SpriteRenderer _view;
         [SerializeField] private EnemyMove _enemyMove;
         [SerializeField] private EnemyAnimation _animator;
         [SerializeField] private EnemyAttack _enemyAttack;
         [SerializeField] private EnemyDamageRecivier _enemyDamageRecivier;
         [SerializeField] private KnockSlide _knockSlide;
         [SerializeField] private Collider2D _collider;
+        
         private EnemyStatsHolder _statsHolder;
         public EnemyStatsHolder StatsHolder => _statsHolder;
         public EnemyMove EnemyMove => _enemyMove;
@@ -28,10 +30,11 @@ namespace Enemies
             gameObject.layer = LayerMask.NameToLayer("Enemy");
         }
 
-        public void CreateEnemy(EnemyStatsHolder statsHolder)
+        public void CreateEnemy(EnemyStatsHolder statsHolder, Sprite sprite)
         {
             _statsHolder = statsHolder;
             _enemyDamageRecivier.OnKnock += TakeKnock;
+            _view.sprite = sprite;
         }
 
         private void TakeKnock(float power)

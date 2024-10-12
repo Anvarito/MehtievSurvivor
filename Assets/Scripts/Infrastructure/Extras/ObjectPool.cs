@@ -6,7 +6,7 @@ namespace Infrastructure.Extras
     public class ObjectPool<T> where T : MonoBehaviour
     {
         private readonly T prefab;
-        private readonly Queue<T> objects = new();
+        private readonly List<T> objects = new();
 
         public ObjectPool(T prefab, int initialSize)
         {
@@ -16,27 +16,45 @@ namespace Infrastructure.Extras
             {
                 T obj = Object.Instantiate(prefab);
                 obj.gameObject.SetActive(false);
-                objects.Enqueue(obj);
+                objects.Add(obj);
             }
         }
-
-        public bool Get<T>(out T obj) where T : MonoBehaviour
+        
+        public bool Get(out T obj)
         {
-            if (objects.Count > 0)
+            foreach (var pooledObj in objects)
             {
-                obj = objects.Dequeue() as T;
-                obj.gameObject.SetActive(true);
-                return false;
+                if (!pooledObj.gameObject.activeSelf)
+                {
+                    obj = pooledObj;
+                    obj.gameObject.SetActive(true);
+                    return false;
+                }
             }
 
-            obj = Object.Instantiate(prefab) as T;
+            obj = Object.Instantiate(prefab);
+            objects.Add(obj);
             return true;
         }
 
         public void Release(T obj)
         {
             obj.gameObject.SetActive(false);
-            objects.Enqueue(obj);
+        }
+        
+        public int GetActiveCount()
+        {
+            int countAlive = 0;
+
+            foreach (var obj in objects)
+            {
+                if (obj.gameObject.activeSelf)
+                {
+                    countAlive++;
+                }
+            }
+
+            return countAlive;
         }
     }
 }

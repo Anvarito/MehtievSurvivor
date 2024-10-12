@@ -22,11 +22,11 @@ MonoBehaviour:
     Speed: 0
   - DamageAmount: 7
     KnockAmount: 40
-    Cooldown: 1.2
+    Cooldown: 1
     LifeTime: 0.2
     Speed: 0
   - DamageAmount: 10
-    KnockAmount: 40
-    Cooldown: 1
+    KnockAmount: 60
+    Cooldown: 0.7
     LifeTime: 0.2
     Speed: 0

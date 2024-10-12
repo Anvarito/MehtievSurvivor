@@ -5,33 +5,32 @@ namespace Weapons
 {
     public abstract class ProjectileWeapon<T> : BaseWeapon where T : BaseShell
     {
-        [SerializeField] private BaseShell _shellPrefab;
+        [SerializeField] private T _shellPrefab;
         
-        protected ObjectPool<BaseShell> _pool;
+        protected ObjectPool<T> _pool;
         protected Camera _camera;
 
         private void Awake()
         {
-           
             _camera = Camera.main;
-            _pool = new ObjectPool<BaseShell>(_shellPrefab, 0);
+            _pool = new ObjectPool<T>(_shellPrefab, 0);
         }
 
         protected override void Launch()
         {
-            T projectile;
-            bool isNew = _pool.Get(out projectile);
-            projectile.transform.position = transform.position;
-            projectile.gameObject.SetActive(true);
+            T shell;
+            bool isNew = _pool.Get(out shell);
+            shell.transform.position = transform.position;
+            shell.gameObject.SetActive(true);
             if (isNew)
             {
-                projectile.OnShellDestroy += () => { ReleaseProjectile(projectile); };
+                shell.OnShellDestroy += () => { ReleaseProjectile(shell); };
             }
 
-            InitProjectile(projectile);
+            InitProjectile(shell);
         }
 
-        private void ReleaseProjectile(BaseShell shell)
+        private void ReleaseProjectile(T shell)
         {
             shell.Dispose();
             _pool.Release(shell);
