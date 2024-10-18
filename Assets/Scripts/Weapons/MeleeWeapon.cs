@@ -33,7 +33,7 @@ namespace Weapons
 
         private void HitToEnemy(EnemyDamageRecivier enemyDamage)
         {
-            enemyDamage.ApplyDamage(_weaponParams.DamageAmount, _weaponParams.KnockAmount);
+            enemyDamage.ApplyKnockedDamage(_weaponParams.DamageAmount, _weaponParams.KnockAmount);
         }
     }
 }

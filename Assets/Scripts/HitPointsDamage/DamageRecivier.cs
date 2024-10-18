@@ -7,7 +7,7 @@ namespace Damage
     public class DamageRecivier : MonoBehaviour
     {
         public UnityAction<float> OnDamage;
-        protected void ApplyDamageInternal(float amount)
+        public virtual void ApplyDamage(float amount)
         {
             OnDamage?.Invoke(amount);
         }

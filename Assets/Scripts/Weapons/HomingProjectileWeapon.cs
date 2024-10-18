@@ -1,3 +1,4 @@
+using Damage;
 using Enemies;
 using Infrastructure.Extras;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Weapons
 
         protected virtual Transform FindTarget()
         {
-            Enemy nearbyTarget = ScreenObjectFinder.FindNearestObjectOnScreen<Enemy>(_camera, transform, false);
+            var nearbyTarget = ScreenObjectFinder.FindNearestObjectOnScreen<EnemyDamageRecivier>(_camera, transform, false);
             if (nearbyTarget)
                 return nearbyTarget.transform;
 

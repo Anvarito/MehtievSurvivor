@@ -10,6 +10,7 @@ namespace Enemies
     {
         private readonly IEnemyFactory _enemyFactory;
         private readonly IWaveChanger _waveChanger;
+        private readonly IEnemyPoolHolder _enemyPoolHolder;
 
         private float _spawnOffset = 2f;
         private float _minDistanceFromEdge = 1f;
@@ -17,10 +18,11 @@ namespace Enemies
         private float _timer = 0;
         private Camera _camera;
 
-        public EnemySpawner(IEnemyFactory enemyFactory, IWaveChanger waveChanger)
+        public EnemySpawner(IEnemyFactory enemyFactory, IWaveChanger waveChanger, IEnemyPoolHolder enemyPoolHolder)
         {
             _enemyFactory = enemyFactory;
             _waveChanger = waveChanger;
+            _enemyPoolHolder = enemyPoolHolder;
         }
 
         public void Initialize()
@@ -36,17 +38,21 @@ namespace Enemies
                 _timer = Time.time + wave.SpawnCooldown;
 
                 int randomIndex = new Random().Next(wave.EnemyConfigs.Count);
-                EnemyConfig randomConfig = wave.EnemyConfigs[randomIndex];
+                var randomConfig = wave.EnemyConfigs[randomIndex];
                 TrySpawnEnemy(randomConfig, wave.MaxCount);
             }
         }
 
-        private void TrySpawnEnemy(EnemyConfig config, int waveMaxCount)
+        private void TrySpawnEnemy(EnemyConfig config, int maxCountInWave)
         {
-            Enemy enemy = _enemyFactory.TrySpawnEnemy(config, waveMaxCount);
-            if (enemy)
-                enemy.transform.position =
-                    ScreenObjectFinder.GetRandomPointBeyondScreen(_camera, _spawnOffset, _minDistanceFromEdge);
+            var pool = _enemyPoolHolder.GetPoolByConfig(config);
+            if (pool.GetActiveCount() < maxCountInWave)
+            {
+                Enemy enemy = _enemyFactory.SpawnEnemy(pool, config);
+                if (enemy)
+                    enemy.transform.position =
+                        ScreenObjectFinder.GetRandomPointBeyondScreen(_camera, _spawnOffset, _minDistanceFromEdge);
+            }
         }
     }
 }

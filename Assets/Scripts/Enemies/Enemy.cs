@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Damage;
+using HitPointsDamage;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,66 +8,64 @@ namespace Enemies
 {
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _view;
         [SerializeField] private EnemyMove _enemyMove;
         [SerializeField] private EnemyAnimation _animator;
-        [SerializeField] private EnemyAttack _enemyAttack;
+        [SerializeField] private EnemyAttackDealer enemyAttackDealer;
         [SerializeField] private EnemyDamageRecivier _enemyDamageRecivier;
         [SerializeField] private KnockSlide _knockSlide;
         [SerializeField] private Collider2D _collider;
-        
-        private EnemyStatsHolder _statsHolder;
-        public EnemyStatsHolder StatsHolder => _statsHolder;
-        public EnemyMove EnemyMove => _enemyMove;
-        public EnemyAnimation Animator => _animator;
-        public EnemyAttack EnemyAttack => _enemyAttack;
-        public EnemyDamageRecivier EnemyDamageRecivier => _enemyDamageRecivier;
-        public KnockSlide KnockSlide => _knockSlide;
 
         public UnityAction<Enemy> OnDead;
-
+        private Transform _target;
+        private EnemyParams _params;
+        public List<DropItem> DropItems => _params.DropItems;
         private void Awake()
         {
             gameObject.layer = LayerMask.NameToLayer("Enemy");
         }
 
-        public void CreateEnemy(EnemyStatsHolder statsHolder, Sprite sprite)
+        public void Initialize(EnemyParams enemyParams, Transform target,
+            PlayerDamageRecivier playerDamageRecivier)
         {
-            _statsHolder = statsHolder;
-            _enemyDamageRecivier.OnKnock += TakeKnock;
-            _view.sprite = sprite;
+            _target = target;
+            _params = enemyParams;
+            _params.CurrentHP.Changed += HitPointsChanged;
+            var damageApplier = new DamageApplier(enemyParams, _enemyDamageRecivier);
+            _enemyMove.SetDependencies(_target, enemyParams);
+            _animator.SetDependencies(_target, enemyParams);
+            _knockSlide.SetDependencies(_target, enemyParams);
+            enemyAttackDealer.SetDependencies(enemyParams, playerDamageRecivier);
+            
+            _animator.OnDieAnimationEnd += Die;
         }
 
-        private void TakeKnock(float power)
+        private void Die()
         {
-            if (_statsHolder.CurrentHP.value <= 0)
+            OnDead?.Invoke(this);
+        }
+
+        private void HitPointsChanged(float updateHP)
+        {
+            if (updateHP <= 0)
             {
                 _enemyMove.enabled = false;
-                _knockSlide.KnockFinal(100);
                 _enemyDamageRecivier.enabled = false;
                 _collider.enabled = false;
-                _animator.DeadAnimation(1, () =>
-                {
-                    OnDead?.Invoke(this);
-                });
-            }
-            else
-            {
-                _knockSlide.Knock(power);
-                _animator.HitAnimation();
             }
         }
 
-        public void Reset()
+
+        public void Revive(EnemyParams enemyParams)
         {
+            _params = enemyParams;
             _collider.enabled = true;
             _enemyMove.enabled = true;
-            _animator.Reset();
+            _enemyDamageRecivier.enabled = true;
         }
 
         private void OnDestroy()
         {
-            _enemyDamageRecivier.OnKnock -= TakeKnock;
+            _params.CurrentHP.Changed -= HitPointsChanged;
         }
     }
 }

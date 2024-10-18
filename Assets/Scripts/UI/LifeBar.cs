@@ -7,18 +7,18 @@ namespace Player
     {
         [SerializeField] private SpriteRenderer _HPbar;
         private Material _material;
-        private PlayerStatsHolder _statsHolder;
+        private PlayerStatsHolder _playerStatsHolder;
 
         [Inject]
         private void Construct(PlayerStatsHolder statsHolder)
         {
-            _statsHolder = statsHolder;
+            _playerStatsHolder = statsHolder;
         }
         private void Awake()
         {
             _material = _HPbar.material;
-            _statsHolder.CurrentHP.Changed += CurrentHitPointsChanged;
-            _statsHolder.MaxHP.Changed += MaxHitPointsChanged;
+            _playerStatsHolder.CurrentHP.Changed += CurrentHitPointsChanged;
+            _playerStatsHolder.MaxHP.Changed += MaxHitPointsChanged;
 
             SetValue(1);
         }
@@ -26,17 +26,17 @@ namespace Player
 
         private void OnDestroy()
         {
-            _statsHolder.CurrentHP.Changed -= CurrentHitPointsChanged;
-            _statsHolder.MaxHP.Changed -= MaxHitPointsChanged;
+            _playerStatsHolder.CurrentHP.Changed -= CurrentHitPointsChanged;
+            _playerStatsHolder.MaxHP.Changed -= MaxHitPointsChanged;
         }
 
         private void MaxHitPointsChanged(float newMaxHP)
         {
-            SetValue(_statsHolder.CurrentHP.value / newMaxHP);
+            SetValue(_playerStatsHolder.CurrentHP.value / newMaxHP);
         }
         private void CurrentHitPointsChanged(float currentHP)
         {
-            SetValue(currentHP / _statsHolder.MaxHP.value);
+            SetValue(currentHP / _playerStatsHolder.MaxHP.value);
         }
 
         private void SetValue(float value)

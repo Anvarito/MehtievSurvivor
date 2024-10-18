@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24e7a156e114ed1929671d500aa2d99, type: 3}
   m_Name: Bomsh_2
   m_EditorClassIdentifier: 
+  Prefab: {fileID: 3865562030268266710, guid: da1d88a896626c54b995d52f666072fd, type: 3}
   MaxHP: 10
   MoveSpeed: 5
-  Image: {fileID: 21300000, guid: 11533820b50c55b41889003bec4e4b42, type: 3}
-  Prefab: {fileID: 3865562030268266710, guid: dd99eed9112179743add0488bf172bae, type: 3}
   DamageAmount: 2
   AttackInterval: 1
   DropItems:

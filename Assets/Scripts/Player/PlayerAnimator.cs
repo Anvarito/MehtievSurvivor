@@ -30,11 +30,6 @@ namespace Player
             _spriteRenderer.transform.localScale = direction.x > 0 ? _leftTurn : _rightTurn;
         }
 
-        public override void HitAnimation()
-        {
-            
-        }
-
         private void OnDestroy()
         {
             _inputProvider.OnMoveDirection -= MoveInput;

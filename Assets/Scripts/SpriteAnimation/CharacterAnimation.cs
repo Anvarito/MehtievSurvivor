@@ -15,11 +15,6 @@ namespace SpriteAnimation
             _spriteRenderer.color = new Color(1, 1, 1, 1);
         }
 
-        public virtual void HitAnimation()
-        {
-            _hitBlinkTween = _spriteRenderer.material.DOFloat(1f, "_Alpha", 0.1f)
-                .SetEase(Ease.Linear)
-                .SetLoops(2, LoopType.Yoyo); 
-        }
+        
     }
 }

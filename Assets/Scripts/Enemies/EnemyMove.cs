@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Enemies
@@ -7,36 +6,21 @@ namespace Enemies
     {
         [SerializeField] private Rigidbody2D _rigidbody;
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        private EnemyStatsHolder _statsHolder;
         private Transform _target;
         
         private float _speed = 10;
         private float _knockbackTimer;
         private float _knockbackDuration = 0.2f;
 
-
-        private void OnDestroy()
+        public void SetDependencies(Transform target, EnemyParams data)
         {
-            _statsHolder.Speed.Changed -= SpeedChange;
-        }
-
-        public void SetTargetToMove(Transform target, EnemyStatsHolder statsHolder)
-        {
-            _statsHolder = statsHolder;
             _target = target;
-            _speed = _statsHolder.Speed.value;
-            
-            _statsHolder.Speed.Changed += SpeedChange;
-        }
-
-        private void SpeedChange(float value)
-        {
-            _speed = value;
+            _speed = data.Speed.value;
         }
 
         private void Update()
         {
-            Rotate();
+            Flip();
         }
 
         private void FixedUpdate()
@@ -46,11 +30,11 @@ namespace Enemies
 
         private void Move()
         {
-            Vector2 moveDirection = _target.position - transform.position;
-            Vector2 moveVector = moveDirection.normalized * _speed * Time.deltaTime;
+            Vector2 direction = _target.position - transform.position;
+            Vector2 moveVector = direction.normalized * _speed * Time.deltaTime;
             _rigidbody.MovePosition(_rigidbody.position + moveVector);
         }
-        private void Rotate()
+        private void Flip()
         {
             _spriteRenderer.flipX = _target.transform.position.x < transform.position.x;
         }

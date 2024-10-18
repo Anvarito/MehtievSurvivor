@@ -15,7 +15,7 @@ MonoBehaviour:
   Waves:
   - EnemyConfigs:
     - {fileID: 11400000, guid: 3140b6e6029910446be396d332684cd4, type: 2}
-    - {fileID: 11400000, guid: 48b5f5d08f92c084ab015b45c4a22da0, type: 2}
+    - {fileID: 11400000, guid: c51d426baaa03754da9f604f8a8120de, type: 2}
     TimeTreshold: 0.2
     SpawnCooldown: 1
     MaxCount: 15

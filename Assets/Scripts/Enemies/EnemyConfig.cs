@@ -6,48 +6,36 @@ using UnityEngine;
 namespace Enemies
 {
     [CreateAssetMenu(fileName = "Enemy config", menuName = "Enemy configs/EnemyConfig", order = 1)]
-    public class EnemyConfig : DefaultUnitConfig
+    public class EnemyConfig : ScriptableObject
     {
-        [Space(10)]
-        [Header("Visual")]
-        public Sprite Image;
         public Enemy Prefab;
-        
-        [Space(20)]
+        public float MaxHP = 100;
+        public float MoveSpeed = 10;
         public float DamageAmount = 1;
         public float AttackInterval = 1;
         
-        [Space(20)]
-        public List<DropItem> DropItems;
-        public EnemyStatsHolder GetEnemyData()
+        [Space(20)] public List<DropItem> DropItems;
+        public EnemyParams EnemyParams { get; private set; }
+        public EnemyParams GetNewParams()
         {
-            return new EnemyStatsHolder
+            EnemyParams = new EnemyParams()
             {
                 MaxHP = new ReactiveProperty<float>(MaxHP),
                 CurrentHP = new ReactiveProperty<float>(MaxHP),
                 Speed = new ReactiveProperty<float>(MoveSpeed),
                 DamageAmount = new ReactiveProperty<float>(DamageAmount),
                 AttackInterval = new ReactiveProperty<float>(AttackInterval),
-                DropItems = new List<DropItem>(DropItems)
+                DropItems = new List<DropItem>(DropItems),
             };
-        }
 
-        public void ResetParams(EnemyStatsHolder enemyStatsHolder)
-        {
-            enemyStatsHolder.MaxHP.SetWithoutNotification(MaxHP);
-            enemyStatsHolder.CurrentHP.SetWithoutNotification(MaxHP);
-            enemyStatsHolder.Speed.SetWithoutNotification(MoveSpeed);
-            enemyStatsHolder.DamageAmount.SetWithoutNotification(DamageAmount);
-            enemyStatsHolder.AttackInterval.SetWithoutNotification(AttackInterval);
-            enemyStatsHolder.DropItems = DropItems;
+            return EnemyParams;
         }
     }
 
     [System.Serializable]
     public class DropItem
     {
-        public ExpData expConfig;  
-        [Range(0, 100)]
-        public float dropChance;
+        public ExpData expConfig;
+        [Range(0, 100)] public float dropChance;
     }
 }

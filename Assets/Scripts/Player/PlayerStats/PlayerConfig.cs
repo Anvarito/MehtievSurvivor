@@ -3,8 +3,10 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Player", menuName = "Player configs/PlayerConfig")]
-public class PlayerConfig : DefaultUnitConfig
+public class PlayerConfig : ScriptableObject
 {
+    public float MaxHP = 100;
+    public float MoveSpeed = 10;
     public int StartLevel = 0;
     public float Progress = 0;
     

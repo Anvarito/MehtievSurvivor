@@ -42,7 +42,7 @@ namespace Weapons
        
         protected virtual void HitToEnemy(EnemyDamageRecivier enemyDamage)
         {
-            enemyDamage.ApplyDamage(_damageAmount, _knockAmount);
+            enemyDamage.ApplyKnockedDamage(_damageAmount, _knockAmount);
         }
 
         protected abstract void Move();

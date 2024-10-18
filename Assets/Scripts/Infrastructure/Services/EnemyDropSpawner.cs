@@ -37,7 +37,7 @@ namespace Infrastructure.Services
 
         protected virtual void EnemyDead(Enemy enemy)
         {
-            var dropItems = enemy.StatsHolder.DropItems;
+            var dropItems = enemy.DropItems;
             if (dropItems == null || dropItems.Count == 0)
                 return;
 

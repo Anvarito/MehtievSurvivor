@@ -5,9 +5,9 @@ namespace Damage
     public class EnemyDamageRecivier : DamageRecivier
     {
         public UnityAction<float> OnKnock;
-        public void ApplyDamage(float damage, float knockPower)
+        public void ApplyKnockedDamage(float damage, float knockPower)
         {
-            ApplyDamageInternal(damage);
+            ApplyDamage(damage);
             OnKnock?.Invoke(knockPower);
         }
     }

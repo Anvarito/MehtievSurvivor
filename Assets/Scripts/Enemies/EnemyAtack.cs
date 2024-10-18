@@ -1,29 +1,30 @@
-using HitPointsDamage;
+using Damage;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Enemies
 {
-    public class EnemyAttack : MonoBehaviour
+    public class EnemyAttackDealer : MonoBehaviour
     {
-        private EnemyStatsHolder _statsHolder;
-        private PlayerDamageRecivier _playerDamageRecivier;
+        private EnemyParams _params;
+        private DamageRecivier _targetDamageRecivier;
 
         private float _damageAmount;
         private float _attackInterval;
         private float _timeSinceLastAttack = 0f;
 
-
-        public void Initial(EnemyStatsHolder statsHolder, PlayerDamageRecivier playerDamageRecivier)
+        public UnityAction OnAttack;
+        public void SetDependencies(EnemyParams enemyParams, DamageRecivier targetDamageRecivier)
         {
-            _statsHolder = statsHolder;
-            _playerDamageRecivier = playerDamageRecivier;
-            _attackInterval = _statsHolder.AttackInterval.value;
-            _damageAmount = _statsHolder.DamageAmount.value;
+            _params = enemyParams;
+            _targetDamageRecivier = targetDamageRecivier;
+            _attackInterval = _params.AttackInterval.value;
+            _damageAmount = _params.DamageAmount.value;
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject == _playerDamageRecivier.gameObject)
+            if (other.gameObject == _targetDamageRecivier.gameObject)
             {
                 Attack();
             }
@@ -31,7 +32,7 @@ namespace Enemies
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            if (other.gameObject == _playerDamageRecivier.gameObject)
+            if (other.gameObject == _targetDamageRecivier.gameObject)
             {
                 if (Time.time >= _timeSinceLastAttack)
                 {
@@ -43,12 +44,13 @@ namespace Enemies
 
         protected virtual void Attack()
         {
-            _playerDamageRecivier.ApplyDamage(_damageAmount);
+            _targetDamageRecivier.ApplyDamage(_damageAmount);
+            OnAttack?.Invoke();
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (_playerDamageRecivier != null && other.gameObject == _playerDamageRecivier.gameObject)
+            if (_targetDamageRecivier != null && other.gameObject == _targetDamageRecivier.gameObject)
             {
                 _timeSinceLastAttack = 0f;
             }

@@ -1,3 +1,4 @@
+using Infrastructure.Extras;
 using UnityEngine.Events;
 
 namespace Enemies
@@ -5,7 +6,6 @@ namespace Enemies
     public interface IEnemyFactory
     {
         public UnityAction<Enemy> OnEnemyDead { get; set; }
-        public Enemy TrySpawnEnemy(EnemyConfig enemyConfig, int maxCount);
-        public int GetCountAliveEnemy(EnemyConfig enemyConfig);
+        public Enemy SpawnEnemy(ObjectPool<Enemy> pool,  EnemyConfig config);
     }
 }

@@ -17,6 +17,7 @@ namespace Infrastructure.Installers
         }
         private void BindEnemyFactory()
         {
+            Container.BindInterfacesTo<EnemyPoolHolder>().AsSingle();
             Container.Bind<SpawnSequence>().FromInstance(_spawnSequence).AsSingle();
             Container.BindInterfacesTo<EnemyFactory>().AsSingle();
             Container.BindInterfacesTo<EnemySpawner>().AsSingle().NonLazy();

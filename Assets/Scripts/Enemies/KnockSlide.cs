@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Damage;
 using UnityEngine;
 
 namespace Enemies
@@ -7,31 +9,58 @@ namespace Enemies
     {
         [SerializeField] private EnemyMove _enemyMove;
         [SerializeField] private Rigidbody2D _rigidbody;
+        [SerializeField] private EnemyDamageRecivier _damageRecivier;
+        
         private Transform _target;
         private IEnumerator _knockCoroutine;
+        private EnemyParams _params;
 
-        public void SetTarget(Transform target)
+        private void Awake()
+        {
+            _damageRecivier.OnKnock += TakeKnock;
+        }
+
+        private void OnDestroy()
+        {
+            _damageRecivier.OnKnock -= TakeKnock;
+        }
+
+        public void SetDependencies(Transform target, EnemyParams enemyParams)
         {
             _target = target;
+            _params = enemyParams;
         }
 
         private void TakeKnock(float power)
         {
+            if (_params.CurrentHP.value > 0)
+            {
+                Knock(power);
+            }
+            else
+            {
+                KnockFinal(power);
+            }
+        }
+
+        private void KnockFinal(float power)
+        {
+            Slide(power);
+        }
+
+        private void Knock(float power)
+        {
+            Slide(power);
+            
+            _knockCoroutine = UpTimer();
+            StartCoroutine(_knockCoroutine);
+        }
+
+        private void Slide(float power)
+        {
             if(_knockCoroutine != null) StopCoroutine(_knockCoroutine);
             var hitVector = (transform.position - _target.position).normalized * power;
             _rigidbody.AddForce(hitVector, ForceMode2D.Impulse);
-        }
-
-        public void KnockFinal(float power)
-        {
-            TakeKnock(power);
-        }
-
-        public void Knock(float power)
-        {
-            TakeKnock(power);
-            _knockCoroutine = UpTimer();
-            StartCoroutine(_knockCoroutine);
         }
 
         private IEnumerator UpTimer()

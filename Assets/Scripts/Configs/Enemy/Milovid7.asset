@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24e7a156e114ed1929671d500aa2d99, type: 3}
   m_Name: Milovid7
   m_EditorClassIdentifier: 
+  Prefab: {fileID: 3865562030268266710, guid: 30ce7c7c4c06cb84e93281936ede68f8, type: 3}
   MaxHP: 10
   MoveSpeed: 8
-  Image: {fileID: 21300000, guid: d3c7ad9f5d72a5145af5c0c3ec96a176, type: 3}
-  Prefab: {fileID: 3865562030268266710, guid: dd99eed9112179743add0488bf172bae, type: 3}
   DamageAmount: 8
   AttackInterval: 1
   DropItems:

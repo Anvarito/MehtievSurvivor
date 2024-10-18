@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using HitPointsDamage;
 using Infrastructure.Extras;
 using Player;
 using UnityEngine;
@@ -12,7 +10,6 @@ namespace Enemies
     {
         private readonly PlayerProvider _playerProvider;
         private readonly Transform _target;
-        private Dictionary<EnemyConfig, ObjectPool<Enemy>> _pools;
         private GameObject _root;
         public UnityAction<Enemy> OnEnemyDead { get; set; }
 
@@ -20,7 +17,6 @@ namespace Enemies
         {
             _playerProvider = playerProvider;
             _target = playerProvider.PlayerTransform;
-            _pools = new Dictionary<EnemyConfig, ObjectPool<Enemy>>();
         }
 
         public void Initialize()
@@ -28,70 +24,36 @@ namespace Enemies
             _root = new GameObject("ENEMIES");
             _root.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
         }
-        private static void ReviveExistEnemy(EnemyConfig enemyConfig, Enemy enemy)
+        private void ReviveEnemy(EnemyConfig enemyConfig, Enemy enemy)
         {
-            enemyConfig.ResetParams(enemy.StatsHolder);
-            enemy.Reset();
+            enemy.Revive(enemyConfig.EnemyParams);
         }
 
-        private void CreateNewEnemy(EnemyConfig enemyConfig, Enemy enemy, ObjectPool<Enemy> pool)
+        private void InitNewEnemy(EnemyConfig enemyConfig, Enemy enemy, ObjectPool<Enemy> pool)
         {
             enemy.transform.SetParent(_root.transform);
-            EnemyStatsHolder statsHolder = enemyConfig.GetEnemyData();
-            var damageApplier = new DamageApplier(statsHolder, enemy.EnemyDamageRecivier);
-            enemy.EnemyMove.SetTargetToMove(_target, statsHolder);
-            enemy.Animator.SetTargetToSearch(_target);
-            enemy.KnockSlide.SetTarget(_target);
-            enemy.EnemyAttack.Initial(statsHolder, _playerProvider.PlayerDamageRecivier);
-            enemy.CreateEnemy(statsHolder, enemyConfig.Image);
+            EnemyParams enemyParams = enemyConfig.GetNewParams();
+            enemy.Initialize(enemyParams,_target, _playerProvider.PlayerDamageRecivier);
 
             enemy.OnDead += deadEnemy =>
             {
-                OnEnemyDead?.Invoke(deadEnemy);
+                OnEnemyDead?.Invoke(enemy);
                 pool.Release(deadEnemy);
             };
         }
-        
-        private ObjectPool<Enemy> GetPoolByConfig(EnemyConfig enemyConfig)
+
+        public Enemy SpawnEnemy(ObjectPool<Enemy> pool, EnemyConfig config)
         {
-            ObjectPool<Enemy> enemyPool = null;
-            if (_pools.TryGetValue(enemyConfig, out ObjectPool<Enemy> pool))
+            if (pool.Get(out Enemy enemy))
             {
-                enemyPool = pool;
+                InitNewEnemy(config, enemy, pool);
             }
             else
             {
-                enemyPool = new ObjectPool<Enemy>(enemyConfig.Prefab, 0);
-                _pools.Add(enemyConfig, enemyPool);
+                ReviveEnemy(config, enemy);
             }
 
-            return enemyPool;
-        }
-
-        public Enemy TrySpawnEnemy(EnemyConfig enemyConfig, int maxCount)
-        {
-            var pool = GetPoolByConfig(enemyConfig);
-            if (pool.GetActiveCount() < maxCount)
-            {
-                if (pool.Get(out Enemy enemy))
-                {
-                    CreateNewEnemy(enemyConfig, enemy, pool);
-                }
-                else
-                {
-                    ReviveExistEnemy(enemyConfig, enemy);
-                }
-
-                return enemy;
-            }
-
-            return null;
-        }
-
-        public int GetCountAliveEnemy(EnemyConfig enemyConfig)
-        {
-            var pool = GetPoolByConfig(enemyConfig);
-            return pool.GetActiveCount();
+            return enemy;
         }
     }
 }
